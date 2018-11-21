@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportBoard.Web", "SportBoard.Web\SportBoard.Web.csproj", "{B7712947-F79C-4CE9-9D41-A65A1F4C4016}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportBoard.Tests", "SportBoard.Tests\SportBoard.Tests.csproj", "{646C805E-590E-4C32-9F8F-AE9B5F2BC1E6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B7712947-F79C-4CE9-9D41-A65A1F4C4016}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7712947-F79C-4CE9-9D41-A65A1F4C4016}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7712947-F79C-4CE9-9D41-A65A1F4C4016}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7712947-F79C-4CE9-9D41-A65A1F4C4016}.Release|Any CPU.Build.0 = Release|Any CPU
+		{646C805E-590E-4C32-9F8F-AE9B5F2BC1E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{646C805E-590E-4C32-9F8F-AE9B5F2BC1E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{646C805E-590E-4C32-9F8F-AE9B5F2BC1E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{646C805E-590E-4C32-9F8F-AE9B5F2BC1E6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DC4DD4A6-0A36-461F-AE27-1F85F4D2C6A4}
+	EndGlobalSection
+EndGlobal
