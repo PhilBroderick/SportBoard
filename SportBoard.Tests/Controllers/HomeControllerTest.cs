@@ -26,7 +26,7 @@ namespace SportBoard.Tests.Controllers
         }
 
         [TestMethod]
-        public void About()
+         public void About()
         {
             // Arrange
             HomeController controller = new HomeController();
