@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace SportBoard.Data.DAL.Respositories
 {
-    public interface IFeedRepository : IRepository<Feed>
+    public interface IPostRepository : IRepository<Post>
     {
-        IEnumerable<Feed> GetTopFiveFeedsByTime(DateTime timeSpan);
+        IQueryable<Post> GetTopFivePostsByComment();
 
-        bool SearchIfFeedExists(string feedName);
+        IQueryable<Post> GetTopFivePostsByLikes();
     }
 }

@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace SportBoard.Data.DAL.Respositories
 {
-    public interface IFeedRepository : IRepository<Feed>
+    public interface ICommentRepository : IRepository<Comment>
     {
-        IEnumerable<Feed> GetTopFiveFeedsByTime(DateTime timeSpan);
-
-        bool SearchIfFeedExists(string feedName);
+        IQueryable<Comment> CommentsByHighestUpvote();
     }
 }

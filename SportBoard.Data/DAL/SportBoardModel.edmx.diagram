@@ -22,6 +22,8 @@
         <AssociationConnector Association="SportboardModel.FK_Image_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="SportboardModel.AspNetUserRoles" ManuallyRouted="false" />
         <AssociationConnector Association="SportboardModel.FeedPost" ManuallyRouted="false" />
+        <AssociationConnector Association="SportboardModel.CommentDownvote" />
+        <AssociationConnector Association="SportboardModel.CommentUpvote" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

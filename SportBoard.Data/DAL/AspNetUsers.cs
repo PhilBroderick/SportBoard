@@ -23,6 +23,8 @@ namespace SportBoard.Data.DAL
             this.Feed = new HashSet<Feed>();
             this.Image = new HashSet<Image>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
+            this.Comment1 = new HashSet<Comment>();
+            this.Comment2 = new HashSet<Comment>();
         }
     
         public string Id { get; set; }
@@ -50,5 +52,9 @@ namespace SportBoard.Data.DAL
         public virtual ICollection<Image> Image { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comment1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comment2 { get; set; }
     }
 }

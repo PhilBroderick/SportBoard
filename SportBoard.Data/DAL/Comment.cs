@@ -14,11 +14,22 @@ namespace SportBoard.Data.DAL
     
     public partial class Comment
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Comment()
+        {
+            this.AspNetUsers1 = new HashSet<AspNetUsers>();
+            this.AspNetUsers2 = new HashSet<AspNetUsers>();
+        }
+    
         public int CommentId { get; set; }
         public int PostId { get; set; }
         public string CommentText { get; set; }
         public string UserId { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetUsers> AspNetUsers1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetUsers> AspNetUsers2 { get; set; }
     }
 }
