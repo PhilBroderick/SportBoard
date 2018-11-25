@@ -19,6 +19,11 @@ namespace SportBoard.Web.BLL
             _unitOfWork = unitOfWork;
             _postRepository = postRepository;
         }
+
+        public bool TryAddComment(Post post, Comment comment)
+        {
+            return false;
+        }
         
     }
 }

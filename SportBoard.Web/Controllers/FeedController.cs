@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace SportBoard.Web.Controllers
 {
@@ -24,8 +25,10 @@ namespace SportBoard.Web.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "feedId,feedName,userId")] Feed feed)
+        public ActionResult Create(Feed feed)
         {
+            var currentUserId = User.Identity.GetUserId();
+            
             return View();
         }
     }
