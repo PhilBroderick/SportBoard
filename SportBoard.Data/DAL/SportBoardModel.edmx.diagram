@@ -4,26 +4,27 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="70590c4cfbbd44d78b51c0a65c228a0b" Name="Diagram1" ZoomLevel="94">
-        <EntityTypeShape EntityType="SportboardModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SportboardModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="SportboardModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SportboardModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SportboardModel.AspNetUsers" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SportboardModel.Comment" Width="1.5" PointX="5.25" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SportboardModel.Feed" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SportboardModel.Image" Width="1.5" PointX="5.25" PointY="12.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SportboardModel.Post" Width="1.5" PointX="7.5" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SportboardModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="SportboardModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="SportboardModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="SportboardModel.FK_Comment_AspNetUsers" ManuallyRouted="false" />
-        <AssociationConnector Association="SportboardModel.FK_Feed_AspNetUsers" ManuallyRouted="false" />
-        <AssociationConnector Association="SportboardModel.FK_Image_AspNetUsers" ManuallyRouted="false" />
-        <AssociationConnector Association="SportboardModel.AspNetUserRoles" ManuallyRouted="false" />
-        <AssociationConnector Association="SportboardModel.FeedPost" ManuallyRouted="false" />
+      <Diagram DiagramId="70590c4cfbbd44d78b51c0a65c228a0b" Name="Diagram1" ZoomLevel="60">
+        <EntityTypeShape EntityType="SportboardModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SportboardModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="7.5" />
+        <EntityTypeShape EntityType="SportboardModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="5.625" />
+        <EntityTypeShape EntityType="SportboardModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="3.125" />
+        <EntityTypeShape EntityType="SportboardModel.AspNetUsers" Width="1.5" PointX="3" PointY="5.875" />
+        <EntityTypeShape EntityType="SportboardModel.Comment" Width="1.5" PointX="5.25" PointY="11.5" />
+        <EntityTypeShape EntityType="SportboardModel.Feed" Width="1.5" PointX="7.5" PointY="10.125" />
+        <EntityTypeShape EntityType="SportboardModel.Image" Width="1.5" PointX="5.25" PointY="14.625" />
+        <EntityTypeShape EntityType="SportboardModel.Post" Width="1.5" PointX="9.75" PointY="10.375" />
+        <EntityTypeShape EntityType="SportboardModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" />
+        <AssociationConnector Association="SportboardModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="SportboardModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="SportboardModel.FK_Comment_AspNetUsers" />
+        <AssociationConnector Association="SportboardModel.FK_Feed_AspNetUsers" />
+        <AssociationConnector Association="SportboardModel.FK_Image_AspNetUsers" />
+        <AssociationConnector Association="SportboardModel.FK_Feed_Image" />
+        <AssociationConnector Association="SportboardModel.AspNetUserRoles" />
         <AssociationConnector Association="SportboardModel.CommentDownvote" />
         <AssociationConnector Association="SportboardModel.CommentUpvote" />
+        <AssociationConnector Association="SportboardModel.FeedPost" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

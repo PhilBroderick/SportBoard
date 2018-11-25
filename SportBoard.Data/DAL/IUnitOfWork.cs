@@ -10,6 +10,7 @@ namespace SportBoard.Data.DAL
     public interface IUnitOfWork : IDisposable
     {
         IFeedRepository Feeds { get; }
+        IImageRepository Images { get; }
         int Complete();
     }
 }

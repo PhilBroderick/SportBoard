@@ -82,6 +82,8 @@
     <Compile Include="DAL\Respositories\FeedRepository.cs" />
     <Compile Include="DAL\Respositories\ICommentRepository.cs" />
     <Compile Include="DAL\Respositories\IFeedRepository.cs" />
+    <Compile Include="DAL\Respositories\IImageRepository.cs" />
+    <Compile Include="DAL\Respositories\ImageRepository.cs" />
     <Compile Include="DAL\Respositories\IPostRepository.cs" />
     <Compile Include="DAL\Respositories\IRepository.cs" />
     <Compile Include="DAL\Respositories\PostRepository.cs" />

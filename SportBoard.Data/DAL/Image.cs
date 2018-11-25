@@ -14,11 +14,19 @@ namespace SportBoard.Data.DAL
     
     public partial class Image
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Image()
+        {
+            this.Feed = new HashSet<Feed>();
+        }
+    
         public int ImageId { get; set; }
         public string FilePath { get; set; }
         public string UserId { get; set; }
         public System.DateTime UploadedOn { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Feed> Feed { get; set; }
     }
 }

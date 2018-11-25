@@ -23,8 +23,10 @@ namespace SportBoard.Data.DAL
         public int FeedId { get; set; }
         public string FeedName { get; set; }
         public string UserId { get; set; }
+        public int ImageId { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual Image Image { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Post> Post { get; set; }
     }
