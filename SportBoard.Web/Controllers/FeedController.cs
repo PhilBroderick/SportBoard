@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using System.IO;
 using SportBoard.Web.BLL;
 using SportBoard.Data.DAL.Respositories;
+using SportBoard.Data.DAL.DTOs;
 
 namespace SportBoard.Web.Controllers
 {
@@ -41,10 +42,8 @@ namespace SportBoard.Web.Controllers
         [HttpPost]
         public ActionResult Create(Feed feed)
         {
-            string filePath = GetPhotoDetails(Request);
-
+            var imageFileDetails = GetPhotoDetails(Request);
             var feedName = Request.Params["feedName"];
-
             var currentUserId = User.Identity.GetUserId();
 
             CreateImage createImage = new CreateImage(_imageRepository, _unitOfWork);
@@ -53,23 +52,43 @@ namespace SportBoard.Web.Controllers
             {
                 UserId = currentUserId,
                 UploadedOn = DateTime.Now,
-                FilePath = filePath
+                FilePath = imageFileDetails.FilePath,
+                FileName = imageFileDetails.FileNameWithoutExtenstion
             };
 
             createImage.CreateNewImage(image);
 
-            var id = image.ImageId;
+            CreateFeed createFeed = new CreateFeed(_feedRepository, _unitOfWork);
+
+            var feedCreated = createFeed.TryCreateFeed(new Feed
+            {
+                FeedName = feedName,
+                UserId = currentUserId,
+                ImageId = image.ImageId
+            });
+
+            if (feedCreated)
+            {
+                var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "Home");
+                return Json(new { Url = redirectUrl });
+            }
 
             return View();
         }
 
-        private string GetPhotoDetails(HttpRequestBase request)
+        private ImageDTO GetPhotoDetails(HttpRequestBase request)
         {
             var file = request.Files[0];
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file.FileName);
             var fileName = Path.GetFileName(file.FileName);
             var filePath = Path.Combine(Server.MapPath("~/App_Data/"), fileName);
             file.SaveAs(filePath);
-            return filePath;
+
+            return new ImageDTO
+            {
+                FilePath = filePath,
+                FileNameWithoutExtenstion = fileNameWithoutExtension
+            };
         }
     }
 }

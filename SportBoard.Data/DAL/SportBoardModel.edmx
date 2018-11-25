@@ -100,7 +100,7 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
             <PropertyRef Name="FeedId" />
           </Key>
           <Property Name="FeedId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FeedName" Type="text" Nullable="false" />
+          <Property Name="FeedName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ImageId" Type="int" Nullable="false" />
         </EntityType>
@@ -122,6 +122,7 @@ warning 6002: The table/view 'Sportboard.dbo.FeedPost' does not have a primary k
           <Property Name="FilePath" Type="text" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="UploadedOn" Type="datetime" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -542,7 +543,7 @@ warning 6002: The table/view 'Sportboard.dbo.FeedPost' does not have a primary k
             <PropertyRef Name="FeedId" />
           </Key>
           <Property Name="FeedId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FeedName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FeedName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ImageId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="SportboardModel.FK_Feed_AspNetUsers" FromRole="Feed" ToRole="AspNetUsers" />
@@ -559,6 +560,7 @@ warning 6002: The table/view 'Sportboard.dbo.FeedPost' does not have a primary k
           <Property Name="UploadedOn" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="AspNetUsers" Relationship="SportboardModel.FK_Image_AspNetUsers" FromRole="Image" ToRole="AspNetUsers" />
           <NavigationProperty Name="Feed" Relationship="SportboardModel.FK_Feed_Image" FromRole="Image" ToRole="Feed" />
+          <Property Name="FileName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -756,6 +758,7 @@ warning 6002: The table/view 'Sportboard.dbo.FeedPost' does not have a primary k
           <EntitySetMapping Name="Image">
             <EntityTypeMapping TypeName="SportboardModel.Image">
               <MappingFragment StoreEntitySet="Image">
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="UploadedOn" ColumnName="UploadedOn" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="FilePath" ColumnName="FilePath" />

@@ -24,6 +24,7 @@ namespace SportBoard.Data.DAL
         public string FilePath { get; set; }
         public string UserId { get; set; }
         public System.DateTime UploadedOn { get; set; }
+        public string FileName { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
