@@ -3,30 +3,12 @@
     ViewBag.Title = "Create";
 }
 
+<h2>Add Post</h2>
 
-<h2>Create Feed</h2>
-
-@*@using (Html.BeginForm("Upload", "Feed", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-    {
-        @Html.AntiForgeryToken()
-        <div class="feedText">
-            <p>To create a feed, enter a name and a index photo. Optionally you can give the feed a description.</p>
-        </div>
-        @*<div class="input-group">
-                <input type="text" class="form-control" placeholder="Feed Name" aria-describedby="basic-addon1" name="feedName">
-            </div>
-
-            <div class="fileinput fileinput-new" data-provides="fileinput">
-                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
-                <div>
-                    <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
-                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                </div>
-            </div>*@
 <form id="form">
     <div class="input-group">
         <div class="col-md-12">
-            <input type="text" id="feedName" class="form-control" placeholder="Feed Name" aria-describedby="basic-addon1" name="feedName" required>
+            <textarea rows="4" , cols="50" id="textInput"></textarea>
         </div>
     </div>
     <div class="input-group">
@@ -49,9 +31,9 @@
                 e.preventDefault()
                 var formData = new FormData();
                 var totalFiles = document.getElementById("imageUploadForm").files.length;
-                var feedName = $("#feedName").val();
-                formData.append("feedName", feedName);
-                
+                var textInput = $("#textInput").val();
+                formData.append("textInput", textInput);
+
                 for (var i = 0; i < totalFiles; i++) {
                     var file = document.getElementById("imageUploadForm").files[i];
                     formData.append("imageUploadForm", file);
@@ -67,12 +49,10 @@
                         window.location.href = response.Url;
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert("Feed name is already taken or the image is invalid. Please try again!");
+                        alert("Unknown error occured. Please try again!");
                     }
                 });
             });
         });
     </script>
 }
-
-

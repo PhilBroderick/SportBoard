@@ -9,6 +9,7 @@ using System.IO;
 using SportBoard.Web.BLL;
 using SportBoard.Data.DAL.Respositories;
 using SportBoard.Data.DAL.DTOs;
+using SportBoard.Web.Models.ViewModels;
 
 namespace SportBoard.Web.Controllers
 {
@@ -18,6 +19,7 @@ namespace SportBoard.Web.Controllers
         private UnitOfWork _unitOfWork;
         private ImageRepository _imageRepository;
         private FeedRepository _feedRepository;
+        private PostRepository _postRepository;
 
         public FeedController()
         {
@@ -25,11 +27,30 @@ namespace SportBoard.Web.Controllers
             _unitOfWork = new UnitOfWork(_context);
             _imageRepository = new ImageRepository(_context);
             _feedRepository = new FeedRepository(_context);
+            _postRepository = new PostRepository(_context);
         }
-        // GET: Feed
+        
+        [Authorize]
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult Details(int id)
+        {
+            var feed =_feedRepository.Get(id);
+            var posts = _postRepository.Find(p => p.Feed == feed).ToList();
+
+            if (feed == null)
+                return HttpNotFound();
+
+            var feedPostViewModel = new FeedPostViewModel
+            {
+                Feed = feed,
+                Posts = posts
+            };
+
+            return View(feedPostViewModel);
         }
 
         [Authorize]
@@ -42,18 +63,22 @@ namespace SportBoard.Web.Controllers
         [HttpPost]
         public ActionResult Create(Feed feed)
         {
-            var imageFileDetails = GetPhotoDetails(Request);
+            CreateImage createImage = new CreateImage(_imageRepository, _unitOfWork);
+
+            var localImage = createImage.SavePhotoLocally(Request);
+            if(localImage == null)
+            {
+                return View();
+            }
             var feedName = Request.Params["feedName"];
             var currentUserId = User.Identity.GetUserId();
-
-            CreateImage createImage = new CreateImage(_imageRepository, _unitOfWork);
 
             Image image = new Image
             {
                 UserId = currentUserId,
                 UploadedOn = DateTime.Now,
-                FilePath = imageFileDetails.FilePath,
-                FileName = imageFileDetails.FileNameWithoutExtenstion
+                FilePath = localImage.FilePath,
+                FileName = localImage.FileNameWithoutExtenstion
             };
 
             createImage.CreateNewImage(image);
@@ -74,21 +99,6 @@ namespace SportBoard.Web.Controllers
             }
 
             return View();
-        }
-
-        private ImageDTO GetPhotoDetails(HttpRequestBase request)
-        {
-            var file = request.Files[0];
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file.FileName);
-            var fileName = Path.GetFileName(file.FileName);
-            var filePath = Path.Combine(Server.MapPath("~/App_Data/"), fileName);
-            file.SaveAs(filePath);
-
-            return new ImageDTO
-            {
-                FilePath = filePath,
-                FileNameWithoutExtenstion = fileNameWithoutExtension
-            };
         }
     }
 }

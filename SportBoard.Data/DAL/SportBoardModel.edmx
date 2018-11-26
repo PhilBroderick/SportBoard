@@ -131,7 +131,8 @@ warning 6002: The table/view 'Sportboard.dbo.FeedPost' does not have a primary k
           <Property Name="PostId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PostDate" Type="datetime" Nullable="false" />
           <Property Name="ImageId" Type="int" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -419,7 +420,6 @@ warning 6002: The table/view 'Sportboard.dbo.FeedPost' does not have a primary k
           <EntitySet Name="Comment" EntityType="SportboardModel.Comment" />
           <EntitySet Name="Feed" EntityType="SportboardModel.Feed" />
           <EntitySet Name="Image" EntityType="SportboardModel.Image" />
-          <EntitySet Name="Post" EntityType="SportboardModel.Post" />
           <EntitySet Name="sysdiagrams" EntityType="SportboardModel.sysdiagrams" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="SportboardModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -457,6 +457,7 @@ warning 6002: The table/view 'Sportboard.dbo.FeedPost' does not have a primary k
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
+          <EntitySet Name="Post" EntityType="SportboardModel.Post" />
           <AssociationSet Name="FeedPost" Association="SportboardModel.FeedPost">
             <End Role="Feed" EntitySet="Feed" />
             <End Role="Post" EntitySet="Post" />
@@ -562,16 +563,6 @@ warning 6002: The table/view 'Sportboard.dbo.FeedPost' does not have a primary k
           <NavigationProperty Name="Feed" Relationship="SportboardModel.FK_Feed_Image" FromRole="Image" ToRole="Feed" />
           <Property Name="FileName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Post">
-          <Key>
-            <PropertyRef Name="PostId" />
-          </Key>
-          <Property Name="PostId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PostDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ImageId" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Feed" Relationship="SportboardModel.FeedPost" FromRole="Post" ToRole="Feed" />
-        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -670,6 +661,17 @@ warning 6002: The table/view 'Sportboard.dbo.FeedPost' does not have a primary k
           <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
           <End Type="SportboardModel.Comment" Role="Comment" Multiplicity="*" />
         </Association>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="PostId" />
+          </Key>
+          <Property Name="PostId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PostDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ImageId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Feed" Relationship="SportboardModel.FeedPost" FromRole="Post" ToRole="Feed" />
+        </EntityType>
         <Association Name="FeedPost">
           <End Type="SportboardModel.Feed" Role="Feed" Multiplicity="*" />
           <End Type="SportboardModel.Post" Role="Post" Multiplicity="*" />
@@ -766,16 +768,6 @@ warning 6002: The table/view 'Sportboard.dbo.FeedPost' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Post">
-            <EntityTypeMapping TypeName="SportboardModel.Post">
-              <MappingFragment StoreEntitySet="Post">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
-                <ScalarProperty Name="PostDate" ColumnName="PostDate" />
-                <ScalarProperty Name="PostId" ColumnName="PostId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="SportboardModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -811,6 +803,17 @@ warning 6002: The table/view 'Sportboard.dbo.FeedPost' does not have a primary k
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Post">
+            <EntityTypeMapping TypeName="SportboardModel.Post">
+              <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <AssociationSetMapping Name="FeedPost" TypeName="SportboardModel.FeedPost" StoreEntitySet="FeedPost">
             <EndProperty Name="Post">
               <ScalarProperty Name="PostId" ColumnName="PostId" />

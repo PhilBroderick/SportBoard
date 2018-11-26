@@ -21,6 +21,7 @@ namespace SportBoard.Data.DAL
         public IFeedRepository Feeds { get; private set; }
         public ICommentRepository Comments { get; private set; }
         public IImageRepository Images { get; private set; }
+        public IPostRepository Posts { get; private set; }
 
         public int Complete()
         {

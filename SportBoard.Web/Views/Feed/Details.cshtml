@@ -1,0 +1,9 @@
+﻿@model SportBoard.Web.Models.ViewModels.FeedPostViewModel
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>@Model.Feed.FeedName</h2>
+
+<p><a class="btn btn-primary" href="@Url.Action("Create","Post" , new { post = Model.Posts.First() })">Add Post to Feed &raquo;</a></p>
+
