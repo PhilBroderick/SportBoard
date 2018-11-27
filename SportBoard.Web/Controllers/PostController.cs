@@ -26,19 +26,32 @@ namespace SportBoard.Web.Controllers
             _feedRepository = new FeedRepository(_context);
             _postRepository = new PostRepository(_context);
         }
-
-        public ActionResult Create()
+        
+        public ActionResult Create(int feedId)
         {
-            return View();
+            var feed = _feedRepository.Get(feedId);
+
+            return View(feed);
         }
 
         [HttpPost]
-        public ActionResult Create(Post post)
+        public ActionResult Create()
         {
+            var currentUserId = User.Identity.GetUserId();
             var createImage = new CreateImage(_imageRepository, _unitOfWork);
             var localImage = createImage.SavePhotoLocally(Request);
             if(localImage == null)
                     return RedirectToAction("Index", "Feed");
+
+            var image = new Image
+            {
+                UserId = currentUserId,
+                UploadedOn = DateTime.Now,
+                FilePath = localImage.FilePath,
+                FileName = localImage.FileNameWithoutExtenstion
+            };
+
+            createImage.CreateNewImage(image);
 
             var feedIdString = Request.Params["feedId"];
             int feedId = 0;
@@ -48,9 +61,17 @@ namespace SportBoard.Web.Controllers
             if (feedId == 0)
                 return HttpNotFound();
 
-            var currentUserId = User.Identity.GetUserId();
 
             var createPost = new CreatePost(_feedRepository, _postRepository, _unitOfWork);
+
+            var post = new Post
+            {
+                PostDate = DateTime.Now,
+                ImageId = image.ImageId,
+                Description = Request.Params["textInput"],
+                FeedId = feedId,
+                UserId = currentUserId
+            };
 
             var postCreated = createPost.TryCreatePost(feedId, post);
 

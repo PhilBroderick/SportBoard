@@ -5,5 +5,5 @@
 
 <h2>@Model.Feed.FeedName</h2>
 
-<p><a class="btn btn-primary" href="@Url.Action("Create","Post" , new { post = Model.Posts.First() })">Add Post to Feed &raquo;</a></p>
+<p><a class="btn btn-primary" href="@Url.Action("Create","Post" , new { feedId = Model.Feed.FeedId })">Add Post to Feed &raquo;</a></p>
 

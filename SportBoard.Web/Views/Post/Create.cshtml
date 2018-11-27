@@ -1,4 +1,4 @@
-﻿
+﻿@model SportBoard.Data.DAL.Feed
 @{
     ViewBag.Title = "Create";
 }
@@ -32,7 +32,9 @@
                 var formData = new FormData();
                 var totalFiles = document.getElementById("imageUploadForm").files.length;
                 var textInput = $("#textInput").val();
+                var feedId = @Model.FeedId;
                 formData.append("textInput", textInput);
+                formData.append("feedId", feedId);
 
                 for (var i = 0; i < totalFiles; i++) {
                     var file = document.getElementById("imageUploadForm").files[i];
@@ -40,7 +42,7 @@
                 }
                 $.ajax({
                     type: "POST",
-                    url: '/Feed/Create',
+                    url: '/Post/Create',
                     data: formData,
                     dataType: 'json',
                     contentType: false,

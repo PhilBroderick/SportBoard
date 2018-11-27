@@ -23,8 +23,8 @@
         <AssociationConnector Association="SportboardModel.AspNetUserRoles" />
         <AssociationConnector Association="SportboardModel.CommentDownvote" />
         <AssociationConnector Association="SportboardModel.CommentUpvote" />
-        <EntityTypeShape EntityType="SportboardModel.Post" Width="1.5" PointX="9.75" PointY="10.25" />
-        <AssociationConnector Association="SportboardModel.FeedPost" />
+        <EntityTypeShape EntityType="SportboardModel.Post" Width="1.5" PointX="9.75" PointY="10.125" />
+        <AssociationConnector Association="SportboardModel.FK_Post_Feed" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
