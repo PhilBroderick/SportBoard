@@ -31,5 +31,6 @@ namespace SportBoard.Data.DAL
         public virtual ICollection<AspNetUsers> AspNetUsers1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUsers> AspNetUsers2 { get; set; }
+        public virtual Post Post { get; set; }
     }
 }

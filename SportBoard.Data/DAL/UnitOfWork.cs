@@ -17,6 +17,7 @@ namespace SportBoard.Data.DAL
             Feeds = new FeedRepository(_context);
             Comments = new CommentRepository(_context);
             Images = new ImageRepository(_context);
+            Posts = new PostRepository(_context);
         }
         public IFeedRepository Feeds { get; private set; }
         public ICommentRepository Comments { get; private set; }

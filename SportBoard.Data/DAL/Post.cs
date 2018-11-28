@@ -14,6 +14,12 @@ namespace SportBoard.Data.DAL
     
     public partial class Post
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Post()
+        {
+            this.Comment = new HashSet<Comment>();
+        }
+    
         public int PostId { get; set; }
         public System.DateTime PostDate { get; set; }
         public int ImageId { get; set; }
@@ -22,5 +28,8 @@ namespace SportBoard.Data.DAL
         public int FeedId { get; set; }
     
         public virtual Feed Feed { get; set; }
+        public virtual Image Image { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comment { get; set; }
     }
 }

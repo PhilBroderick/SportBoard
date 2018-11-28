@@ -18,6 +18,7 @@ namespace SportBoard.Data.DAL
         public Image()
         {
             this.Feed = new HashSet<Feed>();
+            this.Post = new HashSet<Post>();
         }
     
         public int ImageId { get; set; }
@@ -29,5 +30,7 @@ namespace SportBoard.Data.DAL
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Feed> Feed { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Post> Post { get; set; }
     }
 }

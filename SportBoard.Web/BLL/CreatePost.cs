@@ -20,11 +20,9 @@ namespace SportBoard.Web.BLL
             _unitOfWork = unitOfWork;
         }
 
-        public bool TryCreatePost(int feedId, Post post)
+        public bool TryCreatePost(Post post)
         {
-            var feed = _feedRepository.Find(f => f.FeedId == feedId);
-
-            if(feed != null)
+            if(post != null)
             {
                 CreateNewPost(post);
                 return true;

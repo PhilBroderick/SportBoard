@@ -2,6 +2,7 @@
 using SportBoard.Data.DAL;
 using SportBoard.Data.DAL.Respositories;
 using SportBoard.Web.BLL;
+using SportBoard.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace SportBoard.Web.Controllers
         private ImageRepository _imageRepository;
         private FeedRepository _feedRepository;
         private PostRepository _postRepository;
+        private CommentRepository _commentRepository;
 
         public PostController()
         {
@@ -25,6 +27,21 @@ namespace SportBoard.Web.Controllers
             _imageRepository = new ImageRepository(_context);
             _feedRepository = new FeedRepository(_context);
             _postRepository = new PostRepository(_context);
+            _commentRepository = new CommentRepository(_context);
+        }
+
+        public ActionResult Details(int id)
+        {
+            var post = _postRepository.Get(id);
+            var comments = _commentRepository.Find(c => c.PostId == post.PostId).ToList();
+
+            var postCommentVM = new PostCommentsViewModel
+            {
+                Post = post,
+                Comments = comments
+            };
+
+            return View(postCommentVM);
         }
         
         public ActionResult Create(int feedId)
@@ -54,9 +71,8 @@ namespace SportBoard.Web.Controllers
             createImage.CreateNewImage(image);
 
             var feedIdString = Request.Params["feedId"];
-            int feedId = 0;
 
-            int.TryParse(feedIdString, out feedId);
+            int.TryParse(feedIdString, out int feedId);
 
             if (feedId == 0)
                 return HttpNotFound();
@@ -66,17 +82,20 @@ namespace SportBoard.Web.Controllers
 
             var post = new Post
             {
-                PostDate = DateTime.Now,
-                ImageId = image.ImageId,
-                Description = Request.Params["textInput"],
                 FeedId = feedId,
-                UserId = currentUserId
+                ImageId = image.ImageId,
+                PostDate = DateTime.Now,
+                UserId = currentUserId,
+                Description = Request.Params["textInput"]
             };
 
-            var postCreated = createPost.TryCreatePost(feedId, post);
+            var postCreated = createPost.TryCreatePost(post);
 
             if (postCreated)
-                return RedirectToAction("Index", "Feed");
+            {
+                var redirectUrl = new UrlHelper(Request.RequestContext).Action("Details", "Feed", new { id = feedId });
+                return Json(new { Url = redirectUrl });
+            }
 
             return HttpNotFound();
         }

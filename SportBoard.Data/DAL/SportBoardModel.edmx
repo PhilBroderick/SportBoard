@@ -147,6 +147,18 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Comment_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="PostId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CommentDownvote_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="CommentDownvote" Type="Self.CommentDownvote" Multiplicity="*" />
@@ -287,6 +299,18 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Post_Image">
+          <End Role="Image" Type="Self.Image" Multiplicity="1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="ImageId" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="ImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SportboardModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -313,6 +337,10 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
           </EntitySet>
           <AssociationSet Name="FK_Comment_AspNetUsers" Association="Self.FK_Comment_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Post" Association="Self.FK_Comment_Post">
+            <End Role="Post" EntitySet="Post" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
           <AssociationSet Name="FK_CommentDownvote_AspNetUsers" Association="Self.FK_CommentDownvote_AspNetUsers">
@@ -359,6 +387,10 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
             <End Role="Feed" EntitySet="Feed" />
             <End Role="Post" EntitySet="Post" />
           </AssociationSet>
+          <AssociationSet Name="FK_Post_Image" Association="Self.FK_Post_Image">
+            <End Role="Image" EntitySet="Image" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -371,7 +403,6 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
           <EntitySet Name="AspNetUserLogins" EntityType="SportboardModel.AspNetUserLogins" />
           <EntitySet Name="AspNetUsers" EntityType="SportboardModel.AspNetUsers" />
           <EntitySet Name="Comment" EntityType="SportboardModel.Comment" />
-          <EntitySet Name="Feed" EntityType="SportboardModel.Feed" />
           <EntitySet Name="Image" EntityType="SportboardModel.Image" />
           <EntitySet Name="sysdiagrams" EntityType="SportboardModel.sysdiagrams" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="SportboardModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -386,17 +417,9 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
-          <AssociationSet Name="FK_Feed_AspNetUsers" Association="SportboardModel.FK_Feed_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Feed" EntitySet="Feed" />
-          </AssociationSet>
           <AssociationSet Name="FK_Image_AspNetUsers" Association="SportboardModel.FK_Image_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Image" EntitySet="Image" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Feed_Image" Association="SportboardModel.FK_Feed_Image">
-            <End Role="Image" EntitySet="Image" />
-            <End Role="Feed" EntitySet="Feed" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="SportboardModel.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -410,10 +433,27 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
+          <EntitySet Name="Feed" EntityType="SportboardModel.Feed" />
           <EntitySet Name="Post" EntityType="SportboardModel.Post" />
+          <AssociationSet Name="FK_Feed_AspNetUsers" Association="SportboardModel.FK_Feed_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Feed" EntitySet="Feed" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Feed_Image" Association="SportboardModel.FK_Feed_Image">
+            <End Role="Image" EntitySet="Image" />
+            <End Role="Feed" EntitySet="Feed" />
+          </AssociationSet>
           <AssociationSet Name="FK_Post_Feed" Association="SportboardModel.FK_Post_Feed">
             <End Role="Feed" EntitySet="Feed" />
             <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_Image" Association="SportboardModel.FK_Post_Image">
+            <End Role="Image" EntitySet="Image" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Post" Association="SportboardModel.FK_Comment_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -474,11 +514,11 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
           <NavigationProperty Name="AspNetUserClaims" Relationship="SportboardModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="SportboardModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="Comment" Relationship="SportboardModel.FK_Comment_AspNetUsers" FromRole="AspNetUsers" ToRole="Comment" />
-          <NavigationProperty Name="Feed" Relationship="SportboardModel.FK_Feed_AspNetUsers" FromRole="AspNetUsers" ToRole="Feed" />
           <NavigationProperty Name="Image" Relationship="SportboardModel.FK_Image_AspNetUsers" FromRole="AspNetUsers" ToRole="Image" />
           <NavigationProperty Name="AspNetRoles" Relationship="SportboardModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <NavigationProperty Name="Comment1" Relationship="SportboardModel.CommentDownvote" FromRole="AspNetUsers" ToRole="Comment" />
           <NavigationProperty Name="Comment2" Relationship="SportboardModel.CommentUpvote" FromRole="AspNetUsers" ToRole="Comment" />
+          <NavigationProperty Name="Feed" Relationship="SportboardModel.FK_Feed_AspNetUsers" FromRole="AspNetUsers" ToRole="Feed" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -491,18 +531,7 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
           <NavigationProperty Name="AspNetUsers" Relationship="SportboardModel.FK_Comment_AspNetUsers" FromRole="Comment" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUsers1" Relationship="SportboardModel.CommentDownvote" FromRole="Comment" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUsers2" Relationship="SportboardModel.CommentUpvote" FromRole="Comment" ToRole="AspNetUsers" />
-        </EntityType>
-        <EntityType Name="Feed">
-          <Key>
-            <PropertyRef Name="FeedId" />
-          </Key>
-          <Property Name="FeedId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FeedName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ImageId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="SportboardModel.FK_Feed_AspNetUsers" FromRole="Feed" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Image" Relationship="SportboardModel.FK_Feed_Image" FromRole="Feed" ToRole="Image" />
-          <NavigationProperty Name="Post" Relationship="SportboardModel.FK_Post_Feed" FromRole="Feed" ToRole="Post" />
+          <NavigationProperty Name="Post" Relationship="SportboardModel.FK_Comment_Post" FromRole="Comment" ToRole="Post" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
@@ -513,8 +542,9 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="UploadedOn" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="AspNetUsers" Relationship="SportboardModel.FK_Image_AspNetUsers" FromRole="Image" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Feed" Relationship="SportboardModel.FK_Feed_Image" FromRole="Image" ToRole="Feed" />
           <Property Name="FileName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Feed" Relationship="SportboardModel.FK_Feed_Image" FromRole="Image" ToRole="Feed" />
+          <NavigationProperty Name="Post" Relationship="SportboardModel.FK_Post_Image" FromRole="Image" ToRole="Post" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -566,18 +596,6 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Feed_AspNetUsers">
-          <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="SportboardModel.Feed" Role="Feed" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Feed">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Image_AspNetUsers">
           <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
           <End Type="SportboardModel.Image" Role="Image" Multiplicity="*" />
@@ -586,6 +604,56 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Image">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="SportboardModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+          <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+        </Association>
+        <Association Name="CommentDownvote">
+          <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+          <End Type="SportboardModel.Comment" Role="Comment" Multiplicity="*" />
+        </Association>
+        <Association Name="CommentUpvote">
+          <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+          <End Type="SportboardModel.Comment" Role="Comment" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Feed">
+          <Key>
+            <PropertyRef Name="FeedId" />
+          </Key>
+          <Property Name="FeedId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FeedName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ImageId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="SportboardModel.FK_Feed_AspNetUsers" FromRole="Feed" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Image" Relationship="SportboardModel.FK_Feed_Image" FromRole="Feed" ToRole="Image" />
+          <NavigationProperty Name="Post" Relationship="SportboardModel.FK_Post_Feed" FromRole="Feed" ToRole="Post" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="PostId" />
+          </Key>
+          <Property Name="PostId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PostDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ImageId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="FeedId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Feed" Relationship="SportboardModel.FK_Post_Feed" FromRole="Post" ToRole="Feed" />
+          <NavigationProperty Name="Image" Relationship="SportboardModel.FK_Post_Image" FromRole="Post" ToRole="Image" />
+          <NavigationProperty Name="Comment" Relationship="SportboardModel.FK_Comment_Post" FromRole="Post" ToRole="Comment" />
+        </EntityType>
+        <Association Name="FK_Feed_AspNetUsers">
+          <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="SportboardModel.Feed" Role="Feed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Feed">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -602,30 +670,6 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="AspNetUserRoles">
-          <End Type="SportboardModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
-          <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
-        </Association>
-        <Association Name="CommentDownvote">
-          <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
-          <End Type="SportboardModel.Comment" Role="Comment" Multiplicity="*" />
-        </Association>
-        <Association Name="CommentUpvote">
-          <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
-          <End Type="SportboardModel.Comment" Role="Comment" Multiplicity="*" />
-        </Association>
-        <EntityType Name="Post">
-          <Key>
-            <PropertyRef Name="PostId" />
-          </Key>
-          <Property Name="PostId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PostDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ImageId" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="FeedId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Feed" Relationship="SportboardModel.FK_Post_Feed" FromRole="Post" ToRole="Feed" />
-        </EntityType>
         <Association Name="FK_Post_Feed">
           <End Type="SportboardModel.Feed" Role="Feed" Multiplicity="1" />
           <End Type="SportboardModel.Post" Role="Post" Multiplicity="*" />
@@ -635,6 +679,30 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
             </Principal>
             <Dependent Role="Post">
               <PropertyRef Name="FeedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_Image">
+          <End Type="SportboardModel.Image" Role="Image" Multiplicity="1" />
+          <End Type="SportboardModel.Post" Role="Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="ImageId" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="ImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Post">
+          <End Type="SportboardModel.Post" Role="Post" Multiplicity="1" />
+          <End Type="SportboardModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="PostId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="PostId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -709,16 +777,6 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Feed">
-            <EntityTypeMapping TypeName="SportboardModel.Feed">
-              <MappingFragment StoreEntitySet="Feed">
-                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="FeedName" ColumnName="FeedName" />
-                <ScalarProperty Name="FeedId" ColumnName="FeedId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Image">
             <EntityTypeMapping TypeName="SportboardModel.Image">
               <MappingFragment StoreEntitySet="Image">
@@ -765,6 +823,16 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Feed">
+            <EntityTypeMapping TypeName="SportboardModel.Feed">
+              <MappingFragment StoreEntitySet="Feed">
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FeedName" ColumnName="FeedName" />
+                <ScalarProperty Name="FeedId" ColumnName="FeedId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Post">
             <EntityTypeMapping TypeName="SportboardModel.Post">
               <MappingFragment StoreEntitySet="Post">

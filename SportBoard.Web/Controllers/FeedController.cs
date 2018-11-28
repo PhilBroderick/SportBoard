@@ -39,7 +39,7 @@ namespace SportBoard.Web.Controllers
         public ActionResult Details(int id)
         {
             var feed =_feedRepository.Get(id);
-           // var posts = _postRepository.Find(p => p.Feed == feed).ToList();
+            var posts = _postRepository.Find(p => p.FeedId == id).ToList();
 
             if (feed == null)
                 return HttpNotFound();
@@ -47,7 +47,7 @@ namespace SportBoard.Web.Controllers
             var feedPostViewModel = new FeedPostViewModel
             {
                 Feed = feed,
-               // Posts = posts
+                Posts = posts
             };
 
             return View(feedPostViewModel);

@@ -11,20 +11,22 @@
         <EntityTypeShape EntityType="SportboardModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="3.125" />
         <EntityTypeShape EntityType="SportboardModel.AspNetUsers" Width="1.5" PointX="3" PointY="5.875" />
         <EntityTypeShape EntityType="SportboardModel.Comment" Width="1.5" PointX="5.25" PointY="11.5" />
-        <EntityTypeShape EntityType="SportboardModel.Feed" Width="1.5" PointX="7.5" PointY="10.125" />
         <EntityTypeShape EntityType="SportboardModel.Image" Width="1.5" PointX="5.25" PointY="14.625" />
         <EntityTypeShape EntityType="SportboardModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" />
         <AssociationConnector Association="SportboardModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="SportboardModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="SportboardModel.FK_Comment_AspNetUsers" />
-        <AssociationConnector Association="SportboardModel.FK_Feed_AspNetUsers" />
         <AssociationConnector Association="SportboardModel.FK_Image_AspNetUsers" />
-        <AssociationConnector Association="SportboardModel.FK_Feed_Image" />
         <AssociationConnector Association="SportboardModel.AspNetUserRoles" />
         <AssociationConnector Association="SportboardModel.CommentDownvote" />
         <AssociationConnector Association="SportboardModel.CommentUpvote" />
-        <EntityTypeShape EntityType="SportboardModel.Post" Width="1.5" PointX="9.75" PointY="10.125" />
+        <EntityTypeShape EntityType="SportboardModel.Feed" Width="1.5" PointX="7.5" PointY="10.25" />
+        <EntityTypeShape EntityType="SportboardModel.Post" Width="1.5" PointX="9.75" PointY="10.25" />
+        <AssociationConnector Association="SportboardModel.FK_Feed_AspNetUsers" />
+        <AssociationConnector Association="SportboardModel.FK_Feed_Image" />
         <AssociationConnector Association="SportboardModel.FK_Post_Feed" />
+        <AssociationConnector Association="SportboardModel.FK_Post_Image" />
+        <AssociationConnector Association="SportboardModel.FK_Comment_Post" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

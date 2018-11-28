@@ -7,22 +7,23 @@ using System.Web;
 
 namespace SportBoard.Web.BLL
 {
-    public class AddComment
+    public class CreateComment
     {
         private readonly ICommentRepository _commentRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPostRepository _postRepository;
 
-        public AddComment(ICommentRepository commentRepository, IUnitOfWork unitOfWork, IPostRepository postRepository)
+        public CreateComment(ICommentRepository commentRepository, IUnitOfWork unitOfWork, IPostRepository postRepository)
         {
             _commentRepository = commentRepository;
             _unitOfWork = unitOfWork;
             _postRepository = postRepository;
         }
 
-        public bool TryAddComment(Post post, Comment comment)
+        public void CreateNewComment(Comment comment)
         {
-            return false;
+            _unitOfWork.Comments.Add(comment);
+            _unitOfWork.Complete();
         }
         
     }

@@ -4,6 +4,78 @@
 }
 
 <h2>@Model.Feed.FeedName</h2>
+<div class="col-md-12" id="mainImageDiv">
+    <img src="@Url.Content("~/Content/images/" + @Model.Feed.Image.FileName + ".jpg")" alt="Feed Image" id="mainImage"/>
+</div>
+
+<div class="row">
+    @foreach(var post in Model.Posts)
+    {
+        <div class="col-md-4">
+            <img src="@Url.Content("~/Content/images/" + post.Image.FileName + ".jpg")" alt="Post Image" />
+            <div class="container">
+                <h4><b>@post.Description</b></h4>
+                <i class="fas fa-thumbs-up fa-2x" style="padding-right:10px"></i>
+                <i class="fas fa-thumbs-down fa-2x"></i>
+            </div>
+        </div>
+    }
+</div>
+
 
 <p><a class="btn btn-primary" href="@Url.Action("Create","Post" , new { feedId = Model.Feed.FeedId })">Add Post to Feed &raquo;</a></p>
+@section Styles{
+    <style>
+        #mainImageDiv {
+            text-align: center;
+        }
+
+        div img {
+            max-height: 500px;
+            margin-bottom: 30px;
+        }
+
+        h2{
+            text-align:center;
+        }
+    </style>    
+}
+
+
+@section scripts{
+    <script>
+
+        $(document).ready(function () {
+            $("#form").on("submit", function (e) {
+                e.preventDefault()
+                var formData = new FormData();
+                var totalFiles = document.getElementById("imageUploadForm").files.length;
+                var textInput = $("#textInput").val();
+                var feedId = @Model.Feed.FeedId;
+                formData.append("textInput", textInput);
+                formData.append("feedId", feedId);
+
+                for (var i = 0; i < totalFiles; i++) {
+                    var file = document.getElementById("imageUploadForm").files[i];
+                    formData.append("imageUploadForm", file);
+                }
+                $.ajax({
+                    type: "POST",
+                    url: '/Post/Create',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        window.location.href = response.Url;
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("Unknown error occured. Please try again!");
+                    }
+                });
+            });
+        });
+    </script>
+}
+
 
