@@ -24,6 +24,7 @@ namespace SportBoard.Data.DAL
         public string FeedName { get; set; }
         public string UserId { get; set; }
         public int ImageId { get; set; }
+        public System.DateTime CreatedOn { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Image Image { get; set; }

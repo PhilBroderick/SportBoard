@@ -103,6 +103,7 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
           <Property Name="FeedName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ImageId" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
@@ -631,6 +632,7 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
           <NavigationProperty Name="AspNetUsers" Relationship="SportboardModel.FK_Feed_AspNetUsers" FromRole="Feed" ToRole="AspNetUsers" />
           <NavigationProperty Name="Image" Relationship="SportboardModel.FK_Feed_Image" FromRole="Feed" ToRole="Image" />
           <NavigationProperty Name="Post" Relationship="SportboardModel.FK_Post_Feed" FromRole="Feed" ToRole="Post" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -826,6 +828,7 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
           <EntitySetMapping Name="Feed">
             <EntityTypeMapping TypeName="SportboardModel.Feed">
               <MappingFragment StoreEntitySet="Feed">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="ImageId" ColumnName="ImageId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="FeedName" ColumnName="FeedName" />

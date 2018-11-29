@@ -4,26 +4,32 @@
 }
 
 <h2>@Model.Feed.FeedName</h2>
-<div class="col-md-12" id="mainImageDiv">
-    <img src="@Url.Content("~/Content/images/" + @Model.Feed.Image.FileName + ".jpg")" alt="Feed Image" id="mainImage"/>
+<div class="row">
+    <div class="col-md-12" id="mainImageDiv">
+        <img src="@Url.Content("~/Content/images/" + @Model.Feed.Image.FileName + ".jpg")" alt="Feed Image" id="mainImage" />
+    </div>
 </div>
 
 <div class="row">
-    @foreach(var post in Model.Posts)
+    @{ int i = 1;}
+    @foreach (var post in Model.Posts)
     {
-        <div class="col-md-4">
-            <img src="@Url.Content("~/Content/images/" + post.Image.FileName + ".jpg")" alt="Post Image" />
+        <div class="card">
+            <a href="@Url.Action("Details", "Post", new { id = post.PostId })">
+                <img src="@Url.Content("~/Content/images/" + post.Image.FileName + ".jpg")" alt="Post Image" />
+            </a>
             <div class="container">
-                <h4><b>@post.Description</b></h4>
+                <p><b>@i : @post.Description</b></p>
                 <i class="fas fa-thumbs-up fa-2x" style="padding-right:10px"></i>
                 <i class="fas fa-thumbs-down fa-2x"></i>
             </div>
         </div>
+        i++;
     }
 </div>
 
 
-<p><a class="btn btn-primary" href="@Url.Action("Create","Post" , new { feedId = Model.Feed.FeedId })">Add Post to Feed &raquo;</a></p>
+<p><a class="btn btn-primary addPost" href="@Url.Action("Create","Post" , new { feedId = Model.Feed.FeedId })">Add Post to Feed &raquo;</a></p>
 @section Styles{
     <style>
         #mainImageDiv {
@@ -31,12 +37,36 @@
         }
 
         div img {
-            max-height: 500px;
             margin-bottom: 30px;
         }
 
         h2{
             text-align:center;
+            text-transform:uppercase;
+        }
+        .card {
+            /* Add shadows to create the "card" effect */
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            padding: 10px 10px;
+        }
+
+            /* On mouse-over, add a deeper shadow */
+            .card:hover {
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            }
+
+        /* Add some padding inside the card container */
+        .container {
+            padding: 2px 16px;
+        }
+
+        .card img {
+            width: 100%;
+        }
+
+        .addPost{
+            margin-top: 10px;
         }
     </style>    
 }

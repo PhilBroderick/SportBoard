@@ -12,9 +12,10 @@
     @foreach (var feed in Model)
     {
     <div class="card col-md-4">
-        @*<img src="@(Url.Content("~/App_Data/") + feed.Image.FileName + ".jpg")" alt="feedPic" style="width:100%">*@
-        <img src="@Url.Content("~/Content/images/" + feed.Image.FileName + ".jpg")" alt"" />
-        <div class="container">
+        <a href="@Url.Action("Details", "Feed", new { id = feed.FeedId })">
+            <img src="@Url.Content("~/Content/images/" + feed.Image.FileName + ".jpg")" alt"" />
+        </a>
+        <div class="container headerTitle">
             <h4><b>@feed.FeedName</b></h4>
         </div>
     </div>
@@ -36,12 +37,19 @@
             }
 
         /* Add some padding inside the card container */
-        .container {
-            padding: 2px 16px;
+        .container .headerTitle{
+            padding: 1px 16px;
+            width: 100%;
         }
 
         .card img{
             width: 100%;
+        }
+
+        .container h4{
+            text-align:center;
+            text-transform:uppercase;
+            font-weight: 700;
         }
     </style>    
 }
