@@ -222,7 +222,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="BLL\CreateComment.cs" />
+    <Compile Include="BLL\Comments.cs" />
     <Compile Include="BLL\CreateFeed.cs" />
     <Compile Include="BLL\CreateImage.cs" />
     <Compile Include="BLL\CreatePost.cs" />

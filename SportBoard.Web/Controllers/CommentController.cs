@@ -16,6 +16,7 @@ namespace SportBoard.Web.Controllers
         private UnitOfWork _unitOfWork;
         private PostRepository _postRepository;
         private CommentRepository _commentRepository;
+        private UserRepository _userRepository;
 
         public CommentController()
         {
@@ -23,8 +24,29 @@ namespace SportBoard.Web.Controllers
             _unitOfWork = new UnitOfWork(_context);
             _postRepository = new PostRepository(_context);
             _commentRepository = new CommentRepository(_context);
+            _userRepository = new UserRepository(_context);
         }
         
+        public ActionResult Upvote(int commentId)
+        {
+            var currentUserId = User.Identity.GetUserId();
+
+            var currentUser = _userRepository.Find(u => u.Id == currentUserId).First(); 
+
+            var comment = _commentRepository.Get(commentId);
+            comment.CommentUpvoteUserList.Add(currentUser);
+
+            var createUpvote = new Comments(_commentRepository, _unitOfWork, _postRepository);
+            createUpvote.AddComentUpvote(comment);
+            
+            return View();
+        }
+
+        public ActionResult Downvote(int commentId)
+        {
+            return View();
+        }
+
         public ActionResult Create(int postId)
         {
             return View();
@@ -45,7 +67,7 @@ namespace SportBoard.Web.Controllers
                 UserId = currentUserId
             };
 
-            var createComment = new CreateComment(_commentRepository, _unitOfWork, _postRepository);
+            var createComment = new Comments(_commentRepository, _unitOfWork, _postRepository);
             
             createComment.CreateNewComment(comment);
 

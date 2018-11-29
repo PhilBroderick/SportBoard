@@ -30,10 +30,11 @@ namespace SportBoard.Data.DAL
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Image> Image { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Feed> Feed { get; set; }
         public virtual DbSet<Post> Post { get; set; }
+        public virtual DbSet<Comment> Comment { get; set; }
+        public virtual DbSet<CommentUpvote> CommentUpvote { get; set; }
     }
 }

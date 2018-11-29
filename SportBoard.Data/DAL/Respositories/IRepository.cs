@@ -18,5 +18,7 @@ namespace SportBoard.Data.DAL.Respositories
 
         void Remove(TEntity entity);
         void RemoveRange(IEnumerable<TEntity> entities);
+
+        void Update(TEntity entity);
     }
 }

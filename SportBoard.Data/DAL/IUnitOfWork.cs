@@ -13,6 +13,7 @@ namespace SportBoard.Data.DAL
         IImageRepository Images { get; }
         IPostRepository Posts { get; }
         ICommentRepository Comments { get; }
+        IUserRepository Users { get; }
         int Complete();
     }
 }

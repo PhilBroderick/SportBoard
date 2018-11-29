@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -10,10 +11,12 @@ namespace SportBoard.Data.DAL.Respositories
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly SportboardDbContext Context;
+        private DbSet<TEntity> _dbSet;
 
         public Repository(SportboardDbContext context)
         {
             Context = context;
+            _dbSet = Context.Set<TEntity>();
         }
         public void Add(TEntity entity)
         {
@@ -48,6 +51,12 @@ namespace SportBoard.Data.DAL.Respositories
         public void RemoveRange(IEnumerable<TEntity> entities)
         {
             Context.Set<TEntity>().RemoveRange(entities);
+        }
+
+        public void Update(TEntity entity)
+        {
+            _dbSet.Attach(entity);
+            Context.Entry(entity).State = EntityState.Modified;
         }
     }
 }

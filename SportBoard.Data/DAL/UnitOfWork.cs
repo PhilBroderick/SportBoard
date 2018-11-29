@@ -18,11 +18,14 @@ namespace SportBoard.Data.DAL
             Comments = new CommentRepository(_context);
             Images = new ImageRepository(_context);
             Posts = new PostRepository(_context);
+            Users = new UserRepository(_context);
         }
         public IFeedRepository Feeds { get; private set; }
         public ICommentRepository Comments { get; private set; }
         public IImageRepository Images { get; private set; }
         public IPostRepository Posts { get; private set; }
+
+        public IUserRepository Users { get; private set; }
 
         public int Complete()
         {
