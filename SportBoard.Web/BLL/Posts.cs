@@ -7,13 +7,13 @@ using System.Web;
 
 namespace SportBoard.Web.BLL
 {
-    public class CreatePost
+    public class Posts
     {
         private readonly IFeedRepository _feedRepository;
         private readonly IPostRepository _postRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CreatePost(IFeedRepository feedRepository, IPostRepository postRepository, IUnitOfWork unitOfWork)
+        public Posts(IFeedRepository feedRepository, IPostRepository postRepository, IUnitOfWork unitOfWork)
         {
             _feedRepository = feedRepository;
             _postRepository = postRepository;
@@ -33,6 +33,12 @@ namespace SportBoard.Web.BLL
         private void CreateNewPost(Post post)
         {
             _unitOfWork.Posts.Add(post);
+            _unitOfWork.Complete();
+        }
+
+        public void UpdatePost(Post post)
+        {
+            _unitOfWork.Posts.Update(post);
             _unitOfWork.Complete();
         }
     }

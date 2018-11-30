@@ -126,6 +126,26 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
           <Property Name="Description" Type="nvarchar" MaxLength="256" />
           <Property Name="FeedId" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Sportboard.dbo.PostThumbsDown' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PostThumbsDown">
+          <Key>
+            <PropertyRef Name="PostId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="PostId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PostThumbsUp">
+          <Key>
+            <PropertyRef Name="PostId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="PostId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -312,6 +332,54 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PostThumbsDown_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="PostThumbsDown" Type="Self.PostThumbsDown" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostThumbsDown">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostThumbsDown_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="PostThumbsDown" Type="Self.PostThumbsDown" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="PostId" />
+            </Principal>
+            <Dependent Role="PostThumbsDown">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostThumbsUp_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="PostThumbsUp" Type="Self.PostThumbsUp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostThumbsUp">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostThumbsUp_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="PostThumbsUp" Type="Self.PostThumbsUp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="PostId" />
+            </Principal>
+            <Dependent Role="PostThumbsUp">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SportboardModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -326,6 +394,8 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CommentDownvote" EntityType="Self.CommentDownvote" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CommentUpvote" EntityType="Self.CommentUpvote" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PostThumbsDown" EntityType="Self.PostThumbsDown" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PostThumbsUp" EntityType="Self.PostThumbsUp" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Comment_AspNetUsers" Association="Self.FK_Comment_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Comment" EntitySet="Comment" />
@@ -381,6 +451,22 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
           <AssociationSet Name="FK_Post_Image" Association="Self.FK_Post_Image">
             <End Role="Image" EntitySet="Image" />
             <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostThumbsDown_AspNetUsers" Association="Self.FK_PostThumbsDown_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PostThumbsDown" EntitySet="PostThumbsDown" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostThumbsDown_Post" Association="Self.FK_PostThumbsDown_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostThumbsDown" EntitySet="PostThumbsDown" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostThumbsUp_AspNetUsers" Association="Self.FK_PostThumbsUp_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PostThumbsUp" EntitySet="PostThumbsUp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostThumbsUp_Post" Association="Self.FK_PostThumbsUp_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostThumbsUp" EntitySet="PostThumbsUp" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -446,6 +532,14 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
+          <AssociationSet Name="PostThumbsDown" Association="SportboardModel.PostThumbsDown">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="PostThumbsUp" Association="SportboardModel.PostThumbsUp">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -510,6 +604,8 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
           <NavigationProperty Name="Comment" Relationship="SportboardModel.FK_Comment_AspNetUsers" FromRole="AspNetUsers" ToRole="Comment" />
           <NavigationProperty Name="Comment1" Relationship="SportboardModel.CommentDownvote" FromRole="AspNetUsers" ToRole="Comment" />
           <NavigationProperty Name="Comment2" Relationship="SportboardModel.CommentUpvote" FromRole="AspNetUsers" ToRole="Comment" />
+          <NavigationProperty Name="Post" Relationship="SportboardModel.PostThumbsDown" FromRole="AspNetUsers" ToRole="Post" />
+          <NavigationProperty Name="Post1" Relationship="SportboardModel.PostThumbsUp" FromRole="AspNetUsers" ToRole="Post" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
@@ -604,6 +700,8 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
           <NavigationProperty Name="Feed" Relationship="SportboardModel.FK_Post_Feed" FromRole="Post" ToRole="Feed" />
           <NavigationProperty Name="Image" Relationship="SportboardModel.FK_Post_Image" FromRole="Post" ToRole="Image" />
           <NavigationProperty Name="Comment" Relationship="SportboardModel.FK_Comment_Post" FromRole="Post" ToRole="Comment" />
+          <NavigationProperty Name="PostThumbsDownUserIds" Relationship="SportboardModel.PostThumbsDown" FromRole="Post" ToRole="AspNetUsers" />
+          <NavigationProperty Name="PostThumbsUpUserIds" Relationship="SportboardModel.PostThumbsUp" FromRole="Post" ToRole="AspNetUsers" />
         </EntityType>
         <Association Name="FK_Feed_AspNetUsers">
           <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -697,6 +795,14 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
         <Association Name="CommentUpvote">
           <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
           <End Type="SportboardModel.Comment" Role="Comment" Multiplicity="*" />
+        </Association>
+        <Association Name="PostThumbsDown">
+          <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+          <End Type="SportboardModel.Post" Role="Post" Multiplicity="*" />
+        </Association>
+        <Association Name="PostThumbsUp">
+          <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+          <End Type="SportboardModel.Post" Role="Post" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -833,6 +939,22 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
           <AssociationSetMapping Name="CommentUpvote" TypeName="SportboardModel.CommentUpvote" StoreEntitySet="CommentUpvote">
             <EndProperty Name="Comment">
               <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="PostThumbsDown" TypeName="SportboardModel.PostThumbsDown" StoreEntitySet="PostThumbsDown">
+            <EndProperty Name="Post">
+              <ScalarProperty Name="PostId" ColumnName="PostId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="PostThumbsUp" TypeName="SportboardModel.PostThumbsUp" StoreEntitySet="PostThumbsUp">
+            <EndProperty Name="Post">
+              <ScalarProperty Name="PostId" ColumnName="PostId" />
             </EndProperty>
             <EndProperty Name="AspNetUsers">
               <ScalarProperty Name="Id" ColumnName="UserId" />

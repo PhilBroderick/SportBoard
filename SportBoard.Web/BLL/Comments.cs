@@ -26,13 +26,7 @@ namespace SportBoard.Web.BLL
             _unitOfWork.Complete();
         }
 
-        public void AddCommentUpvote(Comment comment)
-        {
-            _unitOfWork.Comments.Update(comment);
-            _unitOfWork.Complete();
-        }
-
-        public void AddCommentDownvote(Comment comment)
+        public void UpdateComment(Comment comment)
         {
             _unitOfWork.Comments.Update(comment);
             _unitOfWork.Complete();

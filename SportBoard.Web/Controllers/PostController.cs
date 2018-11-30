@@ -19,6 +19,7 @@ namespace SportBoard.Web.Controllers
         private FeedRepository _feedRepository;
         private PostRepository _postRepository;
         private CommentRepository _commentRepository;
+        private UserRepository _userRepository;
 
         public PostController()
         {
@@ -28,6 +29,7 @@ namespace SportBoard.Web.Controllers
             _feedRepository = new FeedRepository(_context);
             _postRepository = new PostRepository(_context);
             _commentRepository = new CommentRepository(_context);
+            _userRepository = new UserRepository(_context);
         }
 
         public ActionResult Details(int id)
@@ -78,7 +80,7 @@ namespace SportBoard.Web.Controllers
                 return HttpNotFound();
 
 
-            var createPost = new CreatePost(_feedRepository, _postRepository, _unitOfWork);
+            var createPost = new Posts(_feedRepository, _postRepository, _unitOfWork);
 
             var post = new Post
             {
@@ -98,6 +100,35 @@ namespace SportBoard.Web.Controllers
             }
 
             return HttpNotFound();
+        }
+
+        public ActionResult ThumbsUpPost(int postId)
+        {
+            var currentUserId = User.Identity.GetUserId();
+            var currentUser = _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
+
+            var post = _postRepository.Get(postId);
+
+            post.PostThumbsUpUserIds.Add(currentUser);
+
+            var addThumbsUp = new Posts(_feedRepository, _postRepository, _unitOfWork);
+            addThumbsUp.UpdatePost(post);
+
+            return View();
+        }
+
+        public ActionResult ThumbsDownPost(int postId)
+        {
+            var currentUserId = User.Identity.GetUserId();
+            var currentUser = _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
+
+            var post = _postRepository.Get(postId);
+            post.PostThumbsDownUserIds.Add(currentUser);
+
+            var addThumbsDown = new Posts(_feedRepository, _postRepository, _unitOfWork);
+            addThumbsDown.UpdatePost(post);
+
+            return View();
         }
     }
 }

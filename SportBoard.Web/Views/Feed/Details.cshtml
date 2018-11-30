@@ -20,10 +20,10 @@
             </a>
             <div class="container">
                 <p><b>@i : @post.Description</b></p>
-                <a href="">
+                <a href="@Url.Action("ThumbsUpPost", "Post", new { postId = post.PostId })" >
                     <i class="fas fa-thumbs-up fa-2x" style="padding-right:10px"></i>
                 </a>
-                <a href="">
+                <a href="@Url.Action("ThumbsDownPost", "Post", new { postId = post.PostId })" >
                     <i class="fas fa-thumbs-down fa-2x"></i>
                 </a>
             </div>

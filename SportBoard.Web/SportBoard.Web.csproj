@@ -225,7 +225,7 @@
     <Compile Include="BLL\Comments.cs" />
     <Compile Include="BLL\CreateFeed.cs" />
     <Compile Include="BLL\CreateImage.cs" />
-    <Compile Include="BLL\CreatePost.cs" />
+    <Compile Include="BLL\Posts.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\FeedController.cs" />

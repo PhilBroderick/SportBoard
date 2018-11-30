@@ -27,34 +27,6 @@ namespace SportBoard.Web.Controllers
             _userRepository = new UserRepository(_context);
         }
         
-        public ActionResult Upvote(int commentId)
-        {
-            var currentUserId = User.Identity.GetUserId();
-            var currentUser = _userRepository.Find(u => u.Id == currentUserId).First();
-            var comment = _commentRepository.Get(commentId);
-
-            comment.CommentUpvoteUserIds.Add(currentUser);
-
-            var addUpvote = new Comments(_commentRepository, _unitOfWork, _postRepository);
-            addUpvote.AddCommentUpvote(comment);
-            
-            return View();
-        }
-
-        public ActionResult Downvote(int commentId)
-        {
-            var currentUserId = User.Identity.GetUserId();
-            var currentUser = _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
-            var comment = _commentRepository.Get(commentId);
-
-            comment.CommentDownVoteUserIds.Add(currentUser);
-
-            var addDownvote = new Comments(_commentRepository, _unitOfWork, _postRepository);
-            addDownvote.AddCommentDownvote(comment);
-
-            return View();
-        }
-
         public ActionResult Create(int postId)
         {
             return View();
@@ -82,6 +54,34 @@ namespace SportBoard.Web.Controllers
             var redirectUrl = new UrlHelper(Request.RequestContext).Action("Details", "Post", new { id = postId });
 
             return Json(new { Url = redirectUrl });
+        }
+
+        public ActionResult Upvote(int commentId)
+        {
+            var currentUserId = User.Identity.GetUserId();
+            var currentUser = _userRepository.Find(u => u.Id == currentUserId).First();
+            var comment = _commentRepository.Get(commentId);
+
+            comment.CommentUpvoteUserIds.Add(currentUser);
+
+            var addUpvote = new Comments(_commentRepository, _unitOfWork, _postRepository);
+            addUpvote.UpdateComment(comment);
+
+            return View();
+        }
+
+        public ActionResult Downvote(int commentId)
+        {
+            var currentUserId = User.Identity.GetUserId();
+            var currentUser = _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
+            var comment = _commentRepository.Get(commentId);
+
+            comment.CommentDownVoteUserIds.Add(currentUser);
+
+            var addDownvote = new Comments(_commentRepository, _unitOfWork, _postRepository);
+            addDownvote.UpdateComment(comment);
+
+            return View();
         }
     }
 }

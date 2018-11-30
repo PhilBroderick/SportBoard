@@ -25,6 +25,8 @@ namespace SportBoard.Data.DAL
             this.Comment = new HashSet<Comment>();
             this.Comment1 = new HashSet<Comment>();
             this.Comment2 = new HashSet<Comment>();
+            this.Post = new HashSet<Post>();
+            this.Post1 = new HashSet<Post>();
         }
     
         public string Id { get; set; }
@@ -56,5 +58,9 @@ namespace SportBoard.Data.DAL
         public virtual ICollection<Comment> Comment1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comment2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Post> Post { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Post> Post1 { get; set; }
     }
 }
