@@ -17,8 +17,8 @@ namespace SportBoard.Data.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Comment()
         {
-            this.CommentUpvote = new HashSet<CommentUpvote>();
-            this.AspNetUsers1 = new HashSet<AspNetUsers>();
+            this.CommentDownVoteUserIds = new HashSet<AspNetUsers>();
+            this.CommentUpvoteUserIds = new HashSet<AspNetUsers>();
         }
     
         public int CommentId { get; set; }
@@ -29,8 +29,8 @@ namespace SportBoard.Data.DAL
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Post Post { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CommentUpvote> CommentUpvote { get; set; }
+        public virtual ICollection<AspNetUsers> CommentDownVoteUserIds { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetUsers> AspNetUsers1 { get; set; }
+        public virtual ICollection<AspNetUsers> CommentUpvoteUserIds { get; set; }
     }
 }

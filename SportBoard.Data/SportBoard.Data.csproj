@@ -65,9 +65,6 @@
     <Compile Include="DAL\Comment.cs">
       <DependentUpon>SportBoardModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\CommentUpvote.cs">
-      <DependentUpon>SportBoardModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DAL\C__MigrationHistory.cs">
       <DependentUpon>SportBoardModel.tt</DependentUpon>
     </Compile>

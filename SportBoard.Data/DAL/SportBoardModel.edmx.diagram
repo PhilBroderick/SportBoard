@@ -23,13 +23,11 @@
         <AssociationConnector Association="SportboardModel.FK_Post_Feed" />
         <AssociationConnector Association="SportboardModel.FK_Post_Image" />
         <EntityTypeShape EntityType="SportboardModel.Comment" Width="1.5" PointX="5.25" PointY="11" />
-        <EntityTypeShape EntityType="SportboardModel.CommentUpvote" Width="1.5" PointX="14.25" PointY="7.375" />
         <AssociationConnector Association="SportboardModel.FK_Comment_AspNetUsers" />
-        <AssociationConnector Association="SportboardModel.FK_CommentUpvote_AspNetUsers" />
         <AssociationConnector Association="SportboardModel.FK_Comment_Post" />
-        <AssociationConnector Association="SportboardModel.FK_CommentUpvote_Comment" />
         <AssociationConnector Association="SportboardModel.CommentDownvote" />
-      </Diagram>
+        <AssociationConnector Association="SportboardModel.CommentUpvote" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
