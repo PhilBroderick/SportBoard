@@ -8,32 +8,42 @@
     <div class="col-md-12" id="mainImageDiv">
         <img src="@Url.Content("~/Content/images/" + @Model.Feed.Image.FileName + ".jpg")" alt="Feed Image" id="mainImage" />
     </div>
+    <div class="col-md-12">
+        <p><a class="btn btn-primary addPost" href="@Url.Action("Create","Post" , new { feedId = Model.Feed.FeedId })">Add Post to Feed &raquo;</a></p>
+    </div>
 </div>
 
-<div class="row">
-    @{ int i = 1;}
-    @foreach (var post in Model.Posts)
-    {
-        <div class="card">
-            <a href="@Url.Action("Details", "Post", new { id = post.PostId })">
-                <img src="@Url.Content("~/Content/images/" + post.Image.FileName + ".jpg")" alt="Post Image" />
-            </a>
-            <div class="container">
-                <p><b>@i : @post.Description</b></p>
-                <a href="@Url.Action("ThumbsUpPost", "Post", new { postId = post.PostId })" >
-                    <i class="fas fa-thumbs-up fa-2x" style="padding-right:10px"></i>
+@if (Model.Posts.Count != 0)
+{
+    <div class="row">
+        @{ int i = 1;}
+        @foreach (var post in Model.Posts)
+        {
+            <div class="card">
+                <a href="@Url.Action("Details", "Post", new { id = post.PostId })">
+                    <img src="@Url.Content("~/Content/images/" + post.Image.FileName + ".jpg")" alt="Post Image" />
                 </a>
-                <a href="@Url.Action("ThumbsDownPost", "Post", new { postId = post.PostId })" >
-                    <i class="fas fa-thumbs-down fa-2x"></i>
-                </a>
+                <div class="container">
+                    <p><b>@i : @post.Description</b></p>
+                    <a href="@Url.Action("ThumbsUpPost", "Post", new { postId = post.PostId })">
+                        <i class="fas fa-thumbs-up fa-2x" style="padding-right:10px"></i>
+                    </a>
+                    <a href="@Url.Action("ThumbsDownPost", "Post", new { postId = post.PostId })">
+                        <i class="fas fa-thumbs-down fa-2x"></i>
+                    </a>
+                </div>
             </div>
-        </div>
-        i++;
-    }
-</div>
+            i++;
+        }
+    </div>
+            }
+            else
+            {
+                <h4>There doesn't seem to be any posts in this feed yet. How about you be the first contributor?</h4>
+            }
 
 
-<p><a class="btn btn-primary addPost" href="@Url.Action("Create","Post" , new { feedId = Model.Feed.FeedId })">Add Post to Feed &raquo;</a></p>
+
 @section Styles{
     <style>
         #mainImageDiv {
@@ -42,12 +52,18 @@
 
         div img {
             margin-bottom: 30px;
+            width: 100%;
         }
 
-        h2{
-            text-align:center;
-            text-transform:uppercase;
+        h2 {
+            text-align: center;
+            text-transform: uppercase;
         }
+
+        div p {
+            text-align: center;
+        }
+
         .card {
             /* Add shadows to create the "card" effect */
             box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -69,10 +85,10 @@
             width: 100%;
         }
 
-        .addPost{
+        .addPost {
             margin-top: 10px;
         }
-    </style>    
+    </style>
 }
 
 

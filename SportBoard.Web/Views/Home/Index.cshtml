@@ -1,13 +1,33 @@
 ﻿@model List<SportBoard.Data.DAL.Feed>
 @{
     ViewBag.Title = "Home Page";
+    ViewBag.DailySortParm = "daily";
+    ViewBag.WeeklySortParm = "weekly";
+    ViewBag.MonthlySortParm = "monthly";
 }
 
 <div class="jumbotron">
     <h1>SportBoard</h1>
     <p class="lead">SportBoard allows users with similar interests to post related photos and discuss, like and dislike these photos.</p>
 </div>
-
+<div class="col-md-12">
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="today">@Html.ActionLink("Today", "Index", new { sortOrder = ViewBag.DailySortParm })</li>
+        <li role="presentation" class="lastWeek">@Html.ActionLink("Last Week", "Index", new { sortOrder = ViewBag.WeeklySortParm })</li>
+        <li role="presentation" class="lastMonth">@Html.ActionLink("Last Month", "Index", new { sortOrder = ViewBag.MonthlySortParm })</li>
+    </ul>
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Sort
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li>@Html.ActionLink("Hot", "Index", new { sortOrder = ViewBag.TopSortParm })</li>
+            <li>@Html.ActionLink("New", "Index", new { sortOrder = ViewBag.TopSortParm })</li>
+            <li>@Html.ActionLink("Best", "Index", new { sortOrder = ViewBag.TopSortParm })</li>
+        </ul>
+    </div>
+</div>
 <div class="row">
     @foreach (var feed in Model)
     {
@@ -52,4 +72,29 @@
             font-weight: 700;
         }
     </style>    
+}
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            var todaySort = $('today');
+            var weeklySort = $('lastWeek');
+            var monthlySort = $('lastMonth');
+
+            if (@ViewBag.ActiveSort == 'daily') {
+                todaySort.addClass('active');
+                weeklySort.removeClass('active');
+                monthlySort.removeClass('active');
+            } else if (@ViewBag.ActiveSort == 'weekly') {
+                weeklySort.addClass('active');
+                todaySort.removeClass('active');
+                monthlySort.removeClass('active');
+            } else if (@ViewBag.ActiveSort == 'monthly') {
+                monthlySort.adClass('active');
+                todaySort.removeClass('active');
+                monthlySort.removeClass('active');
+            }
+        });
+    </script>    
 }

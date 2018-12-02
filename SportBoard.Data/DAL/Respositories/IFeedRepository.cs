@@ -8,7 +8,7 @@ namespace SportBoard.Data.DAL.Respositories
 {
     public interface IFeedRepository : IRepository<Feed>
     {
-        IEnumerable<Feed> GetTopFiveFeedsByTime(DateTime timeSpan);
+        IEnumerable<Feed> GetTopFeedsOfCertainPeriod(int amountOfDays);
 
         bool SearchIfFeedExists(string feedName);
     }

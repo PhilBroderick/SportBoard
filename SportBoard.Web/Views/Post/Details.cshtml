@@ -31,36 +31,45 @@
     </div>
 </form>
 <hr />
-@foreach(var comment in Model.Comments)
+@if (Model.Comments.Count != 0)
 {
-    <div class="panel panel-default panel-primary">
-        <div class="panel-body">
-            <p>@comment.CommentText</p>
+    foreach (var comment in Model.Comments)
+    {
+        <div class="panel panel-default panel-primary">
+            <div class="panel-body">
+                <p>@comment.CommentText</p>
+            </div>
+            <div class="panel-footer">
+                @comment.AspNetUsers.Email
+                <span class="updownVoteBtns">
+                    <a href="@Url.Action("Upvote", "Comment", new { commentId = comment.CommentId  })" title="Upvote" data-comment-id="@comment.CommentId" id="upVoteBtn">@comment.CommentUpvoteUserIds.Count()<i class="far fa-arrow-alt-circle-up fa-2x"></i></a><a href="@Url.Action("Downvote", "Comment", new { commentId = comment.CommentId  })" title="Downvote">@comment.CommentDownVoteUserIds.Count()<i class="far fa-arrow-alt-circle-down fa-2x"></i></a>
+                </span>
+            </div>
         </div>
-        <div class="panel-footer">@comment.AspNetUsers.Email
-            <span class="updownVoteBtns">
-                <a href="@Url.Action("Upvote", "Comment", new { commentId = comment.CommentId  })" title="Upvote" data-comment-id="@comment.CommentId" id="upVoteBtn">@comment.CommentUpvoteUserIds.Count()<i class="far fa-arrow-alt-circle-up fa-2x"></i></a><a href="@Url.Action("Downvote", "Comment", new { commentId = comment.CommentId  })" title="Downvote">@comment.CommentDownVoteUserIds.Count()<i class="far fa-arrow-alt-circle-down fa-2x"></i></a>
-            </span>
-        </div>
-    </div>
+    }
 }
+else
+{
+    <h4>There doesn't seem to be any comments on this post yet. How about you add one?</h4>
+}
+
 
 @section Styles{
     <style>
-        .updownVoteBtns{
-            float:right;
+        .updownVoteBtns {
+            float: right;
         }
 
-        #upVoteBtn{
+        #upVoteBtn {
             margin-right: 3px;
         }
 
-        #mainUpvote, #mainDownvote{
-            margin-left:5px;
-            margin-right:5px;
+        #mainUpvote, #mainDownvote {
+            margin-left: 5px;
+            margin-right: 5px;
         }
     </style>
-        
+
 }
 
 @section scripts{
@@ -75,7 +84,7 @@
                 var postId = @Model.Post.PostId;
                 formData.append("commentText", commentText);
                 formData.append("postId", postId);
-                
+
                 $.ajax({
                     type: "POST",
                     url: '/Comment/Create',

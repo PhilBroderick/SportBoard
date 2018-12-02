@@ -67,7 +67,7 @@ namespace SportBoard.Web.Controllers
             var addUpvote = new Comments(_commentRepository, _unitOfWork, _postRepository);
             addUpvote.UpdateComment(comment);
 
-            return View();
+            return RedirectToAction("Details", "Post", new { id = comment.PostId });
         }
 
         public ActionResult Downvote(int commentId)
@@ -81,7 +81,7 @@ namespace SportBoard.Web.Controllers
             var addDownvote = new Comments(_commentRepository, _unitOfWork, _postRepository);
             addDownvote.UpdateComment(comment);
 
-            return View();
+            return RedirectToAction("Details", "Post", new { id = comment.PostId });
         }
     }
 }

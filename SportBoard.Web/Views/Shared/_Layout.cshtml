@@ -17,7 +17,6 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
                 </button>
                 <i class="fas fa-football-ball navbar-brand"></i>
                 @Html.ActionLink("SportBoard", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
@@ -25,7 +24,6 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Discover Feeds", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Upload Photo", "About", "Home")</li>
                     <li>@Html.ActionLink("Create Feed", "Create", "Feed")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")

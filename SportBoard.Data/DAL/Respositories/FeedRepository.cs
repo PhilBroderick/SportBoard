@@ -13,9 +13,13 @@ namespace SportBoard.Data.DAL.Respositories
         {
         }
 
-        public IEnumerable<Feed> GetTopFiveFeedsByTime(DateTime timeSpan)
+        public IEnumerable<Feed> GetTopFeedsOfCertainPeriod(int numberOfDays)
         {
-            throw new NotImplementedException();
+            var periodDate = DateTime.Now.AddDays(-numberOfDays);
+
+            var allFeedsOfCertainPeriod = SportboardDbContext.Feed.Where(f => f.CreatedOn >= periodDate);
+
+            return allFeedsOfCertainPeriod;
         }
 
         public bool SearchIfFeedExists(string feedName)
