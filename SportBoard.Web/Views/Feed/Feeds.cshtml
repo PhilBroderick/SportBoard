@@ -1,0 +1,13 @@
+﻿@model List<SportBoard.Data.DAL.Feed>
+
+@foreach (var feed in Model)
+{
+    <div class="card col-md-4">
+        <a href="@Url.Action("Details", "Feed", new { id = feed.FeedId })">
+            <img src="@Url.Content("~/Content/images/" + feed.Image.FileName + ".jpg")" alt"" />
+        </a>
+        <div class="container headerTitle">
+            <h4><b>@feed.FeedName</b></h4>
+        </div>
+    </div>
+}

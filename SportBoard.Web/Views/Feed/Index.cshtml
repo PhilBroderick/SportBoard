@@ -12,9 +12,9 @@
 </div>
 <div class="col-md-12">
     <ul class="nav nav-tabs">
-        <li role="presentation" class="today">@Html.ActionLink("Today", "Index", new { sortOrder = ViewBag.DailySortParm })</li>
-        <li role="presentation" class="lastWeek">@Html.ActionLink("Last Week", "Index", new { sortOrder = ViewBag.WeeklySortParm })</li>
-        <li role="presentation" class="lastMonth">@Html.ActionLink("Last Month", "Index", new { sortOrder = ViewBag.MonthlySortParm })</li>
+        <li role="presentation" class="today active"><a href="#">Today</a></li>
+        <li role="presentation" class="lastWeek"><a href="#">Last Week</a></li>
+        <li role="presentation" class="lastMonth"><a href="#">Last Month</a></li>
     </ul>
     <div class="dropdown">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -28,18 +28,8 @@
         </ul>
     </div>
 </div>
-<div class="row">
-    @foreach (var feed in Model)
-    {
-    <div class="card col-md-4">
-        <a href="@Url.Action("Details", "Feed", new { id = feed.FeedId })">
-            <img src="@Url.Content("~/Content/images/" + feed.Image.FileName + ".jpg")" alt"" />
-        </a>
-        <div class="container headerTitle">
-            <h4><b>@feed.FeedName</b></h4>
-        </div>
-    </div>
-    }
+<div class="row feedView">
+    @Html.Partial("Feeds", Model)
 </div>
 
 @section Styles{
@@ -77,24 +67,53 @@
 @section Scripts {
 
     <script>
-        $(document).ready(function () {
-            var todaySort = $('today');
-            var weeklySort = $('lastWeek');
-            var monthlySort = $('lastMonth');
+        var todaySort = $('.today');
+        var weeklySort = $('.lastWeek');
+        var monthlySort = $('.lastMonth');
 
-            if (@ViewBag.ActiveSort == 'daily') {
-                todaySort.addClass('active');
-                weeklySort.removeClass('active');
-                monthlySort.removeClass('active');
-            } else if (@ViewBag.ActiveSort == 'weekly') {
-                weeklySort.addClass('active');
-                todaySort.removeClass('active');
-                monthlySort.removeClass('active');
-            } else if (@ViewBag.ActiveSort == 'monthly') {
-                monthlySort.adClass('active');
-                todaySort.removeClass('active');
-                monthlySort.removeClass('active');
-            }
+        $('.today').click(function () {
+            weeklySort.removeClass('active');
+            monthlySort.removeClass('active');
+            todaySort.addClass('active');
+
+            $.ajax({
+                url: '@Url.Action("SortFeeds", "Feed", new { sortOrder = ViewBag.DailySortParm })',
+                type: "GET",
+                dataType: "html",
+                success: function (data) {
+                    $('.feedView').html(data);
+                }
+            })
+        });
+
+        $('.lastWeek').click(function () {
+            todaySort.removeClass('active');
+            monthlySort.removeClass('active');
+            weeklySort.addClass('active');
+
+            $.ajax({
+                url: '@Url.Action("SortFeeds", "Feed", new { sortOrder = ViewBag.WeeklySortParm })',
+                type: "GET",
+                dataType: "html",
+                success: function (data) {
+                    $('.feedView').html(data);
+                }
+            })
+        });
+
+        $('.lastMonth').click(function () {
+            todaySort.removeClass('active');
+            weeklySort.removeClass('active');
+            monthlySort.addClass('active');
+
+            $.ajax({
+                url: '@Url.Action("SortFeeds", "Feed", new { sortOrder = ViewBag.MonthlySortParm })',
+                type: "GET",
+                dataType: "html",
+                success: function (data) {
+                    $('.feedView').html(data);
+                }
+            })
         });
     </script>    
 }

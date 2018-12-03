@@ -29,11 +29,54 @@ namespace SportBoard.Web.Controllers
             _feedRepository = new FeedRepository(_context);
             _postRepository = new PostRepository(_context);
         }
-        
+
         [Authorize]
         public ActionResult Index()
         {
-            return View();
+            //ViewBag.DailySortParm = String.IsNullOrEmpty(sortOrder) ? "daily" : "";
+            //ViewBag.WeeklySortParm = String.IsNullOrEmpty(sortOrder) ? "weekly" : "";
+            //ViewBag.MonthlySortParm = String.IsNullOrEmpty(sortOrder) ? "monthly" : "";
+            //var feeds = _context.Feed.ToList();
+
+            //switch (sortOrder)
+            //{
+            //    case "daily":
+            //        feeds = _feedRepository.GetTopFeedsOfCertainPeriod(1).ToList();
+            //        break;
+            //    case "weekly":
+            //        feeds = _feedRepository.GetTopFeedsOfCertainPeriod(7).ToList();
+            //        break;
+            //    case "monthly":
+            //        feeds = _feedRepository.GetTopFeedsOfCertainPeriod(30).ToList();
+            //        break;
+            //}
+
+            var feeds = _context.Feed.ToList();
+            feeds = _feedRepository.GetTopFeedsOfCertainPeriod(1).ToList();
+            return View(feeds);
+        }
+
+        public PartialViewResult SortFeeds(string sortOrder)
+        {
+            ViewBag.DailySortParm = String.IsNullOrEmpty(sortOrder) ? "daily" : "";
+            ViewBag.WeeklySortParm = String.IsNullOrEmpty(sortOrder) ? "weekly" : "";
+            ViewBag.MonthlySortParm = String.IsNullOrEmpty(sortOrder) ? "monthly" : "";
+            var feeds = _context.Feed.ToList();
+
+            switch (sortOrder)
+            {
+                case "daily":
+                    feeds = _feedRepository.GetTopFeedsOfCertainPeriod(1).ToList();
+                    break;
+                case "weekly":
+                    feeds = _feedRepository.GetTopFeedsOfCertainPeriod(7).ToList();
+                    break;
+                case "monthly":
+                    feeds = _feedRepository.GetTopFeedsOfCertainPeriod(30).ToList();
+                    break;
+            }
+
+            return PartialView("Feeds", feeds);
         }
 
         public ActionResult Details(int id)
