@@ -4,6 +4,9 @@
     ViewBag.DailySortParm = "daily";
     ViewBag.WeeklySortParm = "weekly";
     ViewBag.MonthlySortParm = "monthly";
+    ViewBag.HotSortParm = "hot";
+    ViewBag.NewSortParm = "new";
+    ViewBag.BestSortParm = "best";
 }
 
 <div class="jumbotron">
@@ -22,9 +25,9 @@
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li>@Html.ActionLink("Hot", "Index", new { sortOrder = ViewBag.TopSortParm })</li>
-            <li>@Html.ActionLink("New", "Index", new { sortOrder = ViewBag.TopSortParm })</li>
-            <li>@Html.ActionLink("Best", "Index", new { sortOrder = ViewBag.TopSortParm })</li>
+            <li class="hot"><a href="#">Hot</a></li>
+            <li class="new"><a href="#">New</a></li>
+            <li class="best"><a href="#">Best</a></li>
         </ul>
     </div>
 </div>
@@ -77,7 +80,7 @@
             todaySort.addClass('active');
 
             $.ajax({
-                url: '@Url.Action("SortFeeds", "Feed", new { sortOrder = ViewBag.DailySortParm })',
+                url: '@Url.Action("FilterFeeds", "Feed", new { filterOrder = ViewBag.DailySortParm })',
                 type: "GET",
                 dataType: "html",
                 success: function (data) {
@@ -92,7 +95,7 @@
             weeklySort.addClass('active');
 
             $.ajax({
-                url: '@Url.Action("SortFeeds", "Feed", new { sortOrder = ViewBag.WeeklySortParm })',
+                url: '@Url.Action("FilterFeeds", "Feed", new { filterOrder = ViewBag.WeeklySortParm })',
                 type: "GET",
                 dataType: "html",
                 success: function (data) {
@@ -107,7 +110,7 @@
             monthlySort.addClass('active');
 
             $.ajax({
-                url: '@Url.Action("SortFeeds", "Feed", new { sortOrder = ViewBag.MonthlySortParm })',
+                url: '@Url.Action("FilterFeeds", "Feed", new { filterOrder = ViewBag.MonthlySortParm })',
                 type: "GET",
                 dataType: "html",
                 success: function (data) {
@@ -115,5 +118,42 @@
                 }
             })
         });
+
+        $('.hot').click(function () {
+
+            $.ajax({
+                url: '@Url.Action("SortFeeds", "Feed", new {sortOrder = ViewBag.HotSortParm})',
+                type: "GET",
+                dataType: "html",
+                success: function (data) {
+                    $('.feedView').html(data);
+                }
+            })
+        });
+
+        $('.new').click(function () {
+
+            $.ajax({
+                url: '@Url.Action("SortFeeds", "Feed", new {sortOrder = ViewBag.NewSortParm})',
+                type: "GET",
+                dataType: "html",
+                success: function (data) {
+                    $('.feedView').html(data);
+                }
+            })
+        });
+
+        $('.best').click(function () {
+
+            $.ajax({
+                url: '@Url.Action("SortFeeds", "Feed", new {sortOrder = ViewBag.BestSortParm})',
+                type: "GET",
+                dataType: "html",
+                success: function (data) {
+                    $('.feedView').html(data);
+                }
+            })
+        });
+
     </script>    
 }

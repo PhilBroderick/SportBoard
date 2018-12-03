@@ -56,14 +56,11 @@ namespace SportBoard.Web.Controllers
             return View(feeds);
         }
 
-        public PartialViewResult SortFeeds(string sortOrder)
+        public PartialViewResult FilterFeeds(string filterOrder)
         {
-            ViewBag.DailySortParm = String.IsNullOrEmpty(sortOrder) ? "daily" : "";
-            ViewBag.WeeklySortParm = String.IsNullOrEmpty(sortOrder) ? "weekly" : "";
-            ViewBag.MonthlySortParm = String.IsNullOrEmpty(sortOrder) ? "monthly" : "";
             var feeds = _context.Feed.ToList();
 
-            switch (sortOrder)
+            switch (filterOrder)
             {
                 case "daily":
                     feeds = _feedRepository.GetTopFeedsOfCertainPeriod(1).ToList();
@@ -77,6 +74,23 @@ namespace SportBoard.Web.Controllers
             }
 
             return PartialView("Feeds", feeds);
+        }
+
+        public PartialViewResult SortFeeds(string sortOrder)
+        {
+            var feeds = _context.Feed.ToList();
+
+            switch (sortOrder)
+            {
+                case "hot":
+                    break;
+                case "new":
+                    break;
+                case "best":
+                    break;
+            }
+
+            return PartialView(feeds);
         }
 
         public ActionResult Details(int id)
