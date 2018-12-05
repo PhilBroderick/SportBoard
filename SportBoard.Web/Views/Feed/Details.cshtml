@@ -1,6 +1,11 @@
 ﻿@model SportBoard.Web.Models.ViewModels.FeedPostViewModel
 @{
+    /**/
+
     ViewBag.Title = "Details";
+    ViewBag.HotSortParm = "hot";
+    ViewBag.NewSortParm = "new";
+    ViewBag.BestSortParm = "best";
 }
 
 <h2>@Model.Feed.FeedName</h2>
@@ -12,39 +17,29 @@
         <p><a class="btn btn-primary addPost" href="@Url.Action("Create","Post" , new { feedId = Model.Feed.FeedId })">Add Post to Feed &raquo;</a></p>
     </div>
 </div>
-
-<div class="row postsView">
-    @Html.Partial("~/Views/Post/Posts.cshtml", Model.Posts)
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <span id="selected">Sort</span>
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li class="hot"><a href="#"><i class="fas fa-fire"></i>Hot</a></li>
+        <li class="new"><a href="#"><i class="fab fa-earlybirds"></i>New</a></li>
+        <li class="best"><a href="#"><i class="fas fa-certificate"></i>Best</a></li>
+    </ul>
 </div>
 
-@*@if (Model.Posts.Count != 0)
+@if (Model.Posts.Count != 0)
 {
-    <div class="row">
-        @{ int i = 1;}
-        @foreach (var post in Model.Posts)
-        {
-            <div class="card">
-                <a href="@Url.Action("Details", "Post", new { id = post.PostId })">
-                    <img src="@Url.Content("~/Content/images/" + post.Image.FileName + ".jpg")" alt="Post Image" />
-                </a>
-                <div class="container">
-                    <p><b>@i : @post.Description</b></p>
-                    <a href="@Url.Action("ThumbsUpPost", "Post", new { postId = post.PostId })">
-                        <i class="fas fa-thumbs-up fa-2x" style="padding-right:10px"></i>
-                    </a>
-                    <a href="@Url.Action("ThumbsDownPost", "Post", new { postId = post.PostId })">
-                        <i class="fas fa-thumbs-down fa-2x"></i>
-                    </a>
-                </div>
-            </div>
-            i++;
-        }
+    <div class="row postsView">
+        @Html.Partial("~/Views/Post/Posts.cshtml", Model.Posts)
     </div>
-            }
-            else
-            {
-                <h4>There doesn't seem to be any posts in this feed yet. How about you be the first contributor?</h4>
-            }*@
+
+}
+else
+{
+    <h4>There doesn't seem to be any posts in this feed yet. How about you be the first contributor?</h4>
+}
 
 
 
@@ -128,6 +123,49 @@
                     }
                 });
             });
+        });
+
+        $('.dropdown-menu a').click(function () {
+            var logo = $(this).find('i')[0];
+            console.log(logo);
+
+            $('#selected').text($(this).text());
+        });
+
+        $('.hot').click(function () {
+
+            $.ajax({
+                url: '@Url.Action("SortPostOrder", "Post", new {sortOrder = ViewBag.HotSortParm })',
+                type: "GET",
+                dataType: "html",
+                success: function (data) {
+                    $('.feedView').html(data);
+                }
+            })
+        });
+
+        $('.new').click(function () {
+
+            $.ajax({
+                url: '@Url.Action("SortPostOrder", "Post", new {sortOrder = ViewBag.NewSortParm })',
+                type: "GET",
+                dataType: "html",
+                success: function (data) {
+                    $('.feedView').html(data);
+                }
+            })
+        });
+
+        $('.best').click(function () {
+
+            $.ajax({
+                url: '@Url.Action("SortPostOrder", "Post", new {sortOrder = ViewBag.BestSortParm })',
+                type: "GET",
+                dataType: "html",
+                success: function (data) {
+                    $('.feedView').html(data);
+                }
+            })
         });
     </script>
 }

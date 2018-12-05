@@ -102,6 +102,21 @@ namespace SportBoard.Web.Controllers
             return HttpNotFound();
         }
 
+        public PartialViewResult SortPostOrder(string sortOrder)
+        {
+            var posts = _postRepository.GetAll();
+            switch (sortOrder)
+            {
+                case "hot":
+                    break;
+                case "new":
+                    break;
+                case "best":
+                    break;
+            }
+            return PartialView("Posts", posts);
+        }
+
         public ActionResult ThumbsUpPost(int postId)
         {
             var currentUserId = User.Identity.GetUserId();
