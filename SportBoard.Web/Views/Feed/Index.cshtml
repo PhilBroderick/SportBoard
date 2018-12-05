@@ -21,13 +21,13 @@
     </ul>
     <div class="dropdown">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            Sort
+            <span id="selected">Sort</span>
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li class="hot"><a href="#">Hot</a></li>
-            <li class="new"><a href="#">New</a></li>
-            <li class="best"><a href="#">Best</a></li>
+            <li class="hot"><a href="#"><i class="fas fa-fire"></i>Hot</a></li>
+            <li class="new"><a href="#"><i class="fab fa-earlybirds"></i>New</a></li>
+            <li class="best"><a href="#"><i class="fas fa-certificate"></i>Best</a></li>
         </ul>
     </div>
 </div>
@@ -119,10 +119,17 @@
             })
         });
 
+        $('.dropdown-menu a').click(function () {
+            var logo = $(this).find('i')[0];
+            console.log(logo);
+            
+            $('#selected').text($(this).text());
+        });
+
         $('.hot').click(function () {
 
             $.ajax({
-                url: '@Url.Action("SortFeeds", "Feed", new {sortOrder = ViewBag.HotSortParm})',
+                url: '@Url.Action("SortFeeds", "Feed", new {sortOrder = ViewBag.HotSortParm, feeds = Model })',
                 type: "GET",
                 dataType: "html",
                 success: function (data) {
@@ -134,7 +141,7 @@
         $('.new').click(function () {
 
             $.ajax({
-                url: '@Url.Action("SortFeeds", "Feed", new {sortOrder = ViewBag.NewSortParm})',
+                url: '@Url.Action("SortFeeds", "Feed", new {sortOrder = ViewBag.NewSortParm, feeds = Model })',
                 type: "GET",
                 dataType: "html",
                 success: function (data) {
@@ -146,7 +153,7 @@
         $('.best').click(function () {
 
             $.ajax({
-                url: '@Url.Action("SortFeeds", "Feed", new {sortOrder = ViewBag.BestSortParm})',
+                url: '@Url.Action("SortFeeds", "Feed", new {sortOrder = ViewBag.BestSortParm, feeds = Model })',
                 type: "GET",
                 dataType: "html",
                 success: function (data) {

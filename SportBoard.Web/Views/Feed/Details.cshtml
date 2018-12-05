@@ -13,7 +13,11 @@
     </div>
 </div>
 
-@if (Model.Posts.Count != 0)
+<div class="row postsView">
+    @Html.Partial("~/Views/Post/Posts.cshtml", Model.Posts)
+</div>
+
+@*@if (Model.Posts.Count != 0)
 {
     <div class="row">
         @{ int i = 1;}
@@ -40,7 +44,7 @@
             else
             {
                 <h4>There doesn't seem to be any posts in this feed yet. How about you be the first contributor?</h4>
-            }
+            }*@
 
 
 

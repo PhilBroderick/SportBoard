@@ -30,6 +30,23 @@ namespace SportBoard.Data.DAL.Respositories
                 return false;
             return true;
         }
+
+        public IEnumerable<Feed> SortFeedsByNewestFirst()
+        {
+            var feeds = SportboardDbContext.Feed.OrderByDescending(f => f.CreatedOn);
+
+            return feeds;
+        }
+
+        public IEnumerable<Feed> SortFeedsByRating(string sortOrder)
+        {
+            //if(sortOrder == "best")
+            //{
+            //    var feeds = SportboardDbContext.Feed.Where(f => f.)
+            //}
+            throw new NotImplementedException();
+        }
+
         public SportboardDbContext SportboardDbContext
         {
             get { return Context as SportboardDbContext; }

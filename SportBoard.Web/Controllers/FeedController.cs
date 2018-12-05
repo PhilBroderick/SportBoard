@@ -76,21 +76,20 @@ namespace SportBoard.Web.Controllers
             return PartialView("Feeds", feeds);
         }
 
-        public PartialViewResult SortFeeds(string sortOrder)
+        public PartialViewResult SortFeeds(string sortOrder, List<Feed> feeds)
         {
-            var feeds = _context.Feed.ToList();
-
             switch (sortOrder)
             {
                 case "hot":
                     break;
                 case "new":
+                    feeds = _feedRepository.SortFeedsByNewestFirst().ToList();
                     break;
                 case "best":
                     break;
             }
 
-            return PartialView(feeds);
+            return PartialView("Feeds", feeds);
         }
 
         public ActionResult Details(int id)

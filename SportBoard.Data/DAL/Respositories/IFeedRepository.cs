@@ -11,5 +11,8 @@ namespace SportBoard.Data.DAL.Respositories
         IEnumerable<Feed> GetTopFeedsOfCertainPeriod(int amountOfDays);
 
         bool SearchIfFeedExists(string feedName);
+
+        IEnumerable<Feed> SortFeedsByNewestFirst();
+        IEnumerable<Feed> SortFeedsByRating(string sortOrder);
     }
 }

@@ -1,0 +1,25 @@
+﻿@model List<SportBoard.Data.DAL.Post>
+
+<div class="row">
+        @{ int i = 1;}
+        @foreach (var post in Model)
+        {
+            <div class="card">
+                <a href="@Url.Action("Details", "Post", new { id = post.PostId })">
+                    <img src="@Url.Content("~/Content/images/" + post.Image.FileName + ".jpg")" alt="Post Image" />
+                </a>
+                <div class="container">
+                    <p><b>@i : @post.Description</b></p>
+                    <a href="@Url.Action("ThumbsUpPost", "Post", new { postId = post.PostId })">
+                        <i class="fas fa-thumbs-up fa-2x" style="padding-right:10px"></i>
+                    </a>
+                    <a href="@Url.Action("ThumbsDownPost", "Post", new { postId = post.PostId })">
+                        <i class="fas fa-thumbs-down fa-2x"></i>
+                    </a>
+                </div>
+            </div>
+            i++;
+        }
+    </div>
+}
+
