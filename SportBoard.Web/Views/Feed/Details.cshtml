@@ -1,11 +1,13 @@
 ﻿@model SportBoard.Web.Models.ViewModels.FeedPostViewModel
 @{
-    /**/
 
     ViewBag.Title = "Details";
-    ViewBag.HotSortParm = "hot";
-    ViewBag.NewSortParm = "new";
-    ViewBag.BestSortParm = "best";
+    ViewBag.HotSort = "hot";
+    ViewBag.NewSort = "new";
+    ViewBag.BestSort = "best";
+    TempData["NewSort"] = "new";
+    TempData["HotSort"] = "hot";
+    TempData["BestSort"] = "best";
 }
 
 <h2>@Model.Feed.FeedName</h2>
@@ -135,11 +137,11 @@ else
         $('.hot').click(function () {
 
             $.ajax({
-                url: '@Url.Action("SortPostOrder", "Post", new {sortOrder = ViewBag.HotSortParm })',
+                url: '@Url.Action("SortPostOrder", "Post", new {@feedId = Model.Feed.FeedId, @sortOrder = TempData["HotSort"] })',
                 type: "GET",
                 dataType: "html",
                 success: function (data) {
-                    $('.feedView').html(data);
+                    $('.postsView').html(data);
                 }
             })
         });
@@ -147,11 +149,11 @@ else
         $('.new').click(function () {
 
             $.ajax({
-                url: '@Url.Action("SortPostOrder", "Post", new {sortOrder = ViewBag.NewSortParm })',
+                url: '@Url.Action("SortPostOrder", "Post", new {@feedId = Model.Feed.FeedId, @sortOrder = TempData["NewSort"] })',
                 type: "GET",
                 dataType: "html",
                 success: function (data) {
-                    $('.feedView').html(data);
+                    $('.postsView').html(data);
                 }
             })
         });
@@ -159,11 +161,11 @@ else
         $('.best').click(function () {
 
             $.ajax({
-                url: '@Url.Action("SortPostOrder", "Post", new {sortOrder = ViewBag.BestSortParm })',
+                url: '@Url.Action("SortPostOrder", "Post", new {@feedId = Model.Feed.FeedId, @sortOrder = TempData["BestSort"] })',
                 type: "GET",
                 dataType: "html",
                 success: function (data) {
-                    $('.feedView').html(data);
+                    $('.postsView').html(data);
                 }
             })
         });

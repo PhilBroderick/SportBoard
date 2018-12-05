@@ -102,16 +102,18 @@ namespace SportBoard.Web.Controllers
             return HttpNotFound();
         }
 
-        public PartialViewResult SortPostOrder(string sortOrder)
+        public PartialViewResult SortPostOrder(int feedId, string sortOrder)
         {
-            var posts = _postRepository.GetAll();
+            var posts = _postRepository.Find(p => p.FeedId == feedId);
+
             switch (sortOrder)
             {
+                case "best":
                 case "hot":
+                    posts = _postRepository.SortPostsByRating(sortOrder);
                     break;
                 case "new":
-                    break;
-                case "best":
+                    posts.OrderByDescending(p => p.PostDate);
                     break;
             }
             return PartialView("Posts", posts);

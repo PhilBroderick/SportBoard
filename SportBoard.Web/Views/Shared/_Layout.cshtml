@@ -19,11 +19,11 @@
                     <span class="icon-bar"></span>
                 </button>
                 <i class="fas fa-football-ball navbar-brand"></i>
-                @Html.ActionLink("SportBoard", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("SportBoard", "Index", "Feed", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Discover Feeds", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Discover Feeds", "Index", "Feeds")</li>
                     <li>@Html.ActionLink("Create Feed", "Create", "Feed")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")

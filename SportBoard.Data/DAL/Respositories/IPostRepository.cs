@@ -11,5 +11,7 @@ namespace SportBoard.Data.DAL.Respositories
         IQueryable<Post> GetTopFivePostsByComment();
 
         IQueryable<Post> GetTopFivePostsByLikes();
+
+        IQueryable<Post> SortPostsByRating(string sortOrder);
     }
 }

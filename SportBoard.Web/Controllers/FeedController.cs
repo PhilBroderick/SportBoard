@@ -33,24 +33,6 @@ namespace SportBoard.Web.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            //ViewBag.DailySortParm = String.IsNullOrEmpty(sortOrder) ? "daily" : "";
-            //ViewBag.WeeklySortParm = String.IsNullOrEmpty(sortOrder) ? "weekly" : "";
-            //ViewBag.MonthlySortParm = String.IsNullOrEmpty(sortOrder) ? "monthly" : "";
-            //var feeds = _context.Feed.ToList();
-
-            //switch (sortOrder)
-            //{
-            //    case "daily":
-            //        feeds = _feedRepository.GetTopFeedsOfCertainPeriod(1).ToList();
-            //        break;
-            //    case "weekly":
-            //        feeds = _feedRepository.GetTopFeedsOfCertainPeriod(7).ToList();
-            //        break;
-            //    case "monthly":
-            //        feeds = _feedRepository.GetTopFeedsOfCertainPeriod(30).ToList();
-            //        break;
-            //}
-
             var feeds = _context.Feed.ToList();
             feeds = _feedRepository.GetTopFeedsOfCertainPeriod(1).ToList();
             return View(feeds);
@@ -94,6 +76,10 @@ namespace SportBoard.Web.Controllers
 
         public ActionResult Details(int id)
         {
+            TempData["NewSort"] = "new";
+            TempData["HotSort"] = "hot";
+            TempData["BestSort"] = "best";
+
             var feed =_feedRepository.Get(id);
             var posts = _postRepository.Find(p => p.FeedId == id).ToList();
 

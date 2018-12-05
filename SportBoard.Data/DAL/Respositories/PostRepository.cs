@@ -27,5 +27,22 @@ namespace SportBoard.Data.DAL.Respositories
         {
             throw new NotImplementedException();
         }
+
+        public IQueryable<Post> SortPostsByRating(string sortOrder)
+        {
+            IQueryable<Post> posts;
+            if(sortOrder == "best")
+            {
+                posts = SportboardDbContext.Post.OrderByDescending(p => p.PostThumbsUpUserIds.Count).ThenByDescending(p => p.Comment.Count);
+            }
+            posts = SportboardDbContext.Post.OrderByDescending(p => p.PostThumbsUpUserIds.Count).ThenBy(p => p.PostThumbsDownUserIds.Count);
+
+            return posts;
+        }
+
+        public SportboardDbContext SportboardDbContext
+        {
+            get { return Context as SportboardDbContext; }
+        }
     }
 }
