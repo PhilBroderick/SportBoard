@@ -42,7 +42,7 @@
             <div class="panel-footer">
                 @comment.AspNetUsers.Email
                 <span class="updownVoteBtns">
-                    <a href="@Url.Action("Upvote", "Comment", new { commentId = comment.CommentId  })" title="Upvote" data-comment-id="@comment.CommentId" id="upVoteBtn">@comment.CommentUpvoteUserIds.Count()<i class="far fa-arrow-alt-circle-up fa-2x"></i></a><a href="@Url.Action("Downvote", "Comment", new { commentId = comment.CommentId  })" title="Downvote">@comment.CommentDownVoteUserIds.Count()<i class="far fa-arrow-alt-circle-down fa-2x"></i></a>
+                    @Html.Partial("UpvoteDownvoteBtns", comment)
                 </span>
             </div>
         </div>

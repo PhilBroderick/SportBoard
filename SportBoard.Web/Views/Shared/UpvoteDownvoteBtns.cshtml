@@ -1,0 +1,4 @@
+﻿@model SportBoard.Data.DAL.Comment
+
+<a href="@Url.Action("Upvote", "Comment", new { commentId = Model.CommentId  })" title="Upvote" data-comment-id="@Model.CommentId" id="upVoteBtn">@Model.CommentUpvoteUserIds.Count()<i class="far fa-arrow-alt-circle-up fa-2x"></i></a><a href="@Url.Action("Downvote", "Comment", new { commentId = Model.CommentId  })" title="Downvote">@Model.CommentDownVoteUserIds.Count()<i class="far fa-arrow-alt-circle-down fa-2x"></i></a>
+

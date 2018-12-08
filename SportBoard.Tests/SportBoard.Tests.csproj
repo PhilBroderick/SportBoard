@@ -108,7 +108,6 @@
   <ItemGroup>
     <Compile Include="BLL\CreateFeed.Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -125,6 +124,9 @@
       <Project>{B7712947-F79C-4CE9-9D41-A65A1F4C4016}</Project>
       <Name>SportBoard.Web</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
