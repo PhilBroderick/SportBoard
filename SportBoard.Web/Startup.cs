@@ -13,29 +13,29 @@ namespace SportBoard.Web
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            CreateRolesandUsers();
+           // CreateRolesandUsers();
         }
 
-        private void CreateRolesandUsers()
-        {
-            var context = new SportboardDbContext();
+        //private void CreateRolesandUsers()
+        //{
+        //    var context = new SportboardDbContext();
 
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            var userManger = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+        //    var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+        //    var userManger = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
-            if (!roleManager.RoleExists("Admin"))
-            {
-                var role = new IdentityRole();
-                role.Name = "Admin";
-                roleManager.Create(role);
-            }
+        //    if (!roleManager.RoleExists("Admin"))
+        //    {
+        //        var role = new IdentityRole();
+        //        role.Name = "Admin";
+        //        roleManager.Create(role);
+        //    }
 
-            if (!roleManager.RoleExists("User"))
-            {
-                var role = new IdentityRole();
-                role.Name = "User";
-                roleManager.Create(role);
-            }
-        }
+        //    if (!roleManager.RoleExists("User"))
+        //    {
+        //        var role = new IdentityRole();
+        //        role.Name = "User";
+        //        roleManager.Create(role);
+        //    }
+        //}
     }
 }
