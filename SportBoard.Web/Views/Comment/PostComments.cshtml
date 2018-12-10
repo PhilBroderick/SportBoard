@@ -9,7 +9,7 @@
     <div class="panel-footer">
         @comment.AspNetUsers.UserName
         <span class="updownVoteBtns">
-            @Html.Partial("UpvoteDownvoteBtns", comment)
+            @Html.Partial("~/Views/Shared/UpvoteDownvoteBtns.cshtml", comment)
         </span>
     </div>
     @if (User.IsInRole("Admin") || comment.AspNetUsers.Id == Model.CurrentUser.Id)

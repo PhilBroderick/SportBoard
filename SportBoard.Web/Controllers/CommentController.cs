@@ -56,7 +56,7 @@ namespace SportBoard.Web.Controllers
             return Json(new { Url = redirectUrl });
         }
 
-        public PartialViewResult Upvote(int commentId)
+        public ActionResult Upvote(int commentId)
         {
             var currentUserId = User.Identity.GetUserId();
             var currentUser = _userRepository.Find(u => u.Id == currentUserId).First();
@@ -67,10 +67,10 @@ namespace SportBoard.Web.Controllers
             var addUpvote = new Comments(_commentRepository, _unitOfWork, _postRepository);
             addUpvote.UpdateComment(comment);
 
-            return PartialView("UpvoteDownvoteBtns");
+            return RedirectToAction("Details", "Post", new { id = comment.PostId });
         }
 
-        public PartialViewResult Downvote(int commentId)
+        public ActionResult Downvote(int commentId)
         {
             var currentUserId = User.Identity.GetUserId();
             var currentUser = _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
@@ -81,7 +81,7 @@ namespace SportBoard.Web.Controllers
             var addDownvote = new Comments(_commentRepository, _unitOfWork, _postRepository);
             addDownvote.UpdateComment(comment);
 
-            return PartialView("UpvoteDownvoteBtns");
+            return RedirectToAction("Details", "Post", new { id = comment.PostId });
         }
 
         public ActionResult Delete(int id)
