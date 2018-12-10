@@ -25,7 +25,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Discover Feeds", "Index", "Feeds")</li>
                     <li>@Html.ActionLink("Create Feed", "Create", "Feed")</li>
-                    @if (User.IsInRole("Admin"))
+                    @if (User.IsInRole("Admin") || User.IsInRole("Support"))
                     {
                         <li>@Html.ActionLink("Manage","Index", "Admin")</li>
                     }

@@ -24,11 +24,16 @@
                     </tr>}
             </table>
         </td>
+        @if (User.IsInRole("Admin"))
+        {
+
         <td align="right" style="color:#FFFFFF;padding-right:10px;">
 
-
+           
             <h3>   @Html.ActionLink("Click to Create New Role", "CreateRole", "Admin") </h3>
         </td>
+
+        }
     </tr>
 </table>
 

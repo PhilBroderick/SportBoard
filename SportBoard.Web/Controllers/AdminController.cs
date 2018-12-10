@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using SportBoard.Data.DAL;
+using SportBoard.Web.BLL;
 using SportBoard.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Web.Mvc;
 
 namespace SportBoard.Web.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles ="Admin, Support")]
     public class AdminController : Controller
     {
         private ApplicationDbContext _context;
@@ -25,18 +26,20 @@ namespace SportBoard.Web.Controllers
         }
 
         // GET: Admin/AddRole
-
+        
         public ActionResult Roles()
         {
             var roles = _context.Roles.ToList();
             return View(roles);
         }
 
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult CreateRole()
         {
             return View();
         }
 
+        [CustomAuthorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult CreateRole(IdentityRole role)
         {
