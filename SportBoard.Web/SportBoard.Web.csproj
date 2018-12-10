@@ -227,6 +227,7 @@
     <Compile Include="BLL\CreateImage.cs" />
     <Compile Include="BLL\Posts.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -319,6 +320,9 @@
     <Content Include="Views\Post\Posts.cshtml" />
     <Content Include="Views\Shared\UpvoteDownvoteBtns.cshtml" />
     <Content Include="Views\Shared\ThumbsUpDownBtns.cshtml" />
+    <Content Include="Views\Admin\Roles.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\CreateRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

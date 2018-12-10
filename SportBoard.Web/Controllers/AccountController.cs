@@ -77,7 +77,7 @@ namespace SportBoard.Web.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -141,9 +141,6 @@ namespace SportBoard.Web.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            ViewBag.Name = new SelectList(_context.Roles.Where(u => !u.Name.Contains("Admin"))
-                                            .ToList(), "Name", "Name");
-
             return View();
         }
 
@@ -154,6 +151,8 @@ namespace SportBoard.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            var userRole = _context.Roles.Where(u => u.Name.Contains("User")).FirstOrDefault();
+
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
@@ -167,12 +166,11 @@ namespace SportBoard.Web.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
+                    await this.UserManager.AddToRoleAsync(user.Id, userRole.Name);
 
                     return RedirectToAction("Index", "Feed");
                 }
-                ViewBag.Name = new SelectList(_context.Roles.Where(u => !u.Name.Contains("Admin"))
-                                          .ToList(), "Name", "Name");
+
                 AddErrors(result);
             }
 
