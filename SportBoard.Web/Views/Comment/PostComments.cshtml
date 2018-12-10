@@ -1,0 +1,22 @@
+﻿@model SportBoard.Web.Models.ViewModels.CommentsCurrentUserViewModel
+
+@foreach (var comment in Model.Comments)
+    {
+<div class="panel panel-default panel-primary">
+    <div class="panel-body">
+        <p>@comment.CommentText</p>
+    </div>
+    <div class="panel-footer">
+        @comment.AspNetUsers.UserName
+        <span class="updownVoteBtns">
+            @Html.Partial("UpvoteDownvoteBtns", comment)
+        </span>
+    </div>
+    @if (User.IsInRole("Admin") || comment.AspNetUsers.Id == Model.CurrentUser.Id)
+    {
+        <div class="adminControls">
+            <a class="deleteComment" href="@Url.Action("Delete","Comment", new { id = comment.CommentId })"><i class="fas fa-trash-alt"></i></a>
+        </div>
+    }
+</div>
+    }

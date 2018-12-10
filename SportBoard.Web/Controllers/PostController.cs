@@ -36,14 +36,22 @@ namespace SportBoard.Web.Controllers
         {
             var post = _postRepository.Get(id);
             var comments = _commentRepository.Find(c => c.PostId == post.PostId).ToList();
+            var currentUserId = User.Identity.GetUserId();
+            var currentUser = _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
 
-            var postCommentVM = new PostCommentsViewModel
+            var commentCurrentUserVM = new CommentsCurrentUserViewModel
             {
-                Post = post,
-                Comments = comments
+                Comments = comments,
+                CurrentUser = currentUser
             };
 
-            return View(postCommentVM);
+            var postCommentUserVM = new PostCommentsCurrentUserViewModel
+            {
+                Post = post,
+                CommentsCurrentUserVM = commentCurrentUserVM
+            };
+
+            return View(postCommentUserVM);
         }
         
         public ActionResult Create(int feedId)

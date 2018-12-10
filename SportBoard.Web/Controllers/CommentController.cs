@@ -83,5 +83,16 @@ namespace SportBoard.Web.Controllers
 
             return PartialView("UpvoteDownvoteBtns");
         }
+
+        public ActionResult Delete(int id)
+        {
+            var comment = _commentRepository.Get(id);
+            var postIdForRedirect = comment.PostId;
+            
+            var removeComment = new Comments(_commentRepository, _unitOfWork, _postRepository);
+            removeComment.RemoveComment(comment);
+
+            return RedirectToAction("Details", "Post", new { id = postIdForRedirect }); 
+        }
     }
 }

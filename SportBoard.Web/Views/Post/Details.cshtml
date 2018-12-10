@@ -1,4 +1,4 @@
-﻿@model SportBoard.Web.Models.ViewModels.PostCommentsViewModel
+﻿@model SportBoard.Web.Models.ViewModels.PostCommentsCurrentUserViewModel
 @{
     ViewBag.Title = "Details";
 }
@@ -31,22 +31,9 @@
     </div>
 </form>
 <hr />
-@if (Model.Comments.Count != 0)
+@if (Model.CommentsCurrentUserVM.Comments.Count != 0)
 {
-    foreach (var comment in Model.Comments)
-    {
-        <div class="panel panel-default panel-primary">
-            <div class="panel-body">
-                <p>@comment.CommentText</p>
-            </div>
-            <div class="panel-footer">
-                @comment.AspNetUsers.Email
-                <span class="updownVoteBtns">
-                    @Html.Partial("UpvoteDownvoteBtns", comment)
-                </span>
-            </div>
-        </div>
-    }
+    @Html.Partial("~/Views/Comment/PostComments.cshtml", Model.CommentsCurrentUserVM)
 }
 else
 {

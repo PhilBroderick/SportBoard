@@ -32,5 +32,10 @@ namespace SportBoard.Web.BLL
             _unitOfWork.Complete();
         }
         
+        public void RemoveComment(Comment comment)
+        {
+            _unitOfWork.Comments.Remove(comment);
+            _unitOfWork.Complete();
+        }
     }
 }

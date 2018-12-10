@@ -6,13 +6,10 @@ using System.Web;
 
 namespace SportBoard.Web.Models.ViewModels
 {
-    public class PostCommentsViewModel
+    public class PostCommentsCurrentUserViewModel
     {
-        public PostCommentsViewModel()
-        {
-            Comments = new List<Comment>();
-        }
         public Post Post { get; set; }
-        public List<Comment> Comments { get; set; }
+
+        public CommentsCurrentUserViewModel CommentsCurrentUserVM { get; set; }
     }
 }
