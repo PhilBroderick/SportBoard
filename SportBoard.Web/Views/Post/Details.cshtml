@@ -15,6 +15,14 @@
         </div>
     </div>
 </div>
+@if(User.IsInRole("Admin") || Model.Post.UserId == Model.CommentsCurrentUserVM.CurrentUser.Id)
+{
+    <div class="row">
+        <div class="col-md-12">
+                <a class="deletePost" href="@Url.Action("Delete","Post", new { id = Model.Post.PostId })"><i class="fas fa-trash-alt"></i></a>
+        </div>
+    </div>
+}
 
 <form id="form">
     <div class="row">

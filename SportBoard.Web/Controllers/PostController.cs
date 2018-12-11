@@ -110,6 +110,16 @@ namespace SportBoard.Web.Controllers
             return HttpNotFound();
         }
 
+        public ActionResult Delete(int id)
+        {
+            var post = _postRepository.Get(id);
+
+            var removePost = new Posts(_feedRepository, _postRepository, _unitOfWork);
+            removePost.DeletePost(post);
+
+            return RedirectToAction("Index", "Feed");
+        }
+
         public PartialViewResult SortPostOrder(int feedId, string sortOrder)
         {
             var posts = _postRepository.Find(p => p.FeedId == feedId);

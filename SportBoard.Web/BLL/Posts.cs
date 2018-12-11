@@ -41,5 +41,11 @@ namespace SportBoard.Web.BLL
             _unitOfWork.Posts.Update(post);
             _unitOfWork.Complete();
         }
+
+        public void DeletePost(Post post)
+        {
+            _unitOfWork.Posts.Remove(post);
+            _unitOfWork.Complete();
+        }
     }
 }
