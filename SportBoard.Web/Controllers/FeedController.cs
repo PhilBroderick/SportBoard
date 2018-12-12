@@ -35,22 +35,31 @@ namespace SportBoard.Web.Controllers
         {
             var feeds = _context.Feed.ToList();
             feeds = _feedRepository.GetTopFeedsOfCertainPeriod(1).ToList();
-            return View(feeds);
+
+            var feedFilterSortVM = new FeedFilterSortOptionsVM
+            {
+                Feeds = feeds,
+                FilterOptions = FilterOptions.Today,
+                SortOptions = SortOptions.Hot
+            };
+            return View(feedFilterSortVM);
         }
 
-        public PartialViewResult FilterFeeds(string filterOrder)
+        public PartialViewResult FilterFeeds(int filterNum)
         {
             var feeds = _context.Feed.ToList();
 
-            switch (filterOrder)
+            var filterOption = (FilterOptions)filterNum;
+
+            switch (filterOption)
             {
-                case "daily":
+                case FilterOptions.Today:
                     feeds = _feedRepository.GetTopFeedsOfCertainPeriod(1).ToList();
                     break;
-                case "weekly":
+                case FilterOptions.LastWeek:
                     feeds = _feedRepository.GetTopFeedsOfCertainPeriod(7).ToList();
                     break;
-                case "monthly":
+                case FilterOptions.LastMonth:
                     feeds = _feedRepository.GetTopFeedsOfCertainPeriod(30).ToList();
                     break;
             }
@@ -58,20 +67,20 @@ namespace SportBoard.Web.Controllers
             return PartialView("Feeds", feeds);
         }
 
-        public PartialViewResult SortFeeds(string sortOrder, List<Feed> feeds)
+        public PartialViewResult SortFeeds(FeedFilterSortOptionsVM feedFilterSortOptionsVM)
         {
-            switch (sortOrder)
-            {
-                case "hot":
-                    break;
-                case "new":
-                    feeds = _feedRepository.SortFeedsByNewestFirst().ToList();
-                    break;
-                case "best":
-                    break;
-            }
+            //switch (sortOrder)
+            //{
+            //    case "hot":
+            //        break;
+            //    case "new":
+            //        feeds = _feedRepository.SortFeedsByNewestFirst().ToList();
+            //        break;
+            //    case "best":
+            //        break;
+            //}
 
-            return PartialView("Feeds", feeds);
+            return PartialView("Feeds");
         }
 
         public ActionResult Details(int id)

@@ -1,4 +1,4 @@
-﻿@model List<SportBoard.Data.DAL.Feed>
+﻿@model SportBoard.Web.Models.ViewModels.FeedFilterSortOptionsVM
 @{
     ViewBag.Title = "Home Page";
     ViewBag.DailySortParm = "daily";
@@ -31,8 +31,9 @@
         </ul>
     </div>
 </div>
+@Html.HiddenFor(m => m.FilterOptions)
 <div class="row feedView">
-    @Html.Partial("Feeds", Model)
+    @Html.Partial("Feeds", Model.Feeds)
 </div>
 
 @section Styles{
@@ -50,21 +51,21 @@
             }
 
         /* Add some padding inside the card container */
-        .container .headerTitle{
+        .container .headerTitle {
             padding: 1px 16px;
             width: 100%;
         }
 
-        .card img{
+        .card img {
             width: 100%;
         }
 
-        .container h4{
-            text-align:center;
-            text-transform:uppercase;
+        .container h4 {
+            text-align: center;
+            text-transform: uppercase;
             font-weight: 700;
         }
-    </style>    
+    </style>
 }
 
 @section Scripts {
@@ -74,16 +75,21 @@
         var weeklySort = $('.lastWeek');
         var monthlySort = $('.lastMonth');
 
+        function updateFilterOption(filterOption) {
+            document.getElementById('FilterOptions').value = filterOption;
+        }
+
         $('.today').click(function () {
             weeklySort.removeClass('active');
             monthlySort.removeClass('active');
             todaySort.addClass('active');
 
             $.ajax({
-                url: '@Url.Action("FilterFeeds", "Feed", new { filterOrder = ViewBag.DailySortParm })',
+                url: '@Url.Action("FilterFeeds", "Feed", new { filterNum = 0 })',
                 type: "GET",
                 dataType: "html",
                 success: function (data) {
+                    updateFilterOption(0);
                     $('.feedView').html(data);
                 }
             })
@@ -93,9 +99,10 @@
             todaySort.removeClass('active');
             monthlySort.removeClass('active');
             weeklySort.addClass('active');
+            updateFilterOption(1);
 
             $.ajax({
-                url: '@Url.Action("FilterFeeds", "Feed", new { filterOrder = ViewBag.WeeklySortParm })',
+                url: '@Url.Action("FilterFeeds", "Feed", new { filterNum = 1 })',
                 type: "GET",
                 dataType: "html",
                 success: function (data) {
@@ -108,9 +115,10 @@
             todaySort.removeClass('active');
             weeklySort.removeClass('active');
             monthlySort.addClass('active');
+            updateFilterOption(2);
 
             $.ajax({
-                url: '@Url.Action("FilterFeeds", "Feed", new { filterOrder = ViewBag.MonthlySortParm })',
+                url: '@Url.Action("FilterFeeds", "Feed", new { filterNum = 2 })',
                 type: "GET",
                 dataType: "html",
                 success: function (data) {
@@ -122,7 +130,7 @@
         $('.dropdown-menu a').click(function () {
             var logo = $(this).find('i')[0];
             console.log(logo);
-            
+
             $('#selected').text($(this).text());
         });
 
@@ -162,5 +170,5 @@
             })
         });
 
-    </script>    
+    </script>
 }

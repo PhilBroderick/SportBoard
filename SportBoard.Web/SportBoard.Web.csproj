@@ -226,7 +226,9 @@
     <Compile Include="BLL\CreateFeed.cs" />
     <Compile Include="BLL\CreateImage.cs" />
     <Compile Include="BLL\CustomAuthorize.cs" />
+    <Compile Include="BLL\FilterOptions.cs" />
     <Compile Include="BLL\Posts.cs" />
+    <Compile Include="BLL\SortOptions.cs" />
     <Compile Include="Controllers\AccessDeniedController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -244,6 +246,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\CommentsCurrentUserViewModel.cs" />
     <Compile Include="Models\ViewModels\FeedCardViewModel.cs" />
+    <Compile Include="Models\ViewModels\FeedFilterSortOptionsVM.cs" />
     <Compile Include="Models\ViewModels\FeedPostViewModel.cs" />
     <Compile Include="Models\ViewModels\PostCommentsCurrentUserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
