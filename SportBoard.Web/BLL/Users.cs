@@ -11,11 +11,13 @@ namespace SportBoard.Web.BLL
     {
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IUserPreferenceRepository _userPreferenceRepository;
 
-        public Users(IUserRepository userRepository, IUnitOfWork unitOfWork)
+        public Users(IUserRepository userRepository, IUnitOfWork unitOfWork, IUserPreferenceRepository userPreferenceRepository)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
+            _userPreferenceRepository = userPreferenceRepository;
         }
 
         public void UpdatePreferences(UserPreferences userPreferences)

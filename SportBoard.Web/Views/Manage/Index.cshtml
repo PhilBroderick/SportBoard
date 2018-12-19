@@ -135,6 +135,19 @@
 
 
         });
+            var radioBtns = $("[name=sortOptions]");
+
+        if (@Model.UserPreferences.SortOption != null) {
+
+        
+            if (@Model.UserPreferences.SortOption.ToString() == 'New') {
+                radioBtns.val(['New']);
+            } else if (@Model.UserPreferences.SortOption.ToString() === 'Hot') {
+                radioBtns.val(['Hot']);
+            } else if (@Model.UserPreferences.SortOption.ToString() == "Best") {
+                radioBtns.val(['Best']);
+            }
+        }
     </script>
 
 }

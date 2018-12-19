@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using SportBoard.Data.DAL;
 
 namespace SportBoard.Web.Models
 {
@@ -12,6 +13,8 @@ namespace SportBoard.Web.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+        
+        public UserPreferences UserPreferences { get; set; }
     }
 
     public class ManageLoginsViewModel

@@ -16,7 +16,7 @@ namespace SportBoard.Web.Controllers
         private UnitOfWork _unitOfWork;
         private PostRepository _postRepository;
         private CommentRepository _commentRepository;
-        private UserRepository _userRepository;
+        private Data.DAL.Respositories.UserRepository _userRepository;
 
         public CommentController()
         {
@@ -24,7 +24,7 @@ namespace SportBoard.Web.Controllers
             _unitOfWork = new UnitOfWork(_context);
             _postRepository = new PostRepository(_context);
             _commentRepository = new CommentRepository(_context);
-            _userRepository = new UserRepository(_context);
+            _userRepository = new Data.DAL.Respositories.UserRepository(_context);
         }
         
         public ActionResult Create(int postId)

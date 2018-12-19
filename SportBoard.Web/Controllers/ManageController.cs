@@ -20,12 +20,14 @@ namespace SportBoard.Web.Controllers
         private ApplicationUserManager _userManager;
         private SportboardDbContext _context;
         private UnitOfWork _uow;
+        private UserPreferenceRepository _userPreferenceRepository;
         private UserRepository _userRepository;
 
         public ManageController()
         {
             _context = new SportboardDbContext();
             _uow = new UnitOfWork(_context);
+            _userPreferenceRepository = new UserPreferenceRepository(_context);
             _userRepository = new UserRepository(_context);
         }
 
@@ -79,7 +81,8 @@ namespace SportBoard.Web.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                UserPreferences = _userPreferenceRepository.Find(up => up.UserId == userId).FirstOrDefault()
             };
             return View(model);
         }
@@ -343,7 +346,7 @@ namespace SportBoard.Web.Controllers
                 SortOption = sortOption
             };
 
-            var userPrefUpdate = new Users(_userRepository, _uow);
+            var userPrefUpdate = new Users(_userRepository, _uow, _userPreferenceRepository);
             userPrefUpdate.UpdatePreferences(userPrefs);
 
             return RedirectToAction("Index");
