@@ -62,5 +62,6 @@ namespace SportBoard.Data.DAL
         public virtual ICollection<Post> Post { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Post> Post1 { get; set; }
+        public virtual UserPreferences UserPreferences { get; set; }
     }
 }

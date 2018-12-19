@@ -29,6 +29,8 @@
         <AssociationConnector Association="SportboardModel.CommentUpvote" />
         <AssociationConnector Association="SportboardModel.PostThumbsDown" />
         <AssociationConnector Association="SportboardModel.PostThumbsUp" />
+        <EntityTypeShape EntityType="SportboardModel.UserPreferences" Width="1.5" PointX="5.25" PointY="0.75" />
+        <AssociationConnector Association="SportboardModel.FK_UserPreferences_AspNetUsers" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

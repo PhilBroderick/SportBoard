@@ -87,9 +87,11 @@
     <Compile Include="DAL\Respositories\ImageRepository.cs" />
     <Compile Include="DAL\Respositories\IPostRepository.cs" />
     <Compile Include="DAL\Respositories\IRepository.cs" />
+    <Compile Include="DAL\Respositories\IUserPreferenceRepository.cs" />
     <Compile Include="DAL\Respositories\IUserRepository.cs" />
     <Compile Include="DAL\Respositories\PostRepository.cs" />
     <Compile Include="DAL\Respositories\Repository.cs" />
+    <Compile Include="DAL\Respositories\UserPreferenceRepository.cs" />
     <Compile Include="DAL\Respositories\UserRepository.cs" />
     <Compile Include="DAL\SportBoardModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -110,6 +112,9 @@
       <DependentUpon>SportBoardModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\UnitOfWork.cs" />
+    <Compile Include="DAL\UserPreferences.cs">
+      <DependentUpon>SportBoardModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

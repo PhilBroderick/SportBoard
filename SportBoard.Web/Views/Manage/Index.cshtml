@@ -86,30 +86,55 @@
         <dt>Sort Options</dt>
         <dd>
             What would you like your default sort option to be?
-
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <span id="selected">Sort</span>
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li class="hot"><a href="#"><i class="fas fa-fire"></i>Hot</a></li>
-                    <li class="new"><a href="#"><i class="fab fa-earlybirds"></i>New</a></li>
-                    <li class="best"><a href="#"><i class="fas fa-certificate"></i>Best</a></li>
-                </ul>
-            </div>
+            <form id="preferenceForm">
+                <div class="form-group row">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="sortOptions" id="New" value="New">
+                        <label class="form-check-label" for="inlineRadio1">New</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="sortOptions" id="Hot" value="Hot">
+                        <label class="form-check-label" for="inlineRadio2">Hot</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="sortOptions" id="Best" value="Best">
+                        <label class="form-check-label" for="inlineRadio3">Best</label>
+                    </div>
+                </div>
+                <input type="submit" value="Update Preferences" id="submit" class="btn btn-primary" />
+            </form>
         </dd>
     </dl>
 </div>
 
 @section Scripts{
-<script>
-    $('.dropdown-menu a').click(function () {
-        var logo = $(this).find('i')[0];
-        console.log(logo);
+    <script>
+        $(document).ready(function () {
+            $('#preferenceForm').on("submit", function (e) {
 
-        $('#selected').text($(this).text());
-    });
-</script>
+                e.preventDefault();
+                var formData = new FormData();
+                var sortValue = $("input[name='sortOptions']:checked").val();
+                formData.append("sortOption", sortValue);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Manage/UpdatePreferences",
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+
+                    },
+                    error: function () {
+                        alert("Unknown error occured, please try again.");
+                    }
+                })
+            })
+
+
+        });
+    </script>
 
 }

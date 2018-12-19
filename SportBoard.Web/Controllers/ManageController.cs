@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using SportBoard.Data.DAL;
+using SportBoard.Data.DAL.Respositories;
+using SportBoard.Web.BLL;
 using SportBoard.Web.Models;
 
 namespace SportBoard.Web.Controllers
@@ -15,9 +18,15 @@ namespace SportBoard.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private SportboardDbContext _context;
+        private UnitOfWork _uow;
+        private UserRepository _userRepository;
 
         public ManageController()
         {
+            _context = new SportboardDbContext();
+            _uow = new UnitOfWork(_context);
+            _userRepository = new UserRepository(_context);
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -320,6 +329,24 @@ namespace SportBoard.Web.Controllers
             }
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
+        }
+
+        [HttpPost]
+        public ActionResult UpdatePreferences()
+        {
+            var userId = User.Identity.GetUserId();
+            var sortOption = Request.Params["sortOption"];
+;
+            var userPrefs = new UserPreferences
+            {
+                UserId = userId,
+                SortOption = sortOption
+            };
+
+            var userPrefUpdate = new Users(_userRepository, _uow);
+            userPrefUpdate.UpdatePreferences(userPrefs);
+
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

@@ -156,6 +156,14 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="UserPreferences">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="SortOption" Type="nvarchar" MaxLength="10" />
+          <Property Name="FilterOption" Type="nvarchar" MaxLength="10" />
+        </EntityType>
         <Association Name="FK_Comment_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
@@ -169,7 +177,9 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comment_Post">
-          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Post">
@@ -193,7 +203,9 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CommentDownvote_Comment">
-          <End Role="Comment" Type="Self.Comment" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="CommentDownvote" Type="Self.CommentDownvote" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comment">
@@ -217,7 +229,9 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CommentUpvote_Comment">
-          <End Role="Comment" Type="Self.Comment" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="CommentUpvote" Type="Self.CommentUpvote" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comment">
@@ -321,7 +335,9 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Post_Image">
-          <End Role="Image" Type="Self.Image" Multiplicity="1" />
+          <End Role="Image" Type="Self.Image" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Post" Type="Self.Post" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Image">
@@ -345,7 +361,9 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PostThumbsDown_Post">
-          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PostThumbsDown" Type="Self.PostThumbsDown" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Post">
@@ -369,7 +387,9 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PostThumbsUp_Post">
-          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PostThumbsUp" Type="Self.PostThumbsUp" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Post">
@@ -377,6 +397,20 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
             </Principal>
             <Dependent Role="PostThumbsUp">
               <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPreferences_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserPreferences" Type="Self.UserPreferences" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPreferences">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -392,10 +426,11 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CommentDownvote" EntityType="Self.CommentDownvote" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="CommentUpvote" EntityType="Self.CommentUpvote" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PostThumbsDown" EntityType="Self.PostThumbsDown" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PostThumbsUp" EntityType="Self.PostThumbsUp" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserPreferences" EntityType="Self.UserPreferences" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CommentDownvote" EntityType="Self.CommentDownvote" store:Type="Tables" store:Schema="dbo"/>
+          <EntitySet Name="CommentUpvote" EntityType="Self.CommentUpvote" store:Type="Tables" store:Schema="dbo"/>
+          <EntitySet Name="PostThumbsDown" EntityType="Self.PostThumbsDown" store:Type="Tables" store:Schema="dbo"/>
+          <EntitySet Name="PostThumbsUp" EntityType="Self.PostThumbsUp" store:Type="Tables" store:Schema="dbo" />
           <AssociationSet Name="FK_Comment_AspNetUsers" Association="Self.FK_Comment_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Comment" EntitySet="Comment" />
@@ -467,6 +502,10 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <AssociationSet Name="FK_PostThumbsUp_Post" Association="Self.FK_PostThumbsUp_Post">
             <End Role="Post" EntitySet="Post" />
             <End Role="PostThumbsUp" EntitySet="PostThumbsUp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPreferences_AspNetUsers" Association="Self.FK_UserPreferences_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="UserPreferences" EntitySet="UserPreferences" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -540,6 +579,11 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Post" EntitySet="Post" />
           </AssociationSet>
+          <EntitySet Name="UserPreferences" EntityType="SportboardModel.UserPreferences" />
+          <AssociationSet Name="FK_UserPreferences_AspNetUsers" Association="SportboardModel.FK_UserPreferences_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="UserPreferences" EntitySet="UserPreferences" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -606,6 +650,7 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <NavigationProperty Name="Comment2" Relationship="SportboardModel.CommentUpvote" FromRole="AspNetUsers" ToRole="Comment" />
           <NavigationProperty Name="Post" Relationship="SportboardModel.PostThumbsDown" FromRole="AspNetUsers" ToRole="Post" />
           <NavigationProperty Name="Post1" Relationship="SportboardModel.PostThumbsUp" FromRole="AspNetUsers" ToRole="Post" />
+          <NavigationProperty Name="UserPreferences" Relationship="SportboardModel.FK_UserPreferences_AspNetUsers" FromRole="AspNetUsers" ToRole="UserPreferences" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
@@ -804,6 +849,29 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
           <End Type="SportboardModel.Post" Role="Post" Multiplicity="*" />
         </Association>
+        <EntityType Name="UserPreferences">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="SortOption" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FilterOption" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="SportboardModel.FK_UserPreferences_AspNetUsers" FromRole="UserPreferences" ToRole="AspNetUsers" />
+        </EntityType>
+        <Association Name="FK_UserPreferences_AspNetUsers">
+          <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SportboardModel.UserPreferences" Role="UserPreferences" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPreferences">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -960,6 +1028,15 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="UserPreferences">
+            <EntityTypeMapping TypeName="SportboardModel.UserPreferences">
+              <MappingFragment StoreEntitySet="UserPreferences">
+                <ScalarProperty Name="FilterOption" ColumnName="FilterOption" />
+                <ScalarProperty Name="SortOption" ColumnName="SortOption" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

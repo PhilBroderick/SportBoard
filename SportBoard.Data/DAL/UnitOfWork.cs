@@ -19,6 +19,7 @@ namespace SportBoard.Data.DAL
             Images = new ImageRepository(_context);
             Posts = new PostRepository(_context);
             Users = new UserRepository(_context);
+            UserPreferences = new UserPreferenceRepository(_context);
         }
         public IFeedRepository Feeds { get; private set; }
         public ICommentRepository Comments { get; private set; }
@@ -26,6 +27,8 @@ namespace SportBoard.Data.DAL
         public IPostRepository Posts { get; private set; }
 
         public IUserRepository Users { get; private set; }
+
+        public IUserPreferenceRepository UserPreferences { get; private set; }
 
         public int Complete()
         {
