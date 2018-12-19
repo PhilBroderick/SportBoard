@@ -20,6 +20,7 @@ namespace SportBoard.Web.Controllers
         private ImageRepository _imageRepository;
         private FeedRepository _feedRepository;
         private PostRepository _postRepository;
+        private UserPreferenceRepository _userPreferenceRepository;
 
         public FeedController()
         {
@@ -28,21 +29,44 @@ namespace SportBoard.Web.Controllers
             _imageRepository = new ImageRepository(_context);
             _feedRepository = new FeedRepository(_context);
             _postRepository = new PostRepository(_context);
+            _userPreferenceRepository = new UserPreferenceRepository(_context);
         }
 
         [Authorize]
         public ActionResult Index()
         {
             var feeds = _context.Feed.ToList();
-            feeds = _feedRepository.GetTopFeedsOfCertainPeriod(7).ToList();
+            //feeds = _feedRepository.GetTopFeedsOfCertainPeriod(7).ToList();
+            var currentUserId = User.Identity.GetUserId();
+            var userPrefs = _userPreferenceRepository.Find(up => up.UserId == currentUserId).FirstOrDefault();
+            feeds = SortFeeds(userPrefs);
 
             var feedFilterSortVM = new FeedFilterSortOptionsVM
             {
                 Feeds = feeds,
-                FilterOptions = FilterOptions.LastWeek,
-                SortOptions = SortOptions.Best
+                UserPreferences = userPrefs
             };
             return View(feedFilterSortVM);
+        }
+
+        private List<Feed> SortFeeds(UserPreferences userPreferences)
+        {
+            var feeds = new List<Feed>();
+
+            switch (userPreferences.SortOption)
+            {
+                case "New":
+                    feeds = _feedRepository.SortFeedsByNewestFirst(feeds).ToList();
+                    break;
+                case "Best":
+                    feeds = _feedRepository.SortFeedsByRating(SortOptions.Best.ToString(), feeds).ToList();
+                    break;
+                case "Hot":
+                    feeds = _feedRepository.SortFeedsByRating(SortOptions.Hot.ToString(), feeds).ToList();
+                    break;
+            }
+
+            return feeds;
         }
 
         public ActionResult SortFilterFeeds(int filterNum, int sortNum)
