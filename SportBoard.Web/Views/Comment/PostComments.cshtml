@@ -15,6 +15,7 @@
     @if (User.IsInRole("Admin") || comment.AspNetUsers.Id == Model.CurrentUser.Id)
     {
         <div class="adminControls">
+            <a class="editComment" href="@Url.Action("Edit","Comment", new { id = comment.CommentId })" ><i class="fas fa-pencil-alt"></i></a>
             <a class="deleteComment" href="@Url.Action("Delete", "Comment", new { id = comment.CommentId })"><i class="fas fa-trash-alt"></i></a>
         </div>
     }

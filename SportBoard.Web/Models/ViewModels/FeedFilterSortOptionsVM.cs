@@ -10,7 +10,7 @@ namespace SportBoard.Web.Models.ViewModels
     public class FeedFilterSortOptionsVM
     {
         public List<Feed> Feeds { get; set; }
-        public FilterOptions FilterOptions { get; set; }
+        public FilterOptions? FilterOptions { get; set; }
         public SortOptions SortOptions { get; set; }
     }
 }

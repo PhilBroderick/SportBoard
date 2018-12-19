@@ -31,20 +31,25 @@ namespace SportBoard.Data.DAL.Respositories
             return true;
         }
 
-        public IEnumerable<Feed> SortFeedsByNewestFirst()
+        public IEnumerable<Feed> SortFeedsByNewestFirst(List<Feed> feeds)
         {
-            var feeds = SportboardDbContext.Feed.OrderByDescending(f => f.CreatedOn);
+            if(feeds.Count > 0)
+                feeds = feeds.OrderByDescending(f => f.CreatedOn).ToList();
+
+            feeds = SportboardDbContext.Feed.OrderByDescending(f => f.CreatedOn).ToList();
 
             return feeds;
         }
 
-        public IEnumerable<Feed> SortFeedsByRating(string sortOrder)
+        public IEnumerable<Feed> SortFeedsByRating(string sortOrder, List<Feed> feeds)
         {
             //if(sortOrder == "best")
             //{
             //    var feeds = SportboardDbContext.Feed.Where(f => f.)
             //}
-            throw new NotImplementedException();
+            feeds = SportboardDbContext.Feed.Where(f => f.Post.Count() >= 3).ToList();
+
+            return feeds;
         }
 
         public SportboardDbContext SportboardDbContext

@@ -34,22 +34,22 @@ namespace SportBoard.Web.Controllers
         public ActionResult Index()
         {
             var feeds = _context.Feed.ToList();
-            feeds = _feedRepository.GetTopFeedsOfCertainPeriod(1).ToList();
+            feeds = _feedRepository.GetTopFeedsOfCertainPeriod(7).ToList();
 
             var feedFilterSortVM = new FeedFilterSortOptionsVM
             {
                 Feeds = feeds,
-                FilterOptions = FilterOptions.Today,
-                SortOptions = SortOptions.Hot
+                FilterOptions = FilterOptions.LastWeek,
+                SortOptions = SortOptions.Best
             };
             return View(feedFilterSortVM);
         }
 
-        public PartialViewResult FilterFeeds(int filterNum)
+        public ActionResult SortFilterFeeds(int filterNum, int sortNum)
         {
-            var feeds = _context.Feed.ToList();
-
+            var feeds = new List<Feed>();
             var filterOption = (FilterOptions)filterNum;
+            var sortOption = (SortOptions)sortNum;
 
             switch (filterOption)
             {
@@ -64,24 +64,77 @@ namespace SportBoard.Web.Controllers
                     break;
             }
 
-            return PartialView("Feeds", feeds);
+            switch (sortOption)
+            {
+                case SortOptions.New:
+                    feeds = _feedRepository.SortFeedsByNewestFirst(feeds).ToList();
+                    break;
+                case SortOptions.Best:
+                    feeds = _feedRepository.SortFeedsByRating(SortOptions.Best.ToString(), feeds).ToList();
+                    break;
+                case SortOptions.Hot:
+                    feeds = _feedRepository.SortFeedsByRating(SortOptions.Hot.ToString(), feeds).ToList();
+                    break;
+            }
+
+            var feedFilterSortVM = new FeedFilterSortOptionsVM
+            {
+                Feeds = feeds,
+                FilterOptions = filterOption,
+                SortOptions = sortOption
+            };
+
+            return View("Index", feedFilterSortVM);
         }
 
-        public PartialViewResult SortFeeds(FeedFilterSortOptionsVM feedFilterSortOptionsVM)
+        public PartialViewResult SortFeeds(int sortNum)
         {
-            //switch (sortOrder)
-            //{
-            //    case "hot":
-            //        break;
-            //    case "new":
-            //        feeds = _feedRepository.SortFeedsByNewestFirst().ToList();
-            //        break;
-            //    case "best":
-            //        break;
-            //}
+            var feeds = new List<Feed>();
+            var sortOption = (SortOptions)sortNum;
 
-            return PartialView("Feeds");
+            switch (sortOption)
+            {
+                case SortOptions.New:
+                    feeds = _feedRepository.SortFeedsByNewestFirst(feeds).ToList();
+                    break;
+                case SortOptions.Best:
+                    //
+                    break;
+                case SortOptions.Hot:
+                    feeds = _feedRepository.SortFeedsByRating(SortOptions.Hot.ToString(), feeds).ToList();
+                    break;
+            }
+
+            return PartialView("Feeds", feeds);
+
         }
+        //public ActionResult FilterFeeds(int filterNum)
+        //{
+        //    var feeds = new List<Feed>();
+
+        //    var filterOption = (FilterOptions)filterNum;
+
+        //    switch (filterOption)
+        //    {
+        //        case FilterOptions.Today:
+        //            feeds = _feedRepository.GetTopFeedsOfCertainPeriod(1).ToList();
+        //            break;
+        //        case FilterOptions.LastWeek:
+        //            feeds = _feedRepository.GetTopFeedsOfCertainPeriod(7).ToList();
+        //            break;
+        //        case FilterOptions.LastMonth:
+        //            feeds = _feedRepository.GetTopFeedsOfCertainPeriod(30).ToList();
+        //            break;
+        //    }
+
+        //    var feedFilterSortVM = new FeedFilterSortOptionsVM
+        //    {
+        //        Feeds = feeds,
+        //        FilterOptions = FilterOpti
+        //    }
+
+        //    return View("Feeds", feeds);
+        //}
 
         public ActionResult Details(int id)
         {
@@ -140,7 +193,8 @@ namespace SportBoard.Web.Controllers
             {
                 FeedName = feedName,
                 UserId = currentUserId,
-                ImageId = image.ImageId
+                ImageId = image.ImageId,
+                CreatedOn = DateTime.Now
             });
 
             if (feedCreated)

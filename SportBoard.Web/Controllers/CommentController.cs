@@ -84,6 +84,23 @@ namespace SportBoard.Web.Controllers
             return RedirectToAction("Details", "Post", new { id = comment.PostId });
         }
 
+        public ActionResult Edit(int id)
+        {
+            var comment = _commentRepository.Get(id);
+            return View(comment);
+        }
+
+        [HttpPost]
+        public ActionResult Edit([Bind(Include = "CommentId, PostId, AspNetUsers, commentText")] Comment comment)
+        {
+            if (ModelState.IsValid)
+            {
+                var comments = new Comments(_commentRepository, _unitOfWork, _postRepository);
+                comments.UpdateComment(comment);
+            }
+
+            return View("Details", "Post", new { id = comment.PostId });
+        }
         public ActionResult Delete(int id)
         {
             var comment = _commentRepository.Get(id);
