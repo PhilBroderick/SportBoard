@@ -61,11 +61,16 @@ namespace SportBoard.Web.Controllers
             var currentUser = GetCurrentUser();
             var comment = _commentRepository.Get(commentId);
 
-            CheckIfUserHasVoted(currentUser, comment);
+            var hasVoted = CheckIfUserHasVoted(currentUser, comment, VotingEnums.CommentVotingEnum.Upvote);
+
+            if (!hasVoted)
+                comment.CommentUpvoteUserIds.Add(currentUser);
+
+            UpdateVotes(comment);
             //comment.CommentUpvoteUserIds.Add(currentUser);
 
-            var addUpvote = new Comments(_commentRepository, _unitOfWork, _postRepository);
-            addUpvote.UpdateComment(comment);
+            //var addUpvote = new Comments(_commentRepository, _unitOfWork, _postRepository);
+            //addUpvote.UpdateComment(comment);
 
             return RedirectToAction("Details", "Post", new { id = comment.PostId });
         }
@@ -75,11 +80,16 @@ namespace SportBoard.Web.Controllers
             var currentUser = GetCurrentUser();
             var comment = _commentRepository.Get(commentId);
 
-            CheckIfUserHasVoted(currentUser, comment);
+            var hasVoted = CheckIfUserHasVoted(currentUser, comment, VotingEnums.CommentVotingEnum.Downvote);
+
+            if (!hasVoted)
+                comment.CommentDownVoteUserIds.Add(currentUser);
+
+            UpdateVotes(comment);
             //comment.CommentDownVoteUserIds.Add(currentUser);
 
-            var addDownvote = new Comments(_commentRepository, _unitOfWork, _postRepository);
-            addDownvote.UpdateComment(comment);
+            //var addDownvote = new Comments(_commentRepository, _unitOfWork, _postRepository);
+            //addDownvote.UpdateComment(comment);
 
             return RedirectToAction("Details", "Post", new { id = comment.PostId });
         }
@@ -121,18 +131,38 @@ namespace SportBoard.Web.Controllers
             return _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
         }
 
-        private void CheckIfUserHasVoted(AspNetUsers user, Comment comment)
+        private bool CheckIfUserHasVoted(AspNetUsers user, Comment comment, VotingEnums.CommentVotingEnum votingEnum)
         {
-            if (comment.CommentUpvoteUserIds.Contains(user))
+            if (comment.CommentUpvoteUserIds.Contains(user) && votingEnum.Equals(VotingEnums.CommentVotingEnum.Downvote))
             {
                 comment.CommentUpvoteUserIds.Remove(user);
                 comment.CommentDownVoteUserIds.Add(user);
+                return true;
             }
-            else if (comment.CommentDownVoteUserIds.Contains(user))
+            else if (comment.CommentDownVoteUserIds.Contains(user) && votingEnum.Equals(VotingEnums.CommentVotingEnum.Upvote))
             {
                 comment.CommentDownVoteUserIds.Remove(user);
                 comment.CommentUpvoteUserIds.Add(user);
+                return true;
             }
+            else if (comment.CommentUpvoteUserIds.Contains(user) && votingEnum.Equals(VotingEnums.CommentVotingEnum.Upvote))
+            {
+                comment.CommentUpvoteUserIds.Remove(user);
+                return true;
+            }
+            else if (comment.CommentDownVoteUserIds.Contains(user) && votingEnum.Equals(VotingEnums.CommentVotingEnum.Downvote))
+            {
+                comment.CommentDownVoteUserIds.Remove(user);
+                return true;
+            }
+            return false;
+        }
+
+        private void UpdateVotes(Comment comment)
+        {
+            var updateVotes = new Comments(_commentRepository, _unitOfWork, _postRepository);
+
+            updateVotes.UpdateComment(comment);
         }
     }
 }

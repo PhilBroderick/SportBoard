@@ -149,8 +149,6 @@ namespace SportBoard.Web.Controllers
 
             var currentUrl = Request.UrlReferrer.AbsolutePath;
 
-            //var addThumbsUp = new Posts(_feedRepository, _postRepository, _unitOfWork);
-            //addThumbsUp.UpdatePost(post);
             UpdateVotes(post);
 
             return Redirect(currentUrl);
@@ -168,9 +166,7 @@ namespace SportBoard.Web.Controllers
                 post.PostThumbsDownUserIds.Add(currentUser);
 
             var currentUrl = Request.UrlReferrer.AbsolutePath;
-
-            //var addThumbsDown = new Posts(_feedRepository, _postRepository, _unitOfWork);
-            //addThumbsDown.UpdatePost(post);
+            
             UpdateVotes(post);
 
             return Redirect(currentUrl);
