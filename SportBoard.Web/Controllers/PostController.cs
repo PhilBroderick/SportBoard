@@ -143,13 +143,14 @@ namespace SportBoard.Web.Controllers
             var currentUser = _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
 
             var post = _postRepository.Get(postId);
+            var currentUrl = Request.UrlReferrer.AbsolutePath;
 
             post.PostThumbsUpUserIds.Add(currentUser);
 
             var addThumbsUp = new Posts(_feedRepository, _postRepository, _unitOfWork);
             addThumbsUp.UpdatePost(post);
 
-            return View();
+            return Redirect(currentUrl);
         }
 
         public ActionResult ThumbsDownPost(int postId)
