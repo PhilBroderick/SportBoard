@@ -61,7 +61,8 @@ namespace SportBoard.Web.Controllers
             var currentUser = GetCurrentUser();
             var comment = _commentRepository.Get(commentId);
 
-            comment.CommentUpvoteUserIds.Add(currentUser);
+            CheckIfUserHasVoted(currentUser, comment);
+            //comment.CommentUpvoteUserIds.Add(currentUser);
 
             var addUpvote = new Comments(_commentRepository, _unitOfWork, _postRepository);
             addUpvote.UpdateComment(comment);
@@ -74,7 +75,8 @@ namespace SportBoard.Web.Controllers
             var currentUser = GetCurrentUser();
             var comment = _commentRepository.Get(commentId);
 
-            comment.CommentDownVoteUserIds.Add(currentUser);
+            CheckIfUserHasVoted(currentUser, comment);
+            //comment.CommentDownVoteUserIds.Add(currentUser);
 
             var addDownvote = new Comments(_commentRepository, _unitOfWork, _postRepository);
             addDownvote.UpdateComment(comment);
@@ -117,6 +119,20 @@ namespace SportBoard.Web.Controllers
             var currentUserId = User.Identity.GetUserId();
 
             return _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
+        }
+
+        private void CheckIfUserHasVoted(AspNetUsers user, Comment comment)
+        {
+            if (comment.CommentUpvoteUserIds.Contains(user))
+            {
+                comment.CommentUpvoteUserIds.Remove(user);
+                comment.CommentDownVoteUserIds.Add(user);
+            }
+            else if (comment.CommentDownVoteUserIds.Contains(user))
+            {
+                comment.CommentDownVoteUserIds.Remove(user);
+                comment.CommentUpvoteUserIds.Add(user);
+            }
         }
     }
 }

@@ -141,12 +141,17 @@ namespace SportBoard.Web.Controllers
             var currentUser = GetCurrentUser();
 
             var post = _postRepository.Get(postId);
-            post.PostThumbsUpUserIds.Add(currentUser);
+
+            var hasVoted = CheckIfUserHasVoted(currentUser, post, VotingEnums.PostVotingEnum.ThumbsUp);
+
+            if (!hasVoted)
+                post.PostThumbsUpUserIds.Add(currentUser);
 
             var currentUrl = Request.UrlReferrer.AbsolutePath;
 
-            var addThumbsUp = new Posts(_feedRepository, _postRepository, _unitOfWork);
-            addThumbsUp.UpdatePost(post);
+            //var addThumbsUp = new Posts(_feedRepository, _postRepository, _unitOfWork);
+            //addThumbsUp.UpdatePost(post);
+            UpdateVotes(post);
 
             return Redirect(currentUrl);
         }
@@ -156,12 +161,17 @@ namespace SportBoard.Web.Controllers
             var currentUser = GetCurrentUser();
 
             var post = _postRepository.Get(postId);
-            post.PostThumbsDownUserIds.Add(currentUser);
-            
+
+            var hasVoted = CheckIfUserHasVoted(currentUser, post, VotingEnums.PostVotingEnum.ThumbsDown);
+
+            if (!hasVoted)
+                post.PostThumbsDownUserIds.Add(currentUser);
+
             var currentUrl = Request.UrlReferrer.AbsolutePath;
 
-            var addThumbsDown = new Posts(_feedRepository, _postRepository, _unitOfWork);
-            addThumbsDown.UpdatePost(post);
+            //var addThumbsDown = new Posts(_feedRepository, _postRepository, _unitOfWork);
+            //addThumbsDown.UpdatePost(post);
+            UpdateVotes(post);
 
             return Redirect(currentUrl);
         }
@@ -173,6 +183,40 @@ namespace SportBoard.Web.Controllers
             var currentUserId = User.Identity.GetUserId();
 
             return _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
+        }
+
+        private bool CheckIfUserHasVoted(AspNetUsers user, Post post, VotingEnums.PostVotingEnum votingEnum)
+        {
+            if (post.PostThumbsUpUserIds.Contains(user) && votingEnum.Equals(VotingEnums.PostVotingEnum.ThumbsDown))
+            {
+                post.PostThumbsUpUserIds.Remove(user);
+                post.PostThumbsDownUserIds.Add(user);
+                return true;
+            }
+            else if (post.PostThumbsDownUserIds.Contains(user) && votingEnum.Equals(VotingEnums.PostVotingEnum.ThumbsUp))
+            {
+                post.PostThumbsDownUserIds.Remove(user);
+                post.PostThumbsUpUserIds.Add(user);
+                return true;
+            } 
+            else if (post.PostThumbsUpUserIds.Contains(user) && votingEnum.Equals(VotingEnums.PostVotingEnum.ThumbsUp))
+            {
+                post.PostThumbsUpUserIds.Remove(user);
+                return true;
+            }
+            else if (post.PostThumbsDownUserIds.Contains(user) && votingEnum.Equals(VotingEnums.PostVotingEnum.ThumbsDown))
+            {
+                post.PostThumbsDownUserIds.Remove(user);
+                return true;
+            }
+            return false;
+        }
+
+        private void UpdateVotes(Post post)
+        {
+            var updateVotes = new Posts(_feedRepository, _postRepository, _unitOfWork);
+
+            updateVotes.UpdatePost(post);
         }
     }
 }
