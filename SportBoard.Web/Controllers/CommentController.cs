@@ -67,10 +67,6 @@ namespace SportBoard.Web.Controllers
                 comment.CommentUpvoteUserIds.Add(currentUser);
 
             UpdateVotes(comment);
-            //comment.CommentUpvoteUserIds.Add(currentUser);
-
-            //var addUpvote = new Comments(_commentRepository, _unitOfWork, _postRepository);
-            //addUpvote.UpdateComment(comment);
 
             return RedirectToAction("Details", "Post", new { id = comment.PostId });
         }
@@ -86,10 +82,6 @@ namespace SportBoard.Web.Controllers
                 comment.CommentDownVoteUserIds.Add(currentUser);
 
             UpdateVotes(comment);
-            //comment.CommentDownVoteUserIds.Add(currentUser);
-
-            //var addDownvote = new Comments(_commentRepository, _unitOfWork, _postRepository);
-            //addDownvote.UpdateComment(comment);
 
             return RedirectToAction("Details", "Post", new { id = comment.PostId });
         }
@@ -101,15 +93,17 @@ namespace SportBoard.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "CommentId, PostId, AspNetUsers, commentText")] Comment comment)
+        public ActionResult Edit([Bind(Include = "CommentId, PostId, UserId, commentText")] Comment comment)
         {
+            var postIdForRedirect = comment.PostId;
+
             if (ModelState.IsValid)
             {
                 var comments = new Comments(_commentRepository, _unitOfWork, _postRepository);
                 comments.UpdateComment(comment);
             }
 
-            return View("Details", "Post", new { id = comment.PostId });
+            return RedirectToAction("Details", "Post", new { id = postIdForRedirect });
         }
         public ActionResult Delete(int id)
         {

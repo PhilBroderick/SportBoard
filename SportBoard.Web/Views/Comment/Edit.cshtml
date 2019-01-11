@@ -14,7 +14,7 @@
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.CommentId)
         @Html.HiddenFor(model => model.PostId)
-        @Html.HiddenFor(model => model.AspNetUsers)
+        @Html.HiddenFor(model => model.UserId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.CommentText, new { @class = "control-label col-md-2"})
