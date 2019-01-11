@@ -53,18 +53,23 @@ namespace SportBoard.Web.Controllers
         {
             var feeds = new List<Feed>();
 
-            switch (userPreferences.SortOption)
+            if(userPreferences != null)
             {
-                case "New":
-                    feeds = _feedRepository.SortFeedsByNewestFirst(feeds).ToList();
-                    break;
-                case "Best":
-                    feeds = _feedRepository.SortFeedsByRating(SortOptions.Best.ToString(), feeds).ToList();
-                    break;
-                case "Hot":
-                    feeds = _feedRepository.SortFeedsByRating(SortOptions.Hot.ToString(), feeds).ToList();
-                    break;
+                switch (userPreferences.SortOption)
+                {
+                    case "New":
+                        feeds = _feedRepository.SortFeedsByNewestFirst(feeds).ToList();
+                        break;
+                    case "Best":
+                        feeds = _feedRepository.SortFeedsByRating(SortOptions.Best.ToString(), feeds).ToList();
+                        break;
+                    case "Hot":
+                        feeds = _feedRepository.SortFeedsByRating(SortOptions.Hot.ToString(), feeds).ToList();
+                        break;
+                }
             }
+            feeds = _feedRepository.SortFeedsByRating(SortOptions.Hot.ToString(), feeds).ToList();
+
 
             return feeds;
         }
@@ -223,7 +228,7 @@ namespace SportBoard.Web.Controllers
 
             if (feedCreated)
             {
-                var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "Home");
+                var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "Feed");
                 return Json(new { Url = redirectUrl });
             }
 

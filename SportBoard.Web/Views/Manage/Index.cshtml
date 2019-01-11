@@ -135,11 +135,11 @@
 
 
         });
-            var radioBtns = $("[name=sortOptions]");
+        var radioBtns = $("[name=sortOptions]");
 
-        if (@Model.UserPreferences.SortOption != null) {
+        if (@Model.UserPreferences !== null) {
 
-        
+
             if (@Model.UserPreferences.SortOption.ToString() == 'New') {
                 radioBtns.val(['New']);
             } else if (@Model.UserPreferences.SortOption.ToString() === 'Hot') {
@@ -147,6 +147,9 @@
             } else if (@Model.UserPreferences.SortOption.ToString() == "Best") {
                 radioBtns.val(['Best']);
             }
+        }
+        else {
+            radioBtns.val(['Hot']);
         }
     </script>
 
