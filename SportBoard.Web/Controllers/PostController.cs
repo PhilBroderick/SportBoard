@@ -36,8 +36,7 @@ namespace SportBoard.Web.Controllers
         {
             var post = _postRepository.Get(id);
             var comments = _commentRepository.Find(c => c.PostId == post.PostId).ToList();
-            var currentUserId = User.Identity.GetUserId();
-            var currentUser = _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
+            var currentUser = GetCurrentUser();
 
             var commentCurrentUserVM = new CommentsCurrentUserViewModel
             {
@@ -139,13 +138,12 @@ namespace SportBoard.Web.Controllers
 
         public ActionResult ThumbsUpPost(int postId)
         {
-            var currentUserId = User.Identity.GetUserId();
-            var currentUser = _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
+            var currentUser = GetCurrentUser();
 
             var post = _postRepository.Get(postId);
-            var currentUrl = Request.UrlReferrer.AbsolutePath;
-
             post.PostThumbsUpUserIds.Add(currentUser);
+
+            var currentUrl = Request.UrlReferrer.AbsolutePath;
 
             var addThumbsUp = new Posts(_feedRepository, _postRepository, _unitOfWork);
             addThumbsUp.UpdatePost(post);
@@ -155,16 +153,26 @@ namespace SportBoard.Web.Controllers
 
         public ActionResult ThumbsDownPost(int postId)
         {
-            var currentUserId = User.Identity.GetUserId();
-            var currentUser = _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
+            var currentUser = GetCurrentUser();
 
             var post = _postRepository.Get(postId);
             post.PostThumbsDownUserIds.Add(currentUser);
+            
+            var currentUrl = Request.UrlReferrer.AbsolutePath;
 
             var addThumbsDown = new Posts(_feedRepository, _postRepository, _unitOfWork);
             addThumbsDown.UpdatePost(post);
 
-            return View();
+            return Redirect(currentUrl);
+        }
+
+        //Helper Methods
+
+        private AspNetUsers GetCurrentUser()
+        {
+            var currentUserId = User.Identity.GetUserId();
+
+            return _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
         }
     }
 }

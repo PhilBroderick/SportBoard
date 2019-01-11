@@ -58,8 +58,7 @@ namespace SportBoard.Web.Controllers
 
         public ActionResult Upvote(int commentId)
         {
-            var currentUserId = User.Identity.GetUserId();
-            var currentUser = _userRepository.Find(u => u.Id == currentUserId).First();
+            var currentUser = GetCurrentUser();
             var comment = _commentRepository.Get(commentId);
 
             comment.CommentUpvoteUserIds.Add(currentUser);
@@ -72,8 +71,7 @@ namespace SportBoard.Web.Controllers
 
         public ActionResult Downvote(int commentId)
         {
-            var currentUserId = User.Identity.GetUserId();
-            var currentUser = _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
+            var currentUser = GetCurrentUser();
             var comment = _commentRepository.Get(commentId);
 
             comment.CommentDownVoteUserIds.Add(currentUser);
@@ -110,6 +108,15 @@ namespace SportBoard.Web.Controllers
             removeComment.RemoveComment(comment);
 
             return RedirectToAction("Details", "Post", new { id = postIdForRedirect }); 
+        }
+        
+        //Helper Methods
+
+        private AspNetUsers GetCurrentUser()
+        {
+            var currentUserId = User.Identity.GetUserId();
+
+            return _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
         }
     }
 }
