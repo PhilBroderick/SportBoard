@@ -31,6 +31,9 @@
         <AssociationConnector Association="SportboardModel.PostThumbsUp" />
         <EntityTypeShape EntityType="SportboardModel.UserPreferences" Width="1.5" PointX="5.25" PointY="0.75" />
         <AssociationConnector Association="SportboardModel.FK_UserPreferences_AspNetUsers" />
+        <EntityTypeShape EntityType="SportboardModel.DeletionRequest" Width="1.5" PointX="9.75" PointY="6.25" />
+        <AssociationConnector Association="SportboardModel.FK_DeletionRequest_AspNetUsers" />
+        <AssociationConnector Association="SportboardModel.FK_DeletionRequest_Feed" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

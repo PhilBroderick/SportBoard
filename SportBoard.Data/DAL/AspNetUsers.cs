@@ -27,6 +27,7 @@ namespace SportBoard.Data.DAL
             this.Comment2 = new HashSet<Comment>();
             this.Post = new HashSet<Post>();
             this.Post1 = new HashSet<Post>();
+            this.DeletionRequest = new HashSet<DeletionRequest>();
         }
     
         public string Id { get; set; }
@@ -63,5 +64,7 @@ namespace SportBoard.Data.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Post> Post1 { get; set; }
         public virtual UserPreferences UserPreferences { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeletionRequest> DeletionRequest { get; set; }
     }
 }

@@ -36,5 +36,6 @@ namespace SportBoard.Data.DAL
         public virtual DbSet<Post> Post { get; set; }
         public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<UserPreferences> UserPreferences { get; set; }
+        public virtual DbSet<DeletionRequest> DeletionRequest { get; set; }
     }
 }

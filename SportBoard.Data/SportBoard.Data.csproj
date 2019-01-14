@@ -68,6 +68,9 @@
     <Compile Include="DAL\C__MigrationHistory.cs">
       <DependentUpon>SportBoardModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\DeletionRequest.cs">
+      <DependentUpon>SportBoardModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\DTOs\ImageDTO.cs" />
     <Compile Include="DAL\Feed.cs">
       <DependentUpon>SportBoardModel.tt</DependentUpon>

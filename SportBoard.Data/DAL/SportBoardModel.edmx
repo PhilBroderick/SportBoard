@@ -95,6 +95,16 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
           <Property Name="CommentId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <EntityType Name="DeletionRequest">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FeedId" Type="int" Nullable="false" />
+          <Property Name="ReasonForDeletion" Type="text" />
+          <Property Name="RequestFulfilled" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Feed">
           <Key>
             <PropertyRef Name="FeedId" />
@@ -298,6 +308,32 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DeletionRequest_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="DeletionRequest" Type="Self.DeletionRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DeletionRequest">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeletionRequest_Feed">
+          <End Role="Feed" Type="Self.Feed" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DeletionRequest" Type="Self.DeletionRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feed">
+              <PropertyRef Name="FeedId" />
+            </Principal>
+            <Dependent Role="DeletionRequest">
+              <PropertyRef Name="FeedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Feed_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Feed" Type="Self.Feed" Multiplicity="*" />
@@ -422,6 +458,7 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeletionRequest" EntityType="Self.DeletionRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Feed" EntityType="Self.Feed" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
@@ -470,6 +507,14 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeletionRequest_AspNetUsers" Association="Self.FK_DeletionRequest_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="DeletionRequest" EntitySet="DeletionRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeletionRequest_Feed" Association="Self.FK_DeletionRequest_Feed">
+            <End Role="Feed" EntitySet="Feed" />
+            <End Role="DeletionRequest" EntitySet="DeletionRequest" />
           </AssociationSet>
           <AssociationSet Name="FK_Feed_AspNetUsers" Association="Self.FK_Feed_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -584,6 +629,15 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="UserPreferences" EntitySet="UserPreferences" />
           </AssociationSet>
+          <EntitySet Name="DeletionRequest" EntityType="SportboardModel.DeletionRequest" />
+          <AssociationSet Name="FK_DeletionRequest_AspNetUsers" Association="SportboardModel.FK_DeletionRequest_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="DeletionRequest" EntitySet="DeletionRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeletionRequest_Feed" Association="SportboardModel.FK_DeletionRequest_Feed">
+            <End Role="Feed" EntitySet="Feed" />
+            <End Role="DeletionRequest" EntitySet="DeletionRequest" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -651,6 +705,7 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <NavigationProperty Name="Post" Relationship="SportboardModel.PostThumbsDown" FromRole="AspNetUsers" ToRole="Post" />
           <NavigationProperty Name="Post1" Relationship="SportboardModel.PostThumbsUp" FromRole="AspNetUsers" ToRole="Post" />
           <NavigationProperty Name="UserPreferences" Relationship="SportboardModel.FK_UserPreferences_AspNetUsers" FromRole="AspNetUsers" ToRole="UserPreferences" />
+          <NavigationProperty Name="DeletionRequest" Relationship="SportboardModel.FK_DeletionRequest_AspNetUsers" FromRole="AspNetUsers" ToRole="DeletionRequest" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
@@ -731,6 +786,7 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <NavigationProperty Name="Image" Relationship="SportboardModel.FK_Feed_Image" FromRole="Feed" ToRole="Image" />
           <NavigationProperty Name="Post" Relationship="SportboardModel.FK_Post_Feed" FromRole="Feed" ToRole="Post" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="DeletionRequest" Relationship="SportboardModel.FK_DeletionRequest_Feed" FromRole="Feed" ToRole="DeletionRequest" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -869,6 +925,44 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
             </Principal>
             <Dependent Role="UserPreferences">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DeletionRequest">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FeedId" Type="Int32" Nullable="false" />
+          <Property Name="ReasonForDeletion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RequestFulfilled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="SportboardModel.FK_DeletionRequest_AspNetUsers" FromRole="DeletionRequest" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Feed" Relationship="SportboardModel.FK_DeletionRequest_Feed" FromRole="DeletionRequest" ToRole="Feed" />
+        </EntityType>
+        <Association Name="FK_DeletionRequest_AspNetUsers">
+          <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="SportboardModel.DeletionRequest" Role="DeletionRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DeletionRequest">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeletionRequest_Feed">
+          <End Type="SportboardModel.Feed" Role="Feed" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SportboardModel.DeletionRequest" Role="DeletionRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feed">
+              <PropertyRef Name="FeedId" />
+            </Principal>
+            <Dependent Role="DeletionRequest">
+              <PropertyRef Name="FeedId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1034,6 +1128,17 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
                 <ScalarProperty Name="FilterOption" ColumnName="FilterOption" />
                 <ScalarProperty Name="SortOption" ColumnName="SortOption" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeletionRequest">
+            <EntityTypeMapping TypeName="SportboardModel.DeletionRequest">
+              <MappingFragment StoreEntitySet="DeletionRequest">
+                <ScalarProperty Name="RequestFulfilled" ColumnName="RequestFulfilled" />
+                <ScalarProperty Name="ReasonForDeletion" ColumnName="ReasonForDeletion" />
+                <ScalarProperty Name="FeedId" ColumnName="FeedId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
