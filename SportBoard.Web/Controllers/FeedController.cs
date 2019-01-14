@@ -234,5 +234,11 @@ namespace SportBoard.Web.Controllers
 
             return View();
         }
+
+        [Authorize(Roles = "Support, Admin")]
+        public ActionResult DeleteFeed(int id)
+        {
+            return RedirectToAction("Requests", "Admin");
+        }
     }
 }

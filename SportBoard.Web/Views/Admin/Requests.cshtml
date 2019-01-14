@@ -12,13 +12,16 @@
                 @Html.DisplayName("Request Id")
             </th>
             <th>
-                @Html.DisplayName("User Id")
+                @Html.DisplayName("Username")
             </th>
             <th>
-                @Html.DisplayName("Feed Id")
+                @Html.DisplayName("Feed name")
             </th>
             <th>
                 @Html.DisplayName("Reason for Deletion")
+            </th>
+            <th>
+                Accept Request?
             </th>
         </tr>
     </thead>
@@ -28,8 +31,9 @@
         <tr>
             <td>@request.RequestId</td>
             <td>@request.UserId</td>
-            <td>@request.FeedId</td>
+            <td><a href="@Url.Action("Details", "Feed", new { id = request.FeedId })">@request.Feed.FeedName</a></td>
             <td>@request.ReasonForDeletion</td>
+            <td><a href="@Url.Action("CloseRequest", "Admin", new { id = request.RequestId })">Yes</a> | <a href="@Url.Action("CloseRequest", "Admin", new { id = request.RequestId })">No</a></td>
         </tr>
         }
     </tbody>
