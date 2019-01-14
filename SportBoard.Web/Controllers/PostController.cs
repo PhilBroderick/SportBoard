@@ -19,7 +19,7 @@ namespace SportBoard.Web.Controllers
         private FeedRepository _feedRepository;
         private PostRepository _postRepository;
         private CommentRepository _commentRepository;
-        private Data.DAL.Respositories.UserRepository _userRepository;
+        private UserRepository _userRepository;
 
         public PostController()
         {
@@ -29,28 +29,34 @@ namespace SportBoard.Web.Controllers
             _feedRepository = new FeedRepository(_context);
             _postRepository = new PostRepository(_context);
             _commentRepository = new CommentRepository(_context);
-            _userRepository = new Data.DAL.Respositories.UserRepository(_context);
+            _userRepository = new UserRepository(_context);
         }
 
         public ActionResult Details(int id)
         {
             var post = _postRepository.Get(id);
-            var comments = _commentRepository.Find(c => c.PostId == post.PostId).ToList();
-            var currentUser = GetCurrentUser();
 
-            var commentCurrentUserVM = new CommentsCurrentUserViewModel
+            if (post != null)
             {
-                Comments = comments,
-                CurrentUser = currentUser
-            };
+                var comments = _commentRepository.Find(c => c.PostId == post.PostId).ToList();
+                var currentUser = GetCurrentUser();
 
-            var postCommentUserVM = new PostCommentsCurrentUserViewModel
-            {
-                Post = post,
-                CommentsCurrentUserVM = commentCurrentUserVM
-            };
+                var commentCurrentUserVM = new CommentsCurrentUserViewModel
+                {
+                    Comments = comments,
+                    CurrentUser = currentUser
+                };
 
-            return View(postCommentUserVM);
+                var postCommentUserVM = new PostCommentsCurrentUserViewModel
+                {
+                    Post = post,
+                    CommentsCurrentUserVM = commentCurrentUserVM
+                };
+
+                return View(postCommentUserVM);
+            }
+
+            return View("Error");
         }
         
         public ActionResult Create(int feedId)

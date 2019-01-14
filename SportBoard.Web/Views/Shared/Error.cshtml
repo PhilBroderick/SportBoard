@@ -5,5 +5,15 @@
 }
 
 <h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+
+@if ((string)@ViewContext.Controller.ValueProvider.GetValue("controller").RawValue == "Post")
+{
+    <h2 class="text-danger">An error occurred while processing your request.The post either no longer exists or something happened on our end! Please contact support at support@@sportboard.com</h2>
+}
+else if ((string)@ViewContext.Controller.ValueProvider.GetValue("controller").RawValue == "Feed")
+{
+    <h2 class="text-danger">An error occurred while processing your request.The feed either no longer existsor something happened on our end! Please contact support at support@@sportboard.com</h2>
+
+}
+
 

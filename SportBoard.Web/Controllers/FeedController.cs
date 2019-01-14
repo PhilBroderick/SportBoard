@@ -175,7 +175,7 @@ namespace SportBoard.Web.Controllers
             var posts = _postRepository.Find(p => p.FeedId == id).ToList();
 
             if (feed == null)
-                return HttpNotFound();
+                return View("Error");
 
             var feedPostViewModel = new FeedPostViewModel
             {
