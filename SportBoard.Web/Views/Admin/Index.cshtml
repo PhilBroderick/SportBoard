@@ -6,6 +6,11 @@
 <h2>Index</h2>
 
 <div class="row">
-    @Html.ActionLink("Add Roles", "Roles", "Admin")
+    <div class="col-md-12">
+        <p><a href="@Url.Action("Roles","Admin")" class="btn btn-primary">Add User Role&raquo;</a></p>
+    </div>
+    <div class="col-md-12">
+        <p><a class="btn btn-primary" href="@Url.Action("Requests","Admin")">View Feed Deletion Requests &raquo;</a></p>
+    </div>
 </div>
 

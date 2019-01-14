@@ -228,6 +228,7 @@
     <Compile Include="BLL\CustomAuthorize.cs" />
     <Compile Include="BLL\FilterOptions.cs" />
     <Compile Include="BLL\Posts.cs" />
+    <Compile Include="BLL\RequestEnums.cs" />
     <Compile Include="BLL\SortOptions.cs" />
     <Compile Include="BLL\VotingEnums.cs" />
     <Compile Include="BLL\Users.cs" />
@@ -334,6 +335,7 @@
     <Content Include="Views\AccessDenied\Index.cshtml" />
     <Content Include="Views\Comment\PostComments.cshtml" />
     <Content Include="Views\Comment\Edit.cshtml" />
+    <Content Include="Views\Admin\Requests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

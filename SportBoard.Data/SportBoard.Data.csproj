@@ -83,8 +83,10 @@
       <DependentUpon>SportBoardModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Respositories\CommentRepository.cs" />
+    <Compile Include="DAL\Respositories\DeletionRequestRepository.cs" />
     <Compile Include="DAL\Respositories\FeedRepository.cs" />
     <Compile Include="DAL\Respositories\ICommentRepository.cs" />
+    <Compile Include="DAL\Respositories\IDeletionRequestRepository.cs" />
     <Compile Include="DAL\Respositories\IFeedRepository.cs" />
     <Compile Include="DAL\Respositories\IImageRepository.cs" />
     <Compile Include="DAL\Respositories\ImageRepository.cs" />

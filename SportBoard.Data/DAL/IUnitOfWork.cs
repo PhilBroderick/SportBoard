@@ -15,6 +15,7 @@ namespace SportBoard.Data.DAL
         ICommentRepository Comments { get; }
         IUserRepository Users { get; }
         IUserPreferenceRepository UserPreferences { get; }
+        IDeletionRequestRepository DeletionRequests { get; }
         int Complete();
     }
 }

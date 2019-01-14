@@ -20,6 +20,7 @@ namespace SportBoard.Data.DAL
             Posts = new PostRepository(_context);
             Users = new UserRepository(_context);
             UserPreferences = new UserPreferenceRepository(_context);
+            DeletionRequests = new DeletionRequestRepository(_context);
         }
         public IFeedRepository Feeds { get; private set; }
         public ICommentRepository Comments { get; private set; }
@@ -29,6 +30,8 @@ namespace SportBoard.Data.DAL
         public IUserRepository Users { get; private set; }
 
         public IUserPreferenceRepository UserPreferences { get; private set; }
+
+        public IDeletionRequestRepository DeletionRequests { get; private set; }
 
         public int Complete()
         {

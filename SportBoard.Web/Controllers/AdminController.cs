@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using SportBoard.Data.DAL;
+using SportBoard.Data.DAL.Respositories;
 using SportBoard.Web.BLL;
 using SportBoard.Web.Models;
 using System;
@@ -14,10 +15,16 @@ namespace SportBoard.Web.Controllers
     public class AdminController : Controller
     {
         private ApplicationDbContext _context;
+        private SportboardDbContext _dbContext;
+        private UnitOfWork _unitOfWork;
+        private DeletionRequestRepository _requestRepository;
 
         public AdminController()
         {
             _context = new ApplicationDbContext();
+            _dbContext = new SportboardDbContext();
+            _unitOfWork = new UnitOfWork(_dbContext);
+            _requestRepository = new DeletionRequestRepository(_dbContext);
         }
         // GET: Admin
         public ActionResult Index()
@@ -46,6 +53,12 @@ namespace SportBoard.Web.Controllers
             _context.Roles.Add(role);
             _context.SaveChangesAsync();
             return RedirectToAction("Roles");
+        }
+
+        public ActionResult Requests()
+        {
+            var openRequests = _requestRepository.OpenRequests().ToList();
+            return View(openRequests);
         }
     }
 }
