@@ -33,7 +33,7 @@
             <td>@request.UserId</td>
             <td><a href="@Url.Action("Details", "Feed", new { id = request.FeedId })">@request.Feed.FeedName</a></td>
             <td>@request.ReasonForDeletion</td>
-            <td><a href="@Url.Action("CloseRequest", "Admin", new { id = request.RequestId })">Yes</a> | <a href="@Url.Action("CloseRequest", "Admin", new { id = request.RequestId })">No</a></td>
+            <td><a href="@Url.Action("Delete", "Feed", new { feedId = request.FeedId, requestId = request.RequestId })">Yes</a> | <a href="@Url.Action("CloseRequest", "Admin", new { id = request.RequestId })">No</a></td>
         </tr>
         }
     </tbody>

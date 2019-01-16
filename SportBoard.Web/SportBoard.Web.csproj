@@ -226,12 +226,14 @@
     <Compile Include="BLL\CreateFeed.cs" />
     <Compile Include="BLL\CreateImage.cs" />
     <Compile Include="BLL\CustomAuthorize.cs" />
+    <Compile Include="BLL\DeletionRequest.cs" />
     <Compile Include="BLL\FilterOptions.cs" />
     <Compile Include="BLL\Posts.cs" />
     <Compile Include="BLL\RequestEnums.cs" />
     <Compile Include="BLL\SortOptions.cs" />
     <Compile Include="BLL\VotingEnums.cs" />
     <Compile Include="BLL\Users.cs" />
+    <Compile Include="Builders\DeletionRequestBuilder.cs" />
     <Compile Include="Controllers\AccessDeniedController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />

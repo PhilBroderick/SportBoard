@@ -19,6 +19,14 @@
         <p><a class="btn btn-primary addPost" href="@Url.Action("Create","Post" , new { feedId = Model.Feed.FeedId })">Add Post to Feed &raquo;</a></p>
     </div>
 </div>
+@if (User.IsInRole("Admin") || Model.Feed.UserId == Model.CurrentUser.Id)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <a class="deleteFeed" href="@Url.Action("DeleteFeedRequest","Feed", new { id = Model.Feed.FeedId })"><i class="fas fa-trash-alt"></i></a>
+        </div>
+    </div>
+}
 <div class="dropdown">
     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
         <span id="selected">Sort</span>

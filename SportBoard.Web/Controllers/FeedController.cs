@@ -10,6 +10,7 @@ using SportBoard.Web.BLL;
 using SportBoard.Data.DAL.Respositories;
 using SportBoard.Data.DAL.DTOs;
 using SportBoard.Web.Models.ViewModels;
+using SportBoard.Web.Builders;
 
 namespace SportBoard.Web.Controllers
 {
@@ -21,6 +22,7 @@ namespace SportBoard.Web.Controllers
         private FeedRepository _feedRepository;
         private PostRepository _postRepository;
         private UserPreferenceRepository _userPreferenceRepository;
+        private UserRepository _userRepository;
 
         public FeedController()
         {
@@ -30,6 +32,7 @@ namespace SportBoard.Web.Controllers
             _feedRepository = new FeedRepository(_context);
             _postRepository = new PostRepository(_context);
             _userPreferenceRepository = new UserPreferenceRepository(_context);
+            _userRepository = new UserRepository(_context);
         }
 
         [Authorize]
@@ -173,6 +176,8 @@ namespace SportBoard.Web.Controllers
 
             var feed =_feedRepository.Get(id);
             var posts = _postRepository.Find(p => p.FeedId == id).ToList();
+            var currentUserId = User.Identity.GetUserId();
+            var currentUser = _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
 
             if (feed == null)
                 return View("Error");
@@ -180,7 +185,8 @@ namespace SportBoard.Web.Controllers
             var feedPostViewModel = new FeedPostViewModel
             {
                 Feed = feed,
-                Posts = posts
+                Posts = posts,
+                CurrentUser = currentUser
             };
 
             return View(feedPostViewModel);
@@ -235,10 +241,24 @@ namespace SportBoard.Web.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Support, Admin")]
-        public ActionResult DeleteFeed(int id)
+        public ActionResult DeleteFeedRequest(int id)
         {
-            return RedirectToAction("Requests", "Admin");
+            var deletionRequest = new DeletionRequests(id, User.Identity.GetUserId(), "hello");
+            deletionRequest.CreateRequest();
+
+            return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "Support, Admin")]
+        public ActionResult Delete(int feedId, int requestId)
+        {
+            var feedToDelete = _feedRepository.Find(f => f.FeedId == feedId).FirstOrDefault();
+
+            //move to feed class that handles all CRUD actions relating to feeds
+            _unitOfWork.Feeds.Remove(feedToDelete);
+            _unitOfWork.Complete();
+
+            return RedirectToAction("CloseRequest", "Admin", new { id = requestId });
         }
     }
 }

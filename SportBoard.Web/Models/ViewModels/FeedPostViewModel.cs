@@ -16,5 +16,7 @@ namespace SportBoard.Web.Models.ViewModels
         public List<Post> Posts { get; set; }
 
         public FilterOptions FilterOptions { get; set; }
+
+        public AspNetUsers CurrentUser { get; set; }
     }
 }
