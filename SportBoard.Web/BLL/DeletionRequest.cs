@@ -1,4 +1,6 @@
-﻿using SportBoard.Web.Builders;
+﻿using SportBoard.Data.DAL;
+using SportBoard.Data.DAL.Respositories;
+using SportBoard.Web.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,20 +10,29 @@ namespace SportBoard.Web.BLL
 {
     public class DeletionRequests
     {
-        private readonly int _feedId;
-        private readonly string _currentUserId;
-        private readonly string _reason;
-        
-        public DeletionRequests(int feedId, string currentUserId, string reason)
+        private readonly IDeletionRequestRepository _deletionRequestRepository;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public DeletionRequests(IDeletionRequestRepository deletionRequestRepository, IUnitOfWork unitOfWork)
         {
-            _feedId = feedId;
-            _currentUserId = currentUserId;
-            _reason = reason;
+            _deletionRequestRepository = deletionRequestRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public void CreateRequest()
+        public bool TryCreateRequest(DeletionRequest deletionRequest)
         {
-            var drb = new DeletionRequestBuilder(_feedId).AddUser(_currentUserId).AddReason(_reason);
+            if(deletionRequest != null)
+            {
+                CreateRequest(deletionRequest);
+                return true;
+            }
+            return false;
+        }
+
+        private void CreateRequest(DeletionRequest deletionRequest)
+        {
+            _unitOfWork.DeletionRequests.Add(deletionRequest);
+            _unitOfWork.Complete();
         }
     }
 }

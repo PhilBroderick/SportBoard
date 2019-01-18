@@ -23,6 +23,7 @@ namespace SportBoard.Web.Controllers
         private PostRepository _postRepository;
         private UserPreferenceRepository _userPreferenceRepository;
         private UserRepository _userRepository;
+        private DeletionRequestRepository _deletionRequestRepository;
 
         public FeedController()
         {
@@ -33,6 +34,7 @@ namespace SportBoard.Web.Controllers
             _postRepository = new PostRepository(_context);
             _userPreferenceRepository = new UserPreferenceRepository(_context);
             _userRepository = new UserRepository(_context);
+            _deletionRequestRepository = new DeletionRequestRepository(_context);
         }
 
         [Authorize]
@@ -56,7 +58,7 @@ namespace SportBoard.Web.Controllers
         {
             var feeds = new List<Feed>();
 
-            if(userPreferences != null)
+            if (userPreferences != null)
             {
                 switch (userPreferences.SortOption)
                 {
@@ -174,7 +176,7 @@ namespace SportBoard.Web.Controllers
             TempData["HotSort"] = "hot";
             TempData["BestSort"] = "best";
 
-            var feed =_feedRepository.Get(id);
+            var feed = _feedRepository.Get(id);
             var posts = _postRepository.Find(p => p.FeedId == id).ToList();
             var currentUserId = User.Identity.GetUserId();
             var currentUser = _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
@@ -205,7 +207,7 @@ namespace SportBoard.Web.Controllers
             CreateImage createImage = new CreateImage(_imageRepository, _unitOfWork);
 
             var localImage = createImage.SavePhotoLocally(Request);
-            if(localImage == null)
+            if (localImage == null)
             {
                 return View();
             }
@@ -241,12 +243,27 @@ namespace SportBoard.Web.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult DeleteFeedRequest(int id)
         {
-            var deletionRequest = new DeletionRequests(id, User.Identity.GetUserId(), "hello");
-            deletionRequest.CreateRequest();
+            var request = new DeletionRequest
+            {
+                FeedId = id,
+                UserId = User.Identity.GetUserId(),
+                ReasonForDeletion = Request.Params["reason"],
+                RequestFulfilled = false
+            };
 
-            return RedirectToAction("Index");
+            var deletionRequest = new DeletionRequests(_deletionRequestRepository, _unitOfWork);
+            var isCreated = deletionRequest.TryCreateRequest(request);
+
+            if (isCreated)
+            {
+                var redirectUrl = new UrlHelper(Request.RequestContext).Action("Details", "Feed", new { id });
+                return Json(new { Url = redirectUrl });
+            }
+
+            return HttpNotFound();
         }
 
         [Authorize(Roles = "Support, Admin")]

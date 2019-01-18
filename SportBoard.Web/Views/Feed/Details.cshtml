@@ -133,6 +133,31 @@ else
                     }
                 });
             });
+
+            $('.deleteFeed').click(function () {
+            var reason = prompt("Please give a reason why you want to delete this feed..", "");
+            if (reason !== "") {
+                var formData1 = new FormData();
+                formData1.append("reason", reason);
+                $.ajax({
+                    type: "POST",
+                    url: '/Feed/DeleteFeedRequest/' + @Model.Feed.FeedId,
+                    data: formData1,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        window.location.href = response.Url;
+                    },
+                    error: function () {
+                        alert("Unknown error occured. Please try again!");
+                    }
+                });
+            }
+            else {
+                alert("You did not specify a reason, please try again.");
+            }
+        });
         });
 
         $('.dropdown-menu a').click(function () {
@@ -141,6 +166,8 @@ else
 
             $('#selected').text($(this).text());
         });
+
+        
 
         $('.hot').click(function () {
 
