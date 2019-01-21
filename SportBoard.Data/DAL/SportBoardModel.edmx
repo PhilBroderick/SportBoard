@@ -440,6 +440,9 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
         <Function Name="spFeed_Deactivate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="spFeed_GetAllByUserId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="SportboardModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -625,7 +628,10 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
             <End Role="DeletionRequest" EntitySet="DeletionRequest" />
           </AssociationSet>
           <FunctionImport Name="spFeed_Deactivate">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spFeed_GetAllByUserId" ReturnType="Collection(SportboardModel.spFeed_GetAllByUserId_Result)">
+            <Parameter Name="userId" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -956,6 +962,11 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="spFeed_GetAllByUserId_Result">
+          <Property Type="Int32" Name="FeedId" Nullable="false" />
+          <Property Type="String" Name="FeedName" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="23" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1134,6 +1145,15 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="spFeed_Deactivate" FunctionName="SportboardModel.Store.spFeed_Deactivate" />
+          <FunctionImportMapping FunctionImportName="spFeed_GetAllByUserId" FunctionName="SportboardModel.Store.spFeed_GetAllByUserId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SportboardModel.spFeed_GetAllByUserId_Result">
+                <ScalarProperty Name="FeedId" ColumnName="FeedId" />
+                <ScalarProperty Name="FeedName" ColumnName="FeedName" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -98,6 +98,9 @@
     <Compile Include="DAL\Respositories\Repository.cs" />
     <Compile Include="DAL\Respositories\UserPreferenceRepository.cs" />
     <Compile Include="DAL\Respositories\UserRepository.cs" />
+    <Compile Include="DAL\spFeed_GetAllByUserId_Result.cs">
+      <DependentUpon>SportBoardModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\SportBoardModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -48,5 +48,14 @@ namespace SportBoard.Data.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spFeed_Deactivate", idParameter);
         }
+    
+        public virtual ObjectResult<spFeed_GetAllByUserId_Result> spFeed_GetAllByUserId(string userId)
+        {
+            var userIdParameter = userId != null ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spFeed_GetAllByUserId_Result>("spFeed_GetAllByUserId", userIdParameter);
+        }
     }
 }

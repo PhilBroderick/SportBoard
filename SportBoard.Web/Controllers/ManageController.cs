@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -352,9 +353,15 @@ namespace SportBoard.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult UserHistory(int id)
+        public ActionResult UserHistory()
         {
+            var currentUserId = User.Identity.GetUserId();
+            using(var context = new SportboardDbContext())
+            {
+                var userIdParam = new SqlParameter("@userId", currentUserId);
 
+                var result = context.Database.SqlQuery<spFeed_GetAllByUserId_Result>("spFeed_GetAllByUserId @userId", userIdParam).ToList();
+            }
             return View();
         }
 
