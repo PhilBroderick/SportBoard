@@ -26,6 +26,7 @@ namespace SportBoard.Data.DAL
         public string UserId { get; set; }
         public int ImageId { get; set; }
         public System.DateTime CreatedOn { get; set; }
+        public bool IsActive { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Image Image { get; set; }

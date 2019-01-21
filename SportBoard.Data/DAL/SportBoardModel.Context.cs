@@ -12,6 +12,8 @@ namespace SportBoard.Data.DAL
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class SportboardDbContext : DbContext
     {
@@ -37,5 +39,14 @@ namespace SportBoard.Data.DAL
         public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<UserPreferences> UserPreferences { get; set; }
         public virtual DbSet<DeletionRequest> DeletionRequest { get; set; }
+    
+        public virtual int spFeed_Deactivate(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spFeed_Deactivate", idParameter);
+        }
     }
 }

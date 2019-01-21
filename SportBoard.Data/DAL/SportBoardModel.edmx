@@ -114,6 +114,7 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ImageId" Type="int" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
@@ -320,20 +321,6 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DeletionRequest_Feed">
-          <End Role="Feed" Type="Self.Feed" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="DeletionRequest" Type="Self.DeletionRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Feed">
-              <PropertyRef Name="FeedId" />
-            </Principal>
-            <Dependent Role="DeletionRequest">
-              <PropertyRef Name="FeedId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Feed_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Feed" Type="Self.Feed" Multiplicity="*" />
@@ -450,6 +437,9 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="spFeed_Deactivate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="SportboardModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -510,10 +500,6 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           </AssociationSet>
           <AssociationSet Name="FK_DeletionRequest_AspNetUsers" Association="Self.FK_DeletionRequest_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="DeletionRequest" EntitySet="DeletionRequest" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DeletionRequest_Feed" Association="Self.FK_DeletionRequest_Feed">
-            <End Role="Feed" EntitySet="Feed" />
             <End Role="DeletionRequest" EntitySet="DeletionRequest" />
           </AssociationSet>
           <AssociationSet Name="FK_Feed_AspNetUsers" Association="Self.FK_Feed_AspNetUsers">
@@ -638,6 +624,9 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
             <End Role="Feed" EntitySet="Feed" />
             <End Role="DeletionRequest" EntitySet="DeletionRequest" />
           </AssociationSet>
+          <FunctionImport Name="spFeed_Deactivate">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -787,6 +776,7 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <NavigationProperty Name="Post" Relationship="SportboardModel.FK_Post_Feed" FromRole="Feed" ToRole="Post" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="DeletionRequest" Relationship="SportboardModel.FK_DeletionRequest_Feed" FromRole="Feed" ToRole="DeletionRequest" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -1060,6 +1050,7 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <EntitySetMapping Name="Feed">
             <EntityTypeMapping TypeName="SportboardModel.Feed">
               <MappingFragment StoreEntitySet="Feed">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="ImageId" ColumnName="ImageId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -1142,6 +1133,7 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spFeed_Deactivate" FunctionName="SportboardModel.Store.spFeed_Deactivate" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
