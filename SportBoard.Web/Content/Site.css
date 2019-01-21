@@ -39,3 +39,18 @@ h6,
 .h6{
     font-family: 'Montserrat', sans-serif;
 }
+
+.feed-create-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #e9edf1;
+    border-radius: 5px;
+}
+
+.feed-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 50%;
+}

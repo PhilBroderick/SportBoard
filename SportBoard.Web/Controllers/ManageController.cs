@@ -352,6 +352,12 @@ namespace SportBoard.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult UserHistory(int id)
+        {
+
+            return View();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)

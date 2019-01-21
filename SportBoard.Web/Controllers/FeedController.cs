@@ -270,9 +270,10 @@ namespace SportBoard.Web.Controllers
         public ActionResult Delete(int feedId, int requestId)
         {
             var feedToDelete = _feedRepository.Find(f => f.FeedId == feedId).FirstOrDefault();
+            feedToDelete.IsActive = false;
 
             //move to feed class that handles all CRUD actions relating to feeds
-            _unitOfWork.Feeds.Remove(feedToDelete);
+            _unitOfWork.Feeds.Update(feedToDelete);
             _unitOfWork.Complete();
 
             return RedirectToAction("CloseRequest", "Admin", new { id = requestId });

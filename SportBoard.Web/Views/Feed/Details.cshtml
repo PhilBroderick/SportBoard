@@ -146,10 +146,12 @@ else
                     dataType: 'json',
                     contentType: false,
                     processData: false,
-                    success: function (response) {
+                    done: function (response) {
+                        alert("Success!");
                         window.location.href = response.Url;
                     },
                     error: function () {
+                        alert("Failure!");
                         alert("Unknown error occured. Please try again!");
                     }
                 });
