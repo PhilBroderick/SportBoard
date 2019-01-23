@@ -231,6 +231,7 @@
     <Compile Include="BLL\Posts.cs" />
     <Compile Include="BLL\RequestEnums.cs" />
     <Compile Include="BLL\SortOptions.cs" />
+    <Compile Include="BLL\UserHistoryCreation.cs" />
     <Compile Include="BLL\VotingEnums.cs" />
     <Compile Include="BLL\Users.cs" />
     <Compile Include="Builders\DeletionRequestBuilder.cs" />
@@ -247,7 +248,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\HistoricalModels\HistoricalFeedModel.cs" />
+    <Compile Include="Models\HistoricalModels\UserHistory.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\CommentsCurrentUserViewModel.cs" />

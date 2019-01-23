@@ -356,13 +356,10 @@ namespace SportBoard.Web.Controllers
         public ActionResult UserHistory()
         {
             var currentUserId = User.Identity.GetUserId();
-            using(var context = new SportboardDbContext())
-            {
-                var userIdParam = new SqlParameter("@userId", currentUserId);
-
-                var result = context.Database.SqlQuery<spFeed_GetAllByUserId_Result>("spFeed_GetAllByUserId @userId", userIdParam).ToList();
-            }
-            return View();
+            var currentUser = _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
+            var userHistory = new UserHistoryCreation(currentUserId).CreateModel();
+            userHistory.User = currentUser;
+            return View(userHistory);
         }
 
         protected override void Dispose(bool disposing)
