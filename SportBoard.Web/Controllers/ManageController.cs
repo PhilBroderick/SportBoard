@@ -11,6 +11,7 @@ using SportBoard.Data.DAL;
 using SportBoard.Data.DAL.Respositories;
 using SportBoard.Web.BLL;
 using SportBoard.Web.Models;
+using SportBoard.Web.Models.HistoricalModels;
 
 namespace SportBoard.Web.Controllers
 {
@@ -364,7 +365,34 @@ namespace SportBoard.Web.Controllers
 
         public PartialViewResult FilterUserHistory(string filterOption)
         {
-            return PartialView();
+            var filterOptionSub = filterOption.Replace(" ", string.Empty);
+            var currentUserId = User.Identity.GetUserId();
+            var userHistory = new UserHistoryCreation(currentUserId);
+
+            if (Enum.TryParse<UserHistoryOptionsEnum>(filterOptionSub, out var userHistoryOption))
+            {
+                switch (userHistoryOption)
+                {
+                    case UserHistoryOptionsEnum.Feeds:
+                        userHistory.CreateFeedModel();
+                        break;
+                    case UserHistoryOptionsEnum.Posts:
+                        userHistory.CreatePostModel();
+                        break;
+                    case UserHistoryOptionsEnum.Comments:
+                        break;
+                    case UserHistoryOptionsEnum.DeletionRequests:
+                        break;
+                    case UserHistoryOptionsEnum.AllHistory:
+                        RedirectToAction("UserHistory");
+                        break;
+                    default:
+                        RedirectToAction("UserHistory");
+                        break;
+                }
+            }
+
+            return PartialView(userHistory);
         }
 
         protected override void Dispose(bool disposing)

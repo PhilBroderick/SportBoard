@@ -39,7 +39,23 @@ namespace SportBoard.Web.BLL
                 Comments = _comments,
                 DeletionRequests = _deletionRequests
             };
-        }       
+        }  
+        
+        public UserHistory CreateFeedModel()
+        {
+            return new UserHistory
+            {
+                Feeds = _feeds
+            };
+        }
+
+        public UserHistory CreatePostModel()
+        {
+            return new UserHistory
+            {
+                Posts = _posts
+            };
+        }
 
       
     }

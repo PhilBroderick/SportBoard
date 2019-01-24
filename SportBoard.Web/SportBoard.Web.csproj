@@ -232,6 +232,7 @@
     <Compile Include="BLL\RequestEnums.cs" />
     <Compile Include="BLL\SortOptions.cs" />
     <Compile Include="BLL\UserHistoryCreation.cs" />
+    <Compile Include="BLL\UserHistoryOptionsEnum.cs" />
     <Compile Include="BLL\VotingEnums.cs" />
     <Compile Include="BLL\Users.cs" />
     <Compile Include="Builders\DeletionRequestBuilder.cs" />
