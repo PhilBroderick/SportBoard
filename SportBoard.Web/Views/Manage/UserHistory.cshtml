@@ -8,7 +8,7 @@
 <div class="col-md-12">
     <div id="filterOptions">
         <ul class="nav nav-tabs">
-            <li role="presentation" class="feeds"><a href="#">Feeds</a></li>
+            <li role="presentation" class="feeds active"><a href="#">Feeds</a></li>
             <li role="presentation" class="Posts"><a href="#">Posts</a></li>
             <li role="presentation" class="comments"><a href="#">Comments</a></li>
             <li role="presentation" class="deletionRequests"><a href="#">Deletion Requests</a></li>
@@ -20,3 +20,36 @@
     </div>
 </div>
 
+@section Scripts {
+       
+    <script>
+        $(document).ready(function () {
+            $('#filterOptions li').on("click", function () {
+                removeActive();
+                $(this).toggleClass('active');
+                var selection = $(this).text();
+                var linkUrl = '@Url.Action("FilterUserHistory", "Manage", new { filterOption = "-1" })';
+                linkUrl = linkUrl.replace("-1", selection); 
+
+                $.ajax({
+                    url: linkUrl,   
+                    type: "GET",
+                    dataType: "html",
+                    success: function (data) {
+                        $('.historyView').html(data);
+                    }
+                });
+            })
+
+            function removeActive() {
+                var kids = $('#filterOptions').find('li');
+                kids.removeClass('active');
+            }
+
+
+        });
+
+
+
+    </script>
+}

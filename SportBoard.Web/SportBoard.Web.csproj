@@ -341,6 +341,7 @@
     <Content Include="Views\Comment\Edit.cshtml" />
     <Content Include="Views\Admin\Requests.cshtml" />
     <Content Include="Views\Manage\UserHistory.cshtml" />
+    <Content Include="Views\Manage\History.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

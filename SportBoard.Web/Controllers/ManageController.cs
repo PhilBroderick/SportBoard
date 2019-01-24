@@ -362,7 +362,7 @@ namespace SportBoard.Web.Controllers
             return View(userHistory);
         }
 
-        public PartialViewResult FilterUserHistory()
+        public PartialViewResult FilterUserHistory(string filterOption)
         {
             return PartialView();
         }
