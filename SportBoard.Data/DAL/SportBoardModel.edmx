@@ -65,6 +65,8 @@
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ProfilePictureName" Type="nvarchar" MaxLength="256" />
+          <Property Name="ProfilePicturePath" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -702,6 +704,8 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <NavigationProperty Name="Post1" Relationship="SportboardModel.PostThumbsUp" FromRole="AspNetUsers" ToRole="Post" />
           <NavigationProperty Name="UserPreferences" Relationship="SportboardModel.FK_UserPreferences_AspNetUsers" FromRole="AspNetUsers" ToRole="UserPreferences" />
           <NavigationProperty Name="DeletionRequest" Relationship="SportboardModel.FK_DeletionRequest_AspNetUsers" FromRole="AspNetUsers" ToRole="DeletionRequest" />
+          <Property Name="ProfilePictureName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ProfilePicturePath" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
@@ -1015,6 +1019,8 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="SportboardModel.AspNetUsers">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="ProfilePicturePath" ColumnName="ProfilePicturePath" />
+                <ScalarProperty Name="ProfilePictureName" ColumnName="ProfilePictureName" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
