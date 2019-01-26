@@ -74,6 +74,7 @@
           <Property Name="PostId" Type="int" Nullable="false" />
           <Property Name="CommentText" Type="text" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Sportboard.dbo.CommentDownvote' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -631,7 +632,7 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spFeed_GetAllByUserId" ReturnType="Collection(SportboardModel.spFeed_GetAllByUserId_Result)">
-            <Parameter Name="userId" Mode="In" Type="String" />
+          <Parameter Name="userId" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -860,6 +861,7 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <NavigationProperty Name="Post" Relationship="SportboardModel.FK_Comment_Post" FromRole="Comment" ToRole="Post" />
           <NavigationProperty Name="CommentDownVoteUserIds" Relationship="SportboardModel.CommentDownvote" FromRole="Comment" ToRole="AspNetUsers" />
           <NavigationProperty Name="CommentUpvoteUserIds" Relationship="SportboardModel.CommentUpvote" FromRole="Comment" ToRole="AspNetUsers" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <Association Name="FK_Comment_AspNetUsers">
           <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -1085,6 +1087,7 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <EntitySetMapping Name="Comment">
             <EntityTypeMapping TypeName="SportboardModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="CommentText" ColumnName="CommentText" />
                 <ScalarProperty Name="PostId" ColumnName="PostId" />

@@ -25,6 +25,7 @@ namespace SportBoard.Data.DAL
         public int PostId { get; set; }
         public string CommentText { get; set; }
         public string UserId { get; set; }
+        public System.DateTime CreatedOn { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Post Post { get; set; }

@@ -44,7 +44,8 @@ namespace SportBoard.Web.Controllers
             {
                 PostId = postId,
                 CommentText = Request.Params["commentText"],
-                UserId = currentUserId
+                UserId = currentUserId,
+                CreatedOn = DateTime.Now
             };
 
             var createComment = new Comments(_commentRepository, _unitOfWork, _postRepository);

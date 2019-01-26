@@ -23,8 +23,8 @@ namespace SportBoard.Web.BLL
         {
             using (var context = new SportboardDbContext())
             {
-                _feeds = context.Feed.Where(f => f.UserId == id).ToList();
-                _posts = context.Post.Where(p => p.UserId == id).ToList();
+                _feeds = context.Feed.Where(f => f.UserId == id).OrderBy(f => f.CreatedOn).ToList();
+                _posts = context.Post.Where(p => p.UserId == id).OrderBy(p => p.PostDate).ToList();
                 _comments = context.Comment.Where(c => c.UserId == id).ToList();
                 _deletionRequests = context.DeletionRequest.Where(dr => dr.UserId == id).ToList();
             }
@@ -46,9 +46,6 @@ namespace SportBoard.Web.BLL
             return new UserHistory
             {
                 Feeds = _feeds
-                //Posts = new List<Post>(),
-                //Comments = new List<Comment>(),
-                //DeletionRequests = new List<DeletionRequest>()
             };
         }
 
@@ -57,9 +54,6 @@ namespace SportBoard.Web.BLL
             return new UserHistory
             {
                 Posts = _posts
-                //Feeds = new List<Feed>(),
-                //Comments = new List<Comment>(),
-                //DeletionRequests = new List<DeletionRequest>()
             };
         }
 
@@ -67,10 +61,7 @@ namespace SportBoard.Web.BLL
         {
             return new UserHistory
             {
-                Posts = new List<Post>(),
-                Feeds = new List<Feed>(),
-                Comments = _comments,
-                DeletionRequests = new List<DeletionRequest>()
+                Comments = _comments
             };
         }
 
@@ -78,9 +69,6 @@ namespace SportBoard.Web.BLL
         {
             return new UserHistory
             {
-                Posts = new List<Post>(),
-                Feeds = new List<Feed>(),
-                Comments = new List<Comment>(),
                 DeletionRequests = _deletionRequests
             };
         }
