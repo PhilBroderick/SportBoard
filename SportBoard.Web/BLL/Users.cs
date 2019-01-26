@@ -25,5 +25,11 @@ namespace SportBoard.Web.BLL
             _unitOfWork.UserPreferences.Add(userPreferences);
             _unitOfWork.Complete();
         }
+
+        public void AddProfilePicture(AspNetUsers user)
+        {
+            _unitOfWork.Users.Update(user);
+            _unitOfWork.Complete();
+        }
     }
 }

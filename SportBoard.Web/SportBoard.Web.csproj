@@ -343,6 +343,7 @@
     <Content Include="Views\Admin\Requests.cshtml" />
     <Content Include="Views\Manage\UserHistory.cshtml" />
     <Content Include="Views\Manage\History.cshtml" />
+    <Content Include="Views\Manage\UploadProfilePicture.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

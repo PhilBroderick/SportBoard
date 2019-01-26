@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "UploadProfilePicture";
+}
+
+<h2>Upload Profile Picture</h2>
+
+<div class="upload-photo">
+    <form id="form photo-form">
+        <div class="input-group" style="margin-bottom: 5px; width: 100%;">
+            <div class="col-md-10">
+                <input type="file" id="imageUploadForm" name="image" accept="image/*" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Update Profile Picture" class="btn btn-success" id="submit" />
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <script>
+
+        $(document).ready(function () {
+            $('#form').on("submit", function (e) {
+                e.preventDefault();
+                var formData = new FormData();
+                var totalFiles = document.getElementById("imageUploadForm").files.length;
+
+                for (var i = 0; i < totalFiles; i++) {
+                    var file = document.getElementById("imageUploadForm").files[i];
+                    formData.append("imageUploadForm", file);
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Manage/UploadProfilePhoto',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        alert("Posting data");
+                    },
+                    error: function () {
+                        alert("Something unexpected happened! Please try again!");
+                    }
+                })
+            })
+        })
+
+
+
+
+    </script>    
+}
