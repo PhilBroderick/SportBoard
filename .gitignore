@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 /SportBoard.Web/AppSettings.config
 /SportBoard.Web/Content/images
+/SportBoard.Web/Content/Profile Pictures/philAvatar.PNG

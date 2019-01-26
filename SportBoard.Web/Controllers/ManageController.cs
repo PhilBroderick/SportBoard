@@ -24,6 +24,7 @@ namespace SportBoard.Web.Controllers
         private UnitOfWork _uow;
         private UserPreferenceRepository _userPreferenceRepository;
         private UserRepository _userRepository;
+        private ImageRepository _imageRepository;
 
         public ManageController()
         {
@@ -31,6 +32,7 @@ namespace SportBoard.Web.Controllers
             _uow = new UnitOfWork(_context);
             _userPreferenceRepository = new UserPreferenceRepository(_context);
             _userRepository = new UserRepository(_context);
+            _imageRepository = new ImageRepository(_context);
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -352,6 +354,31 @@ namespace SportBoard.Web.Controllers
             userPrefUpdate.UpdatePreferences(userPrefs);
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult UploadProfilePicture()
+        {
+            return View("UploadProfilePicture");
+        }
+
+        [HttpPost]
+        public ActionResult UploadProfilePhoto()
+        {
+            var createImage = new CreateImage(_imageRepository, _uow);
+            var localImage = createImage.SavePhotoLocally(Request);
+            if (localImage == null)
+                return View();
+
+            var currentUserId = User.Identity.GetUserId();
+            var currentUser = _userRepository.Find(i => i.Id == currentUserId).FirstOrDefault();
+
+            currentUser.ProfilePicturePath = localImage.FilePath;
+            currentUser.ProfilePictureName = localImage.FileNameWithoutExtenstion;
+
+            new Users(_userRepository, _uow, _userPreferenceRepository).AddProfilePicture(currentUser);
+
+
+            return View("UploadProfilePicture");
         }
 
         public ActionResult UserHistory()
