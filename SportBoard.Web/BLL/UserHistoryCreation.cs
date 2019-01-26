@@ -23,9 +23,9 @@ namespace SportBoard.Web.BLL
         {
             using (var context = new SportboardDbContext())
             {
-                _feeds = context.Feed.Where(f => f.UserId == id).OrderBy(f => f.CreatedOn).ToList();
-                _posts = context.Post.Where(p => p.UserId == id).OrderBy(p => p.PostDate).ToList();
-                _comments = context.Comment.Where(c => c.UserId == id).ToList();
+                _feeds = context.Feed.Where(f => f.UserId == id).OrderByDescending(f => f.CreatedOn).ToList();
+                _posts = context.Post.Where(p => p.UserId == id).OrderByDescending(p => p.PostDate).ToList();
+                _comments = context.Comment.Where(c => c.UserId == id).OrderByDescending(c => c.CreatedOn).ToList();
                 _deletionRequests = context.DeletionRequest.Where(dr => dr.UserId == id).ToList();
             }
         }
