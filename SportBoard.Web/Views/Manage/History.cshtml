@@ -5,7 +5,22 @@
 
 <h2>History</h2>
 
-@if(Model.Feeds.Count > 0)
+@if (Model.Feeds.Count > 0)
 {
     <p>You have feeds!</p>
+}
+
+@if (Model.Posts.Count > 0)
+{
+    <p>You have Posts!</p>
+}
+
+@if (Model.Comments.Count > 0)
+{
+    <p>You have Comments!</p>
+}
+
+@if (Model.DeletionRequests.Count > 0)
+{
+    <p>You have DeletionRequests!</p>
 }

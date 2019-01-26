@@ -368,31 +368,34 @@ namespace SportBoard.Web.Controllers
             var filterOptionSub = filterOption.Replace(" ", string.Empty);
             var currentUserId = User.Identity.GetUserId();
             var userHistory = new UserHistoryCreation(currentUserId);
+            UserHistory newHistory = new UserHistory();
 
             if (Enum.TryParse<UserHistoryOptionsEnum>(filterOptionSub, out var userHistoryOption))
             {
                 switch (userHistoryOption)
                 {
                     case UserHistoryOptionsEnum.Feeds:
-                        userHistory.CreateFeedModel();
+                        newHistory = userHistory.CreateFeedModel();
                         break;
                     case UserHistoryOptionsEnum.Posts:
-                        userHistory.CreatePostModel();
+                        newHistory = userHistory.CreatePostModel();
                         break;
                     case UserHistoryOptionsEnum.Comments:
+                        newHistory = userHistory.CreateCommentModel();
                         break;
                     case UserHistoryOptionsEnum.DeletionRequests:
+                        newHistory = userHistory.CreateDeletionModel();
                         break;
                     case UserHistoryOptionsEnum.AllHistory:
-                        RedirectToAction("UserHistory");
+                        newHistory = userHistory.CreateModel();
                         break;
                     default:
-                        RedirectToAction("UserHistory");
+                        newHistory = userHistory.CreateModel();
                         break;
                 }
             }
 
-            return PartialView(userHistory);
+            return PartialView("History", newHistory);
         }
 
         protected override void Dispose(bool disposing)

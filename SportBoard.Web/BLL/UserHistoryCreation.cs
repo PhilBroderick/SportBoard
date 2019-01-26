@@ -46,6 +46,9 @@ namespace SportBoard.Web.BLL
             return new UserHistory
             {
                 Feeds = _feeds
+                //Posts = new List<Post>(),
+                //Comments = new List<Comment>(),
+                //DeletionRequests = new List<DeletionRequest>()
             };
         }
 
@@ -54,9 +57,33 @@ namespace SportBoard.Web.BLL
             return new UserHistory
             {
                 Posts = _posts
+                //Feeds = new List<Feed>(),
+                //Comments = new List<Comment>(),
+                //DeletionRequests = new List<DeletionRequest>()
             };
         }
 
+        public UserHistory CreateCommentModel()
+        {
+            return new UserHistory
+            {
+                Posts = new List<Post>(),
+                Feeds = new List<Feed>(),
+                Comments = _comments,
+                DeletionRequests = new List<DeletionRequest>()
+            };
+        }
+
+        public UserHistory CreateDeletionModel()
+        {
+            return new UserHistory
+            {
+                Posts = new List<Post>(),
+                Feeds = new List<Feed>(),
+                Comments = new List<Comment>(),
+                DeletionRequests = _deletionRequests
+            };
+        }
       
     }
 }

@@ -8,6 +8,13 @@ namespace SportBoard.Web.Models.HistoricalModels
 {
     public class UserHistory
     {
+        public UserHistory()
+        {
+            Feeds = new List<Feed>();
+            Posts = new List<Post>();
+            Comments = new List<Comment>();
+            DeletionRequests = new List<DeletionRequest>();
+        }
         public AspNetUsers User { get; set; }
         public List<Feed> Feeds { get; set; }
 
