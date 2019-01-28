@@ -377,8 +377,8 @@ namespace SportBoard.Web.Controllers
 
             new Users(_userRepository, _uow, _userPreferenceRepository).AddProfilePicture(currentUser);
 
-
-            return View("UploadProfilePicture");
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index");
+            return Json(new { Url = redirectUrl });            
         }
 
         public ActionResult UserProfilePicture()

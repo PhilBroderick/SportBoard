@@ -22,41 +22,17 @@
 
 @section Scripts{
     <script>
-
-        //$(document).ready(function () {
-        //    $('#form').on("submit", function (e) {
-        //        e.preventDefault();
-        //        var formData = new FormData(this);
-        //        var totalFiles = document.getElementById("imageUploadForm").files.length;
-
-        //        for (var i = 0; i < totalFiles; i++) {
-        //            var file = document.getElementById("imageUploadForm").files[i];
-        //            formData.append("imageUploadForm", file);
-        //        }
-
-        //        $.ajax({
-        //            type: "POST",
-        //            url: '/Manage/UploadProfilePicture',
-        //            data: formData,
-        //            contentType: false,
-        //            processData: false,
-        //            success: function (response) {
-        //                alert("Posting data");
-        //            },
-        //            error: function () {
-        //                alert("Something unexpected happened! Please try again!");
-        //            }
-        //        })
-        //    })
-        //})
-
+        
         function AjaxPost(formData) {
             var ajaxConfig = {
                 type: "POST",
                 url: "/Manage/UploadProfilePicture",
                 data: new FormData(formData),
-                success: function (result) {
-                    alert(result);
+                success: function (response) {
+                    window.location.href = response.Url;
+                },
+                error: function () {
+                    alert("An unknown error occured! Please try again or contact an administrator.");
                 }
             }
 

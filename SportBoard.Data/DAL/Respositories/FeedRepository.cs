@@ -34,9 +34,9 @@ namespace SportBoard.Data.DAL.Respositories
         public IEnumerable<Feed> SortFeedsByNewestFirst(List<Feed> feeds)
         {
             if(feeds.Count > 0)
-                feeds = feeds.OrderByDescending(f => f.CreatedOn).ToList();
+                feeds = feeds.Where(f=> f.IsActive == true).OrderByDescending(f => f.CreatedOn).ToList();
 
-            feeds = SportboardDbContext.Feed.OrderByDescending(f => f.CreatedOn).ToList();
+            feeds = SportboardDbContext.Feed.Where(f => f.IsActive == true).OrderByDescending(f => f.CreatedOn).ToList();
 
             return feeds;
         }
@@ -47,7 +47,7 @@ namespace SportBoard.Data.DAL.Respositories
             //{
             //    var feeds = SportboardDbContext.Feed.Where(f => f.)
             //}
-            feeds = SportboardDbContext.Feed.Where(f => f.Post.Count() >= 3).ToList();
+            feeds = SportboardDbContext.Feed.Where(f => f.Post.Count() >= 3 && f.IsActive == true).ToList();
 
             return feeds;
         }
