@@ -24,6 +24,7 @@ namespace SportBoard.Web.Controllers
         private UserPreferenceRepository _userPreferenceRepository;
         private UserRepository _userRepository;
         private DeletionRequestRepository _deletionRequestRepository;
+        public MainLayoutViewModel MainLayoutViewModel { get; set; }
 
         public FeedController()
         {
@@ -35,6 +36,11 @@ namespace SportBoard.Web.Controllers
             _userPreferenceRepository = new UserPreferenceRepository(_context);
             _userRepository = new UserRepository(_context);
             _deletionRequestRepository = new DeletionRequestRepository(_context);
+            this.MainLayoutViewModel = new MainLayoutViewModel();
+            var currentUser = _userRepository.Find(u => u.Id == User.Identity.GetUserId()).FirstOrDefault();
+            this.MainLayoutViewModel.CurrentUser = currentUser;
+
+            this.ViewData["MainLayoutViewModel"] = this.MainLayoutViewModel;
         }
 
         [Authorize]
