@@ -362,7 +362,7 @@ namespace SportBoard.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadProfilePhoto()
+        public ActionResult UploadProfilePicture(AspNetUsers user)
         {
             var createImage = new CreateImage(_imageRepository, _uow);
             var localImage = createImage.SavePhotoLocally(Request);

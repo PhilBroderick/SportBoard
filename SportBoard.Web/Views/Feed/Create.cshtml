@@ -30,7 +30,7 @@
                 </div>*@
 
 
-    <form id="form feed-form">
+    <form id="form feed-form" method="post" onsubmit="return AjaxPost(this)" enctype="multipart/form-data">
         <div class="input-group" style="margin-bottom: 5px; width: 100%;">
             <div class="col-md-12">
                 <input type="text" id="feedName" class="form-control" placeholder="Feed Name" aria-describedby="basic-addon1" name="feedName" required>
@@ -50,36 +50,56 @@
 </div>
 
 @section scripts{
-    <script>
+    <script type="text/javascript">
 
-        $(document).ready(function () {
-            $("#form").on("submit", function (e) {
-                e.preventDefault()
-                var formData = new FormData();
-                var totalFiles = document.getElementById("imageUploadForm").files.length;
-                var feedName = $("#feedName").val();
-                formData.append("feedName", feedName);
+        //$(document).ready(function () {
+        //    $("#form").on("submit", function (e) {
+        //        e.preventDefault()
+        //        var formData = new FormData();
+        //        var totalFiles = document.getElementById("imageUploadForm").files.length;
+        //        var feedName = $("#feedName").val();
+        //        formData.append("feedName", feedName);
                 
-                for (var i = 0; i < totalFiles; i++) {
-                    var file = document.getElementById("imageUploadForm").files[i];
-                    formData.append("imageUploadForm", file);
+        //        for (var i = 0; i < totalFiles; i++) {
+        //            var file = document.getElementById("imageUploadForm").files[i];
+        //            formData.append("imageUploadForm", file);
+        //        }
+        //        $.ajax({
+        //            type: "POST",
+        //            url: '/Feed/Create',
+        //            data: formData,
+        //            dataType: 'json',
+        //            contentType: false,
+        //            processData: false,
+        //            success: function (response) {
+        //                window.location.href = response.Url;
+        //            },
+        //            error: function (XMLHttpRequest, textStatus, errorThrown) {
+        //                alert("Feed name is already taken or the image is invalid. Please try again!");
+        //            }
+        //        });
+        //    });
+        //});
+
+        function AjaxPost(formData) {
+            var ajaxConfig = {
+                type: "POST",
+                url: "/Feed/Create",
+                data: new FormData(formData),
+                success: function (result) {
+                    alert(result);
                 }
-                $.ajax({
-                    type: "POST",
-                    url: '/Feed/Create',
-                    data: formData,
-                    dataType: 'json',
-                    contentType: false,
-                    processData: false,
-                    success: function (response) {
-                        window.location.href = response.Url;
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert("Feed name is already taken or the image is invalid. Please try again!");
-                    }
-                });
-            });
-        });
+            }
+
+            if ($(formData).attr('enctype') == "multipart/form-data") {
+                ajaxConfig["contentType"] = false;
+                ajaxConfig["processData"] = false;
+            }
+
+            $.ajax(ajaxConfig);
+            return false;
+        }
+
     </script>
 }
 
