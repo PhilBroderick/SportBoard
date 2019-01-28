@@ -40,7 +40,7 @@ namespace SportBoard.Web.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            var feeds = _context.Feed.ToList();
+            var feeds = _context.Feed.Where(f => f.IsActive == true).ToList();
             //feeds = _feedRepository.GetTopFeedsOfCertainPeriod(7).ToList();
             var currentUserId = User.Identity.GetUserId();
             var userPrefs = _userPreferenceRepository.Find(up => up.UserId == currentUserId).FirstOrDefault();
@@ -73,7 +73,7 @@ namespace SportBoard.Web.Controllers
                         break;
                 }
             }
-            feeds = _feedRepository.SortFeedsByRating(SortOptions.Hot.ToString(), feeds).ToList();
+            //feeds = _feedRepository.SortFeedsByRating(SortOptions.Hot.ToString(), feeds).ToList();
 
 
             return feeds;
