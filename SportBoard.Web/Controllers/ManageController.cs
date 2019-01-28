@@ -362,7 +362,7 @@ namespace SportBoard.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadProfilePhoto()
+        public ActionResult UploadProfilePicture(AspNetUsers user)
         {
             var createImage = new CreateImage(_imageRepository, _uow);
             var localImage = createImage.SavePhotoLocally(Request);
@@ -379,6 +379,20 @@ namespace SportBoard.Web.Controllers
 
 
             return View("UploadProfilePicture");
+        }
+
+        public ActionResult UserProfilePicture()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var currentUserId = User.Identity.GetUserId();
+                var currentUser = _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
+                var userImage = currentUser.ProfilePicturePath;
+
+                if(userImage != null)
+                    return base.File(userImage, "image/png");
+            }
+            return base.File("/Content/Images/noImageIcon.png", "image/png");
         }
 
         public ActionResult UserHistory()
