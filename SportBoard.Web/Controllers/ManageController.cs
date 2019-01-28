@@ -381,16 +381,19 @@ namespace SportBoard.Web.Controllers
             return View("UploadProfilePicture");
         }
 
-        //public FileContentResult UserProfilePicture()
-        //{
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        var currentUser = _userRepository.Find(u => u.Id == User.Identity.GetUserId()).FirstOrDefault();
-        //        var userImage = currentUser.ProfilePicturePath;
+        public ActionResult UserProfilePicture()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var currentUserId = User.Identity.GetUserId();
+                var currentUser = _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
+                var userImage = currentUser.ProfilePicturePath;
 
-        //        return new FileContentResult(userImage, "image/png");
-        //    }
-        //}
+                if(userImage != null)
+                    return base.File(userImage, "image/png");
+            }
+            return base.File("/Content/Images/noImageIcon.png", "image/png");
+        }
 
         public ActionResult UserHistory()
         {
