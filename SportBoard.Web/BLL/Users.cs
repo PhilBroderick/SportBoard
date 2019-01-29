@@ -22,7 +22,7 @@ namespace SportBoard.Web.BLL
 
         public void UpdatePreferences(UserPreferences userPreferences)
         {
-            _unitOfWork.UserPreferences.Add(userPreferences);
+            _unitOfWork.UserPreferences.Update(userPreferences);
             _unitOfWork.Complete();
         }
 
