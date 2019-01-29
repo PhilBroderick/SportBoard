@@ -70,9 +70,69 @@
 @if (Model.Comments.Count > 0)
 {
     <h2>Comments</h2>
-}
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("Post Description")
+                </th>
+                <th>
+                    @Html.DisplayName("Comment")
+                </th>
+                <th>
+                    @Html.DisplayName("Upvotes")
+                </th>
+                <th>
+                    @Html.DisplayName("Downvotes")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @{ var comments = Model.Comments;}
+                @foreach (var comment in comments)
+                {
+                <tr>
+                    <td>@Html.ActionLink(comment.Post.Description, "Details", "Post", new { id = comment.PostId }, new { @style = "font-size: 25px;" })</td>
+                    <td><p>@comment.CommentText</p></td>
+                    <td><p>@comment.CommentUpvoteUserIds.Count</p></td>
+                    <td><p>@comment.CommentDownVoteUserIds.Count</p></td>
+                </tr>
+            }
+                </tr>
+            </tbody>
+        </table>
+    }
 
 @if (Model.DeletionRequests.Count > 0)
 {
     <h2>Deletion Requests</h2>
-}
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("Feed Requested for Deletion")
+                </th>
+                <th>
+                    @Html.DisplayName("Reason for Deletion")
+                </th>
+                <th>
+                    @Html.DisplayName("Request Fulfilled")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @{ var requests = Model.DeletionRequests;}
+                @foreach (var request in requests)
+                {
+                <tr>
+                    <td>@Html.ActionLink(request.Feed.FeedName, "Details", "Feed", new { id = request.FeedId }, new { @style = "font-size: 25px;" })</td>
+                    <td><p>@request.ReasonForDeletion</p></td>
+                    <td><p>@request.RequestFulfilled</p></td>
+                </tr>
+            }
+                </tr>
+            </tbody>
+        </table>
+    }
