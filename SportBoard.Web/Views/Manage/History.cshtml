@@ -3,8 +3,6 @@
     ViewBag.Title = "History";
 }
 
-<h2>History</h2>
-
 @if (Model.Feeds.Count > 0)
 {
     <h3>Feeds</h3>
@@ -36,7 +34,7 @@
 
 @if (Model.Posts.Count > 0)
 {
-    <h2>Posts</h2>
+    <h3>Posts</h3>
     <table class="table table-bordered table-hover table-striped">
         <thead>
             <tr>
@@ -69,7 +67,7 @@
 
 @if (Model.Comments.Count > 0)
 {
-    <h2>Comments</h2>
+    <h3>Comments</h3>
     <table class="table table-bordered table-hover table-striped">
         <thead>
             <tr>
@@ -106,7 +104,7 @@
 
 @if (Model.DeletionRequests.Count > 0)
 {
-    <h2>Deletion Requests</h2>
+    <h3>Deletion Requests</h3>
     <table class="table table-bordered table-hover table-striped">
         <thead>
             <tr>
