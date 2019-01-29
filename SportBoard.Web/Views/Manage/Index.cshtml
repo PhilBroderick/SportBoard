@@ -116,7 +116,7 @@
 </div>
 
 @section Scripts{
-    <script>
+<script>
         $(document).ready(function () {
             $('#preferenceForm').on("submit", function (e) {
 
@@ -133,10 +133,8 @@
                     contentType: false,
                     processData: false,
                     success: function (response) {
-
                     },
                     error: function () {
-                        alert("Unknown error occured, please try again.");
                     }
                 })
             })
@@ -145,20 +143,22 @@
         });
         var radioBtns = $("[name=sortOptions]");
 
-        if (@Model.UserPreferences !== null) {
+        var userPreference = '@Html.Raw(Model.UserPreferences.ToString())';
+
+        if (userPreference !== null) {
 
 
-            if (@Model.UserPreferences.SortOption.ToString() == 'New') {
-                radioBtns.val(['New']);
-            } else if (@Model.UserPreferences.SortOption.ToString() === 'Hot') {
-                radioBtns.val(['Hot']);
-            } else if (@Model.UserPreferences.SortOption.ToString() == "Best") {
-                radioBtns.val(['Best']);
+            if (userPreference == 'New') {
+                $('#New').prop("checked", true);
+            } else if (userPreference == 'Hot') {
+                $('#Hot').prop("checked", true);
+            } else if (userPreference == "Best") {
+                $('#Best').prop("checked", true);
             }
         }
         else {
             radioBtns.val(['Hot']);
         }
-    </script>
+</script>
 
 }
