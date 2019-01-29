@@ -107,7 +107,12 @@
     </dl>
 
     @Html.ActionLink("View History", "UserHistory", "Manage", null, new { @class = "btn btn-primary" })
-    @Html.ActionLink("Upload Profile Image", "UploadProfilePicture", "Manage", null, new { @class = "btn btn-primary" })
+    @{
+        var profilePictureText = Model.HasProfilePicture == true ? "Update" : "Upload";
+
+        @Html.ActionLink(@profilePictureText + " Profile Image", "UploadProfilePicture", "Manage", null, new { @class = "btn btn-primary" })
+    }
+
 </div>
 
 @section Scripts{

@@ -15,6 +15,7 @@ namespace SportBoard.Web.Models
         public bool BrowserRemembered { get; set; }
         
         public UserPreferences UserPreferences { get; set; }
+        public bool HasProfilePicture { get; set; }
     }
 
     public class ManageLoginsViewModel
