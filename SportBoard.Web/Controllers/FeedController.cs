@@ -177,6 +177,9 @@ namespace SportBoard.Web.Controllers
             TempData["BestSort"] = "best";
 
             var feed = _feedRepository.Get(id);
+            if (feed.IsActive == false)
+                return View("Error");
+
             var posts = _postRepository.Find(p => p.FeedId == id).ToList();
             var currentUserId = User.Identity.GetUserId();
             var currentUser = _userRepository.Find(u => u.Id == currentUserId).FirstOrDefault();
