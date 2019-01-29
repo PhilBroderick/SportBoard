@@ -23,10 +23,31 @@ namespace SportBoard.Web.BLL
         {
             using (var context = new SportboardDbContext())
             {
-                _feeds = context.Feed.Include("Image").Where(f => f.UserId == id).OrderByDescending(f => f.CreatedOn).ToList();
-                _posts = context.Post.Include("Feed").Include("Image").Where(p => p.UserId == id).OrderByDescending(p => p.PostDate).ToList();
-                _comments = context.Comment.Include("Post").Where(c => c.UserId == id).OrderByDescending(c => c.CreatedOn).ToList();
-                _deletionRequests = context.DeletionRequest.Where(dr => dr.UserId == id).ToList();
+                _feeds = context.Feed
+                                .Include("Image")
+                                .Where(f => f.UserId == id)
+                                .OrderByDescending(f => f.CreatedOn)
+                                .ToList();
+
+                _posts = context.Post
+                                .Include("Feed")
+                                .Include("Image")
+                                .Where(p => p.UserId == id)
+                                .OrderByDescending(p => p.PostDate)
+                                .ToList();
+
+                _comments = context.Comment
+                                    .Include("Post")
+                                    .Include("CommentUpvoteUserIds")
+                                    .Include("CommentDownVoteUserIds")
+                                    .Where(c => c.UserId == id)
+                                    .OrderByDescending(c => c.CreatedOn)
+                                    .ToList();
+
+                _deletionRequests = context.DeletionRequest
+                                            .Include("Feed")
+                                            .Where(dr => dr.UserId == id)
+                                            .ToList();
             }
         }
 
