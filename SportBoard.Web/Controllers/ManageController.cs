@@ -79,6 +79,9 @@ namespace SportBoard.Web.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            var currentUser = _userRepository.Find(u => u.Id == userId).FirstOrDefault();
+            bool hasProfilePicture = (currentUser.ProfilePictureName) != null ? true : false;
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
@@ -86,7 +89,8 @@ namespace SportBoard.Web.Controllers
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
-                UserPreferences = _userPreferenceRepository.Find(up => up.UserId == userId).FirstOrDefault()
+                UserPreferences = _userPreferenceRepository.Find(up => up.UserId == userId).FirstOrDefault(),
+                HasProfilePicture = hasProfilePicture
             };
             return View(model);
         }
