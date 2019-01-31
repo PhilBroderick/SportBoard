@@ -357,7 +357,8 @@ namespace SportBoard.Web.Controllers
             var userPrefUpdate = new Users(_userRepository, _uow, _userPreferenceRepository);
             userPrefUpdate.UpdatePreferences(userPrefs);
 
-            return RedirectToAction("Index");
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index");
+            return Json(new { Url = redirectUrl });
         }
 
         public ActionResult UploadProfilePicture()

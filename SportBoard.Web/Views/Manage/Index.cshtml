@@ -133,6 +133,9 @@
                     contentType: false,
                     processData: false,
                     success: function (response) {
+                        window.location.href = response.Url;
+                        alert("Preference updated!");
+                        
                     },
                     error: function () {
                     }
@@ -143,7 +146,7 @@
         });
         var radioBtns = $("[name=sortOptions]");
 
-        var userPreference = '@Html.Raw(Model.UserPreferences.ToString())';
+        var userPreference = @Html.Raw(Json.Encode(Model.UserPreferences.SortOption));
 
         if (userPreference !== null) {
 
