@@ -133,6 +133,9 @@
                     contentType: false,
                     processData: false,
                     success: function (response) {
+                        window.location.href = response.Url;
+                        alert("Preference updated!");
+                        
                     },
                     error: function () {
                     }
