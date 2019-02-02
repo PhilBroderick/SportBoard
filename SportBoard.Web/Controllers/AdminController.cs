@@ -61,19 +61,22 @@ namespace SportBoard.Web.Controllers
             return View(openRequests);
         }
 
+        [HttpPost]
         public ActionResult CloseRequest(int id)
         {
             var request = _requestRepository.Find(r => r.RequestId == id).FirstOrDefault();
             
             //Set request to fulfilled - will add an admin reasoning at later stage
             request.RequestFulfilled = true;
+            var adminResponse = Request.Params["reason"];
 
             //want to move this out into a deletionRequest class
             _unitOfWork.DeletionRequests.Update(request);
             _unitOfWork.Complete();
 
             var openRequests = _requestRepository.OpenRequests().ToList();
-            return View("Requests", openRequests);
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Requests");
+            return Json(new { Url = redirectUrl });
         }
     }
 }
