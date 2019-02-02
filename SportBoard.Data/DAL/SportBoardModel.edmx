@@ -107,6 +107,7 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
           <Property Name="FeedId" Type="int" Nullable="false" />
           <Property Name="ReasonForDeletion" Type="text" />
           <Property Name="RequestFulfilled" Type="bit" Nullable="false" />
+          <Property Name="AdminResponse" Type="text" Nullable="false" />
         </EntityType>
         <EntityType Name="Feed">
           <Key>
@@ -460,10 +461,10 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPreferences" EntityType="Self.UserPreferences" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CommentDownvote" EntityType="Self.CommentDownvote" store:Type="Tables" Schema="dbo"/>
-          <EntitySet Name="CommentUpvote" EntityType="Self.CommentUpvote" store:Type="Tables" Schema="dbo"/>
-          <EntitySet Name="PostThumbsDown" EntityType="Self.PostThumbsDown" store:Type="Tables" Schema="dbo"/>
-          <EntitySet Name="PostThumbsUp" EntityType="Self.PostThumbsUp" store:Type="Tables" Schema="dbo"/>
+          <EntitySet Name="CommentDownvote" EntityType="Self.CommentDownvote" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CommentUpvote" EntityType="Self.CommentUpvote" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PostThumbsDown" EntityType="Self.PostThumbsDown" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PostThumbsUp" EntityType="Self.PostThumbsUp" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Comment_AspNetUsers" Association="Self.FK_Comment_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Comment" EntitySet="Comment" />
@@ -941,6 +942,7 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <Property Name="RequestFulfilled" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="SportboardModel.FK_DeletionRequest_AspNetUsers" FromRole="DeletionRequest" ToRole="AspNetUsers" />
           <NavigationProperty Name="Feed" Relationship="SportboardModel.FK_DeletionRequest_Feed" FromRole="DeletionRequest" ToRole="Feed" />
+          <Property Name="AdminResponse" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_DeletionRequest_AspNetUsers">
           <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -1145,6 +1147,7 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <EntitySetMapping Name="DeletionRequest">
             <EntityTypeMapping TypeName="SportboardModel.DeletionRequest">
               <MappingFragment StoreEntitySet="DeletionRequest">
+                <ScalarProperty Name="AdminResponse" ColumnName="AdminResponse" />
                 <ScalarProperty Name="RequestFulfilled" ColumnName="RequestFulfilled" />
                 <ScalarProperty Name="ReasonForDeletion" ColumnName="ReasonForDeletion" />
                 <ScalarProperty Name="FeedId" ColumnName="FeedId" />
