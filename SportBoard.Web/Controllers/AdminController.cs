@@ -66,15 +66,19 @@ namespace SportBoard.Web.Controllers
         {
             var request = _requestRepository.Find(r => r.RequestId == id).FirstOrDefault();
             
-            //Set request to fulfilled - will add an admin reasoning at later stage
-            request.RequestFulfilled = true;
             var adminResponse = Request.Params["reason"];
+            var requestDecision = Request.Params["decision"];
+            
+            request.RequestFulfilled = true;
+            request.AdminResponse = adminResponse;
 
             //want to move this out into a deletionRequest class
             _unitOfWork.DeletionRequests.Update(request);
             _unitOfWork.Complete();
 
-            var openRequests = _requestRepository.OpenRequests().ToList();
+            if (requestDecision == "Yes")
+                return RedirectToAction("Delete", "Feed", new { feedId = request.FeedId, requestId = request.RequestId });
+            
             var redirectUrl = new UrlHelper(Request.RequestContext).Action("Requests");
             return Json(new { Url = redirectUrl });
         }

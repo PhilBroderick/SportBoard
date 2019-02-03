@@ -33,9 +33,8 @@
             <td>@request.AspNetUsers.UserName</td>
             <td><a href="@Url.Action("Details", "Feed", new { id = request.FeedId })">@request.Feed.FeedName</a></td>
             <td>@request.ReasonForDeletion</td>
-            <td><a class="acceptRequest" href="#">Yes</a> | <a href="@Url.Action("CloseRequest", "Admin", new { id = request.RequestId })">No</a></td>
+            <td><a class="acceptRequest" href="#">Yes</a> | <a href="#">No</a></td>
             @Html.Hidden("requestId", request.RequestId, new { Id = "requestId" })
-            @Html.Hidden("feedId", request.FeedId, new { Id = "feedId" })
         </tr>
             
         }
@@ -50,13 +49,14 @@
                 var associatedInput = parentTableRow.children("input");
                 var reason = prompt("Please give a response to deleting the feed", "");
                 if (reason !== "") {
-                    var requestId = associatedInput.first().val();
-                    var feedId = associatedInput.last().val();
+                    var requestId = associatedInput.val();
+                    var decision = "Yes"
                     var formData = new FormData();
                     formData.append("reason", reason);
+                    formData.append("decision", decision);
                     $.ajax({
                         type: "POST",
-                        url: '/Feed/Delete?feedId=' + feedId + "&requestId=" + requestId,
+                        url: '/Admin/CloseRequest/' + requestId,
                         data: formData,
                         dataType: 'json',
                         contentType: false,
