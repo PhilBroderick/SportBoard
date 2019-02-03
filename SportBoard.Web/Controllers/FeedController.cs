@@ -270,6 +270,7 @@ namespace SportBoard.Web.Controllers
         }
 
         [Authorize(Roles = "Support, Admin")]
+        [HttpPost]
         public ActionResult Delete(int feedId, int requestId)
         {
             var feedToDelete = _feedRepository.Find(f => f.FeedId == feedId).FirstOrDefault();
