@@ -279,7 +279,8 @@ namespace SportBoard.Web.Controllers
             _unitOfWork.Feeds.Update(feedToDelete);
             _unitOfWork.Complete();
 
-            return RedirectToAction("CloseRequest", "Admin", new { id = requestId });
+            //return RedirectToAction("CloseRequest", "Admin", new { id = requestId });
+            return RedirectToAction("Requests", "Admin");
         }
     }
 }
