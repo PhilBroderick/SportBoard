@@ -33,7 +33,7 @@
             <td>@request.AspNetUsers.UserName</td>
             <td><a href="@Url.Action("Details", "Feed", new { id = request.FeedId })">@request.Feed.FeedName</a></td>
             <td>@request.ReasonForDeletion</td>
-            <td><a class="acceptRequest" href="#">Yes</a> | <a href="#">No</a></td>
+            <td><a class="acceptRequest" href="#">Yes</a> | <a class="denyRequest" href="#">No</a></td>
             @Html.Hidden("requestId", request.RequestId, new { Id = "requestId" })
         </tr>
             
@@ -66,12 +66,31 @@
                         }
                     })
                 }
-
-                //var requestId = $('#requestId').value;
-                //alert(requestId);
             });
         
-        
+            $('.denyRequest').on("click", function () {
+                var parentTableRow = $(this).parent().parent();
+                var associatedInput = parentTableRow.children("input");
+                var reason = prompt("Please give a response to deleting the feed", "");
+                if (reason !== "") {
+                    var requestId = associatedInput.val();
+                    var decision = "No"
+                    var formData = new FormData();
+                    formData.append("reason", reason);
+                    formData.append("decision", decision);
+                    $.ajax({
+                        type: "POST",
+                        url: '/Admin/CloseRequest/' + requestId,
+                        data: formData,
+                        dataType: 'json',
+                        contentType: false,
+                        processData: false,
+                        done: function (response) {
+                            window.location.href = response.Url;
+                        }
+                    })
+                }
+            })
         
         });
     </script>    
