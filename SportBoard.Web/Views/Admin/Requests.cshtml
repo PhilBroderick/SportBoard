@@ -63,8 +63,14 @@
                         processData: false,
                         done: function (response) {
                             window.location.href = response.Url;
+                        },
+                        error: function () {
+                            alert("Unknown error occured. Please try again!");
                         }
                     })
+                }
+                else {
+                    alert("You did not specify a reason, please try again.");
                 }
             });
         
@@ -87,8 +93,14 @@
                         processData: false,
                         done: function (response) {
                             window.location.href = response.Url;
+                        },
+                        error: function () {
+                            alert("Unknown error occured. Please try again!");
                         }
                     })
+                }
+                else {
+                    alert("You did not specify a reason, please try again.");
                 }
             })
         
