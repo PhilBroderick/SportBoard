@@ -23,7 +23,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Discover Feeds", "Index", "Feeds")</li>
+                    <li>@Html.ActionLink("Discover Feeds", "Search", "Feed")</li>
                     <li>@Html.ActionLink("Create Feed", "Create", "Feed")</li>
                     @if (User.IsInRole("Admin") || User.IsInRole("Support"))
                     {

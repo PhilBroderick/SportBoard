@@ -1,0 +1,51 @@
+﻿@model IEnumerable<SportBoard.Data.DAL.Feed>
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+<div class="container">
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+            <input type="text" id="Search" placeholder="Search Feeds.." class="form-control />
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayName("Feed Name")</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr></tr>
+        @foreach (var feed in Model)
+        {
+            <tr class="Search">
+                <td>@feed.FeedName</td>
+            </tr>
+        }
+        </tr>
+    </tbody>
+</table>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $("#Search").on("input", function () {
+            var searchText = $(this).val().toLowerCase();
+
+            $.ajax({
+                type: "GET",
+                url: '/Feed/Search?searchText=' + searchText,
+                done: function () {
+                        alert("searched");
+                    }
+                })
+        });
+    });
+</script>
