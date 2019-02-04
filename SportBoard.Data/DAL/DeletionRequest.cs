@@ -18,8 +18,8 @@ namespace SportBoard.Data.DAL
         public string UserId { get; set; }
         public int FeedId { get; set; }
         public string ReasonForDeletion { get; set; }
-        public bool RequestFulfilled { get; set; }
         public string AdminResponse { get; set; }
+        public bool RequestClosed { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Feed Feed { get; set; }

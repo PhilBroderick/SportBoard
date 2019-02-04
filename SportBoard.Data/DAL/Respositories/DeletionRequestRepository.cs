@@ -19,7 +19,7 @@ namespace SportBoard.Data.DAL.Respositories
 
         public IQueryable<DeletionRequest> OpenRequests()
         {
-            var requests = SportboardDbContext.DeletionRequest.Where(r => r.RequestFulfilled == false);
+            var requests = SportboardDbContext.DeletionRequest.Where(r => r.RequestClosed == false);
 
             return requests;
         }

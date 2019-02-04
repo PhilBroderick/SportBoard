@@ -226,7 +226,7 @@
     <Compile Include="BLL\CreateFeed.cs" />
     <Compile Include="BLL\CreateImage.cs" />
     <Compile Include="BLL\CustomAuthorize.cs" />
-    <Compile Include="BLL\DeletionRequest.cs" />
+    <Compile Include="BLL\DeletionRequests.cs" />
     <Compile Include="BLL\FilterOptions.cs" />
     <Compile Include="BLL\Posts.cs" />
     <Compile Include="BLL\RequestEnums.cs" />
@@ -344,6 +344,7 @@
     <Content Include="Views\Manage\UserHistory.cshtml" />
     <Content Include="Views\Manage\History.cshtml" />
     <Content Include="Views\Manage\UploadProfilePicture.cshtml" />
+    <Content Include="Views\Manage\DeletionRequests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

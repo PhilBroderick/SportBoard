@@ -25,6 +25,7 @@ namespace SportBoard.Web.Controllers
         private UserPreferenceRepository _userPreferenceRepository;
         private UserRepository _userRepository;
         private ImageRepository _imageRepository;
+        private DeletionRequestRepository _deletionRequestRepository;
 
         public ManageController()
         {
@@ -33,6 +34,7 @@ namespace SportBoard.Web.Controllers
             _userPreferenceRepository = new UserPreferenceRepository(_context);
             _userRepository = new UserRepository(_context);
             _imageRepository = new ImageRepository(_context);
+            _deletionRequestRepository = new DeletionRequestRepository(_context);
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -395,9 +397,9 @@ namespace SportBoard.Web.Controllers
                 var userImage = currentUser.ProfilePicturePath;
 
                 if(userImage != null)
-                    return base.File(userImage, "image/png");
+                    return File(userImage, "image/png");
             }
-            return base.File("/Content/Images/noImageIcon.png", "image/png");
+            return File("/Content/Images/noImageIcon.png", "image/png");
         }
 
         public ActionResult UserHistory()
@@ -429,9 +431,6 @@ namespace SportBoard.Web.Controllers
                     case UserHistoryOptionsEnum.Comments:
                         newHistory = userHistory.CreateCommentModel();
                         break;
-                    case UserHistoryOptionsEnum.DeletionRequests:
-                        newHistory = userHistory.CreateDeletionModel();
-                        break;
                     case UserHistoryOptionsEnum.AllHistory:
                         newHistory = userHistory.CreateModel();
                         break;
@@ -442,6 +441,14 @@ namespace SportBoard.Web.Controllers
             }
 
             return PartialView("History", newHistory);
+        }
+
+        public ActionResult DeletionRequests()
+        {
+            var userId = User.Identity.GetUserId();
+            var deletionRequests = _deletionRequestRepository.Find(d => d.UserId == userId).ToList();
+
+            return View(deletionRequests);
         }
 
         protected override void Dispose(bool disposing)
@@ -456,6 +463,7 @@ namespace SportBoard.Web.Controllers
         }
 
 #region Helpers
+        
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 

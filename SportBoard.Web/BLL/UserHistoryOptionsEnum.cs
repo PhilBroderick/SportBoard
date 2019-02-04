@@ -10,7 +10,6 @@ namespace SportBoard.Web.BLL
         Feeds = 0,
         Posts = 1,
         Comments = 2,
-        DeletionRequests = 3,
         AllHistory = 4
     }
 }

@@ -69,7 +69,7 @@ namespace SportBoard.Web.Controllers
             var adminResponse = Request.Params["reason"];
             var requestDecision = Request.Params["decision"];
             
-            request.RequestFulfilled = true;
+            request.RequestClosed = true;
             request.AdminResponse = adminResponse;
 
             //want to move this out into a deletionRequest class

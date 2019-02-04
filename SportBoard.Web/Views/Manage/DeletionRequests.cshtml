@@ -1,0 +1,42 @@
+﻿@model List<SportBoard.Data.DAL.DeletionRequest>
+@{
+    ViewBag.Title = "DeletionRequests";
+}
+
+<h2>Deletion Requests</h2>
+
+@if (Model.Count >= 1)
+{
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("Feed Requested for Deletion")
+                </th>
+                <th>
+                    @Html.DisplayName("Reason for Deletion")
+                </th>
+                <th>
+                    @Html.DisplayName("Request Closed")
+                </th>
+                <th>
+                    @Html.DisplayName("Feed Deleted?")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @{ var requests = Model;}
+                @foreach (var request in requests)
+                {
+                <tr>
+                    <td>@Html.ActionLink(request.Feed.FeedName, "Details", "Feed", new { id = request.FeedId }, new { @style = "font-size: 25px;" })</td>
+                    <td><p>@request.ReasonForDeletion</p></td>
+                    <td><p>@request.RequestClosed</p></td>
+                    <td><p>@request.Feed.IsActive</p></td>
+                </tr>
+            }
+                </tr>
+            </tbody>
+        </table>
+    }

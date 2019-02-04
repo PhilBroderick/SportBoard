@@ -254,7 +254,7 @@ namespace SportBoard.Web.Controllers
                 FeedId = id,
                 UserId = User.Identity.GetUserId(),
                 ReasonForDeletion = Request.Params["reason"],
-                RequestFulfilled = false,
+                RequestClosed = false,
                 AdminResponse = ""
             };
 

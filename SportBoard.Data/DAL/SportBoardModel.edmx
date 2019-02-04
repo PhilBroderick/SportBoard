@@ -106,7 +106,7 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="FeedId" Type="int" Nullable="false" />
           <Property Name="ReasonForDeletion" Type="text" />
-          <Property Name="RequestFulfilled" Type="bit" Nullable="false" />
+          <Property Name="RequestClosed" Type="bit" Nullable="false" />
           <Property Name="AdminResponse" Type="text" Nullable="false" />
         </EntityType>
         <EntityType Name="Feed">
@@ -939,10 +939,10 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="FeedId" Type="Int32" Nullable="false" />
           <Property Name="ReasonForDeletion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="RequestFulfilled" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="SportboardModel.FK_DeletionRequest_AspNetUsers" FromRole="DeletionRequest" ToRole="AspNetUsers" />
           <NavigationProperty Name="Feed" Relationship="SportboardModel.FK_DeletionRequest_Feed" FromRole="DeletionRequest" ToRole="Feed" />
           <Property Name="AdminResponse" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RequestClosed" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_DeletionRequest_AspNetUsers">
           <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -1147,8 +1147,8 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <EntitySetMapping Name="DeletionRequest">
             <EntityTypeMapping TypeName="SportboardModel.DeletionRequest">
               <MappingFragment StoreEntitySet="DeletionRequest">
+                <ScalarProperty Name="RequestClosed" ColumnName="RequestClosed" />
                 <ScalarProperty Name="AdminResponse" ColumnName="AdminResponse" />
-                <ScalarProperty Name="RequestFulfilled" ColumnName="RequestFulfilled" />
                 <ScalarProperty Name="ReasonForDeletion" ColumnName="ReasonForDeletion" />
                 <ScalarProperty Name="FeedId" ColumnName="FeedId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
