@@ -25,6 +25,7 @@ namespace SportBoard.Web.Controllers
         private UserPreferenceRepository _userPreferenceRepository;
         private UserRepository _userRepository;
         private ImageRepository _imageRepository;
+        private DeletionRequestRepository _deletionRequestRepository;
 
         public ManageController()
         {
@@ -33,6 +34,7 @@ namespace SportBoard.Web.Controllers
             _userPreferenceRepository = new UserPreferenceRepository(_context);
             _userRepository = new UserRepository(_context);
             _imageRepository = new ImageRepository(_context);
+            _deletionRequestRepository = new DeletionRequestRepository(_context);
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -444,6 +446,14 @@ namespace SportBoard.Web.Controllers
             return PartialView("History", newHistory);
         }
 
+        public ActionResult DeletionRequests()
+        {
+            var userId = User.Identity.GetUserId();
+            var deletionRequests = _deletionRequestRepository.Find(d => d.UserId == userId).ToList();
+
+            return View(deletionRequests);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)
@@ -456,6 +466,7 @@ namespace SportBoard.Web.Controllers
         }
 
 #region Helpers
+        
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
