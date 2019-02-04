@@ -397,9 +397,9 @@ namespace SportBoard.Web.Controllers
                 var userImage = currentUser.ProfilePicturePath;
 
                 if(userImage != null)
-                    return base.File(userImage, "image/png");
+                    return File(userImage, "image/png");
             }
-            return base.File("/Content/Images/noImageIcon.png", "image/png");
+            return File("/Content/Images/noImageIcon.png", "image/png");
         }
 
         public ActionResult UserHistory()
@@ -430,9 +430,6 @@ namespace SportBoard.Web.Controllers
                         break;
                     case UserHistoryOptionsEnum.Comments:
                         newHistory = userHistory.CreateCommentModel();
-                        break;
-                    case UserHistoryOptionsEnum.DeletionRequests:
-                        newHistory = userHistory.CreateDeletionModel();
                         break;
                     case UserHistoryOptionsEnum.AllHistory:
                         newHistory = userHistory.CreateModel();

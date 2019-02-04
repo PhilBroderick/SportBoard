@@ -12,7 +12,6 @@ namespace SportBoard.Web.BLL
         private List<Feed> _feeds;
         private List<Post> _posts;
         private List<Comment> _comments;
-        private List<DeletionRequest> _deletionRequests;
 
         public UserHistoryCreation(string userId)
         {
@@ -43,11 +42,6 @@ namespace SportBoard.Web.BLL
                                     .Where(c => c.UserId == id)
                                     .OrderByDescending(c => c.CreatedOn)
                                     .ToList();
-
-                _deletionRequests = context.DeletionRequest
-                                            .Include("Feed")
-                                            .Where(dr => dr.UserId == id)
-                                            .ToList();
             }
         }
 
@@ -57,8 +51,7 @@ namespace SportBoard.Web.BLL
             {
                 Feeds = _feeds,
                 Posts = _posts,
-                Comments = _comments,
-                DeletionRequests = _deletionRequests
+                Comments = _comments
             };
         }  
         
@@ -83,14 +76,6 @@ namespace SportBoard.Web.BLL
             return new UserHistory
             {
                 Comments = _comments
-            };
-        }
-
-        public UserHistory CreateDeletionModel()
-        {
-            return new UserHistory
-            {
-                DeletionRequests = _deletionRequests
             };
         }
       
