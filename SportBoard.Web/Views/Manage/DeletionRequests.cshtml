@@ -19,6 +19,9 @@
                 <th>
                     @Html.DisplayName("Request Fulfilled")
                 </th>
+                <th>
+                    @Html.DisplayName("Feed Deleted?")
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -30,6 +33,7 @@
                     <td>@Html.ActionLink(request.Feed.FeedName, "Details", "Feed", new { id = request.FeedId }, new { @style = "font-size: 25px;" })</td>
                     <td><p>@request.ReasonForDeletion</p></td>
                     <td><p>@request.RequestFulfilled</p></td>
+                    <td><p>@request.Feed.IsActive</p></td>
                 </tr>
             }
                 </tr>

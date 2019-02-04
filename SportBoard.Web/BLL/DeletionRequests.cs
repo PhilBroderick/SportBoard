@@ -34,5 +34,6 @@ namespace SportBoard.Web.BLL
             _unitOfWork.DeletionRequests.Add(deletionRequest);
             _unitOfWork.Complete();
         }
+
     }
 }
