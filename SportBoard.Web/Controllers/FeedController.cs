@@ -54,10 +54,22 @@ namespace SportBoard.Web.Controllers
             return View(feedFilterSortVM);
         }
 
-        public ActionResult Search(string searchText)
+        public ActionResult Search()
         {
-            var feeds = _feedRepository.GetAll().ToList();
-            return View(feeds);
+            return View();
+        }
+
+        public PartialViewResult SearchFeeds(string searchText)
+        {
+            if (searchText == null)
+                return PartialView();
+
+            var feeds = _feedRepository.Find(f => f.FeedName.StartsWith(searchText)).ToList();
+
+            if (feeds.Count == 0)
+                return PartialView();
+
+            return PartialView(feeds);
         }
 
         private List<Feed> SortFeeds(UserPreferences userPreferences)
