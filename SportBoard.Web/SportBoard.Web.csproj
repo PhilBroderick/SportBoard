@@ -346,6 +346,7 @@
     <Content Include="Views\Manage\UploadProfilePicture.cshtml" />
     <Content Include="Views\Manage\DeletionRequests.cshtml" />
     <Content Include="Views\Feed\Search.cshtml" />
+    <Content Include="Views\Feed\SearchFeeds.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
