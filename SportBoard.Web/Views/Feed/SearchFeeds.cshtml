@@ -4,10 +4,14 @@
 {
     foreach (var feed in Model)
     {
-        <p>@feed.FeedName</p>
+        <div class="feed">
+            <img src="@Url.Content("~/Content/Images/" + feed.Image.FileName + ".jpg")" alt=""/>
+            <h3><a href="@Url.Action("Details", "Feed", new { id = feed.FeedId })">@feed.FeedName</a></h3>
+        </div>
     }
 }
 else
 {
     <p>Start entering a feed you would like to search for in the search bar above.</p>
 }
+
