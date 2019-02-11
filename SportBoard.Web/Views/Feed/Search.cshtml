@@ -13,8 +13,9 @@
         </div>
     </div>
 </div>
-
-@Html.Partial("SearchFeeds", Model)
+<div id="partialView">
+    @Html.Partial("SearchFeeds", Model)
+</div>
 
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 
@@ -22,13 +23,16 @@
     $(document).ready(function () {
 
         $("#Search").on("input", function () {
-            var searchText = if;
+            var searchText = $(this).val().toLowerCase();
 
             $.ajax({
                 type: "GET",
-                url: '/Feed/Search?searchText=' + searchText,
-                success: 
+                url: '/Feed/SearchFeeds?searchText=' + searchText
+
             })
+            .done(function (partialViewResult) {
+                $("#partialView").html(partialViewResult);
+            });
         });
     });
 </script>

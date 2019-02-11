@@ -1,10 +1,13 @@
-﻿@model IEnumerable<SportBoard.Data.DAL.Feed>
+﻿@model List<SportBoard.Data.DAL.Feed>
 
-@if(Model != null)
+@if (Model != null)
 {
-    foreach (var feed in Model){
-
+    foreach (var feed in Model)
+    {
+        <p>@feed.FeedName</p>
     }
 }
-
-<p>Start entering a feed you would like to search for in the search bar above.</p>
+else
+{
+    <p>Start entering a feed you would like to search for in the search bar above.</p>
+}
