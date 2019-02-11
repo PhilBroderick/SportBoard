@@ -1,10 +1,17 @@
-﻿@model IEnumerable<SportBoard.Data.DAL.Feed>
+﻿@model List<SportBoard.Data.DAL.Feed>
 
-@if(Model != null)
+@if (Model != null)
 {
-    foreach (var feed in Model){
-
+    foreach (var feed in Model)
+    {
+        <div class="feed">
+            <img src="@Url.Content("~/Content/Images/" + feed.Image.FileName + ".jpg")" alt=""/>
+            <h3><a href="@Url.Action("Details", "Feed", new { id = feed.FeedId })">@feed.FeedName</a></h3>
+        </div>
     }
 }
+else
+{
+    <p>Start entering a feed you would like to search for in the search bar above.</p>
+}
 
-<p>Start entering a feed you would like to search for in the search bar above.</p>
