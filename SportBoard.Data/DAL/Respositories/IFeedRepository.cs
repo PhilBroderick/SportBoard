@@ -14,5 +14,7 @@ namespace SportBoard.Data.DAL.Respositories
 
         IEnumerable<Feed> SortFeedsByNewestFirst(List<Feed> feeds);
         IEnumerable<Feed> SortFeedsByRating(string sortOrder, List<Feed> feeds);
+
+        IEnumerable<Feed> GetFeedsBySearchText(string searchText);
     }
 }
