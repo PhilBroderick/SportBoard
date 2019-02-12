@@ -64,7 +64,7 @@ namespace SportBoard.Web.Controllers
             if (String.IsNullOrWhiteSpace(searchText))
                 return PartialView();
 
-            var feeds = _feedRepository.Find(f => f.FeedName.StartsWith(searchText)).ToList();
+            var feeds = _feedRepository.GetFeedsBySearchText(searchText).ToList();
 
             if (feeds.Count == 0)
                 return PartialView();

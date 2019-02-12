@@ -52,6 +52,11 @@ namespace SportBoard.Data.DAL.Respositories
             return feeds;
         }
 
+        public IEnumerable<Feed> GetFeedsBySearchText(string searchText)
+        {
+            return SportboardDbContext.Feed.Where(f => f.FeedName.StartsWith(searchText) && f.IsActive == true);
+        }
+
         public SportboardDbContext SportboardDbContext
         {
             get { return Context as SportboardDbContext; }
