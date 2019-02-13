@@ -27,7 +27,7 @@ namespace SportBoard.Web.Controllers.WebApi
         // GET api/feed
         public IHttpActionResult Get()
         {
-            var feeds = _context.Feed.Where(f => f.IsActive == true).ToList();
+            var feeds = _context.Feed.Include("Post").Where(f => f.IsActive == true).ToList();
 
             if(feeds != null)
                 return Ok(new { results = feeds.Select(Mapper.Map<Feed, FeedDto>)});
