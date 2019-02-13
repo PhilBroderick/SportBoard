@@ -9,7 +9,7 @@ namespace SportBoard.Web.Models.WebApiModels
     {
         public FeedDto()
         {
-            Posts = new List<PostAPI>();
+            Posts = new List<PostDto>();
         }
         public int FeedId { get; set; }
         public string FeedName { get; set; }
@@ -18,6 +18,6 @@ namespace SportBoard.Web.Models.WebApiModels
         public System.DateTime CreatedOn { get; set; }
         public bool IsActive { get; set; }
 
-        public List<PostAPI> Posts { get; set; }
+        public List<PostDto> Posts { get; set; }
     }
 }

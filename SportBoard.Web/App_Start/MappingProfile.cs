@@ -12,7 +12,8 @@ namespace SportBoard.Web.App_Start
     {
         public MappingProfile()
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<Feed, FeedDto>());
+            CreateMap<Feed, FeedDto>();
+            CreateMap<Post, PostDto>();
         }
     }
 }

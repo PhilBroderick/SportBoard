@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SportBoard.Web.Models.WebApiModels
 {
-    public class PostAPI
+    public class PostDto
     {
         public int PostId { get; set; }
         public System.DateTime PostDate { get; set; }
