@@ -5,9 +5,9 @@ using System.Web;
 
 namespace SportBoard.Web.Models.WebApiModels
 {
-    public class FeedAPI
+    public class FeedDto
     {
-        public FeedAPI()
+        public FeedDto()
         {
             Posts = new List<PostAPI>();
         }

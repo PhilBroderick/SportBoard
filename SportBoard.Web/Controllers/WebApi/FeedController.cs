@@ -1,5 +1,7 @@
-﻿using SportBoard.Data.DAL;
+﻿using AutoMapper;
+using SportBoard.Data.DAL;
 using SportBoard.Data.DAL.Respositories;
+using SportBoard.Web.Models.WebApiModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +30,7 @@ namespace SportBoard.Web.Controllers.WebApi
             var feeds = _context.Feed.Where(f => f.IsActive == true).ToList();
 
             if(feeds != null)
-                return Ok(new { results = feeds });
+                return Ok(new { results = feeds.Select(Mapper.Map<Feed, FeedDto>)});
 
             return NotFound();
         }
