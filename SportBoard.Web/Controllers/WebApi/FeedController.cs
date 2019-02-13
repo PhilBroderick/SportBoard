@@ -22,7 +22,7 @@ namespace SportBoard.Web.Controllers.WebApi
             _feedRepository = new FeedRepository(_context);
         }
 
-        // GET api/<controller>
+        // GET api/feed
         public IHttpActionResult Get()
         {
             var feeds = _context.Feed.Where(f => f.IsActive == true).ToList();
