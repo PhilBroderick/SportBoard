@@ -12,7 +12,7 @@ namespace SportBoard.Web.App_Start
     {
         public MappingProfile()
         {
-            CreateMap<Feed, FeedDto>();
+            CreateMap<Feed, FeedSearchDto>();
             CreateMap<Post, PostDto>();
         }
     }
