@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SportboardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SportboardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -160,16 +160,6 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           </Key>
           <Property Name="PostId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="UserPreferences">
           <Key>
@@ -459,12 +449,11 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <EntitySet Name="Feed" EntityType="Self.Feed" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPreferences" EntityType="Self.UserPreferences" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CommentDownvote" EntityType="Self.CommentDownvote" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="CommentUpvote" EntityType="Self.CommentUpvote" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PostThumbsDown" EntityType="Self.PostThumbsDown" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PostThumbsUp" EntityType="Self.PostThumbsUp" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CommentDownvote" EntityType="Self.CommentDownvote" store:Type="Tables" Schema="dbo"/>
+          <EntitySet Name="CommentUpvote" EntityType="Self.CommentUpvote" store:Type="Tables" Schema="dbo"/>
+          <EntitySet Name="PostThumbsDown" EntityType="Self.PostThumbsDown" store:Type="Tables" Schema="dbo"/>
+          <EntitySet Name="PostThumbsUp" EntityType="Self.PostThumbsUp" store:Type="Tables" Schema="dbo"/>
           <AssociationSet Name="FK_Comment_AspNetUsers" Association="Self.FK_Comment_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Comment" EntitySet="Comment" />
@@ -557,7 +546,6 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <EntitySet Name="AspNetUserLogins" EntityType="SportboardModel.AspNetUserLogins" />
           <EntitySet Name="AspNetUsers" EntityType="SportboardModel.AspNetUsers" />
           <EntitySet Name="Image" EntityType="SportboardModel.Image" />
-          <EntitySet Name="sysdiagrams" EntityType="SportboardModel.sysdiagrams" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="SportboardModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -720,16 +708,6 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <Property Name="FileName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Feed" Relationship="SportboardModel.FK_Feed_Image" FromRole="Image" ToRole="Feed" />
           <NavigationProperty Name="Post" Relationship="SportboardModel.FK_Post_Image" FromRole="Image" ToRole="Post" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -1046,17 +1024,6 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="FilePath" ColumnName="FilePath" />
                 <ScalarProperty Name="ImageId" ColumnName="ImageId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="SportboardModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

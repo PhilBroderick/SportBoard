@@ -116,9 +116,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SportBoardModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DAL\sysdiagrams.cs">
-      <DependentUpon>SportBoardModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="DAL\UserPreferences.cs">
       <DependentUpon>SportBoardModel.tt</DependentUpon>
