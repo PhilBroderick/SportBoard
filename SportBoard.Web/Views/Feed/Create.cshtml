@@ -52,53 +52,54 @@
 @section scripts{
     <script type="text/javascript">
 
-        //$(document).ready(function () {
-        //    $("#form").on("submit", function (e) {
-        //        e.preventDefault()
-        //        var formData = new FormData();
-        //        var totalFiles = document.getElementById("imageUploadForm").files.length;
-        //        var feedName = $("#feedName").val();
-        //        formData.append("feedName", feedName);
+        $(document).ready(function () {
+            $("#form").on("submit", function (e) {
+                e.preventDefault()
+                var formData = new FormData();
+                var totalFiles = document.getElementById("imageUploadForm").files.length;
+                var feedName = $("#feedName").val();
+                formData.append("feedName", feedName);
                 
-        //        for (var i = 0; i < totalFiles; i++) {
-        //            var file = document.getElementById("imageUploadForm").files[i];
-        //            formData.append("imageUploadForm", file);
-        //        }
-        //        $.ajax({
-        //            type: "POST",
-        //            url: '/Feed/Create',
-        //            data: formData,
-        //            dataType: 'json',
-        //            contentType: false,
-        //            processData: false,
-        //            success: function (response) {
-        //                window.location.href = response.Url;
-        //            },
-        //            error: function (XMLHttpRequest, textStatus, errorThrown) {
-        //                alert("Feed name is already taken or the image is invalid. Please try again!");
-        //            }
-        //        });
-        //    });
-        //});
-
-        function AjaxPost(formData) {
-            var ajaxConfig = {
-                type: "POST",
-                url: "/Feed/Create",
-                data: new FormData(formData),
-                success: function (result) {
-                    alert(result);
+                for (var i = 0; i < totalFiles; i++) {
+                    var file = document.getElementById("imageUploadForm").files[i];
+                    formData.append("imageUploadForm", file);
                 }
-            }
+                $.ajax({
+                    type: "POST",
+                    url: '/Feed/Create',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        alert("success");
+                        window.location.href = response.Url;
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("Feed name is already taken or the image is invalid. Please try again!");
+                    }
+                });
+            });
+        });
 
-            if ($(formData).attr('enctype') == "multipart/form-data") {
-                ajaxConfig["contentType"] = false;
-                ajaxConfig["processData"] = false;
-            }
+        //function AjaxPost(formData) {
+        //    var ajaxConfig = {
+        //        type: "POST",
+        //        url: "/Feed/Create",
+        //        data: new FormData(formData),
+        //        success: function (response) {
+        //            window.location.href = response.Url;
+        //        }
+        //    }
 
-            $.ajax(ajaxConfig);
-            return false;
-        }
+        //    if ($(formData).attr('enctype') == "multipart/form-data") {
+        //        ajaxConfig["contentType"] = false;
+        //        ajaxConfig["processData"] = false;
+        //    }
+
+        //    $.ajax(ajaxConfig);
+        //    return false;
+        //}
 
     </script>
 }
