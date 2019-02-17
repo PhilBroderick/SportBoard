@@ -11,6 +11,7 @@ using System.Web.Http;
 
 namespace SportBoard.Web.Controllers.WebApi
 {
+    [RoutePrefix("api/feeds")]
     public class FeedController : ApiController
     {
         private SportboardDbContext _context;
@@ -25,7 +26,7 @@ namespace SportBoard.Web.Controllers.WebApi
         }
 
         [HttpGet]
-        // GET api/feed
+        [Route("")]       
         public IHttpActionResult GetAllActiveFeeds()
         {
             var feeds = _context.Feed.Where(f => f.IsActive == true).ToList();
@@ -36,7 +37,7 @@ namespace SportBoard.Web.Controllers.WebApi
             return NotFound();
         }
 
-        // GET api/<controller>/5
+        [HttpGet, Route("{id:int}")]
         public string Get(int id)
         {
             return "value";
