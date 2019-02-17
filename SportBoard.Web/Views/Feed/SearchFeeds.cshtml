@@ -5,7 +5,7 @@
     foreach (var feed in Model)
     {
         <div class="feed">
-            <img src="@Url.Content("~/Content/Images/" + feed.Image.FileName + ".jpg")" alt=""/>
+            <img id="searchImage" src="@Url.Content("~/Content/Images/" + feed.Image.FileName + ".jpg")" alt=""/>
             <h3><a href="@Url.Action("Details", "Feed", new { id = feed.FeedId })">@feed.FeedName</a></h3>
         </div>
     }

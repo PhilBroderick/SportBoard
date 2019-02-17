@@ -252,7 +252,8 @@ namespace SportBoard.Web.Controllers
                 FeedName = feedName,
                 UserId = currentUserId,
                 ImageId = image.ImageId,
-                CreatedOn = DateTime.Now
+                CreatedOn = DateTime.Now,
+                IsActive = true
             });
 
             if (feedCreated)
