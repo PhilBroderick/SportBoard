@@ -2,11 +2,7 @@
 using SportBoard.Data.DAL;
 using SportBoard.Data.DAL.Respositories;
 using SportBoard.Web.Models.WebApiModels;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace SportBoard.Web.Controllers.WebApi
@@ -29,7 +25,7 @@ namespace SportBoard.Web.Controllers.WebApi
         [Route("")]       
         public IHttpActionResult GetAllActiveFeeds()
         {
-            var feeds = _context.Feed.Where(f => f.IsActive == true).ToList();
+            var feeds = _feedRepository.Find(f => f.IsActive == true).ToList();
 
             if(feeds != null)
                 return Ok(new { results = feeds.Select(Mapper.Map<Feed, FeedSearchDto>)});
@@ -38,24 +34,14 @@ namespace SportBoard.Web.Controllers.WebApi
         }
 
         [HttpGet, Route("{id:int}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        public IHttpActionResult GetFeedById(int id)
+        { 
+            var feed = _feedRepository.Get(id);
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
+            if (feed != null)
+                return Ok(Mapper.Map<FeedSearchDto>(feed));
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
+            return NotFound();
         }
     }
 }
