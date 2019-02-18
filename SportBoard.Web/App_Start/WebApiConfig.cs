@@ -17,6 +17,7 @@ namespace SportBoard.Web
             //config.MapHttpAttributeRoutes();
             var constraintResolver = new DefaultInlineConstraintResolver();
             constraintResolver.ConstraintMap.Add("validFeed", typeof(ValidFeedConstraint));
+            constraintResolver.ConstraintMap.Add("validPost", typeof(ValidPostConstraint));
             config.MapHttpAttributeRoutes(constraintResolver);
 
             //config.Routes.MapHttpRoute(

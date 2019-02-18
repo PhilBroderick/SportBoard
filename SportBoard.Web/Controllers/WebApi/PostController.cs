@@ -50,5 +50,15 @@ namespace SportBoard.Web.Controllers.WebApi
 
             return NotFound();
         }
+
+        [HttpGet, Route("{id:validPost}")]
+        public IHttpActionResult GetPostById(int id)
+        {
+            var post = _postRepository.Get(id);
+
+            if (post != null)
+                return Ok(new { result = Mapper.Map<PostDto>(post) });
+            return NotFound();
+        }
     }
 }
