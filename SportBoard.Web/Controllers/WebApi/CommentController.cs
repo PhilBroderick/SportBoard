@@ -31,5 +31,15 @@ namespace SportBoard.Web.Controllers.WebApi
                 return Ok(new { results = comments.Select(Mapper.Map<Comment, CommentDto>) });
             return NotFound();
         }
+
+        [HttpGet, Route("post/{id:validPost}")]
+        public IHttpActionResult GetAllCommentsByPost(int id)
+        {
+            var commentsByPost = _commentRepository.Find(c => c.PostId == id).ToList();
+
+            if (commentsByPost != null)
+                return Ok(new { results = commentsByPost.Select(Mapper.Map<Comment, CommentDto>) });
+            return NotFound();
+        }
     }
 }
