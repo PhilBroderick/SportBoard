@@ -228,6 +228,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API.BLL\RouteConstraints\ValidFeedConstraint.cs" />
+    <Compile Include="API.BLL\RouteConstraints\ValidPostConstraint.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -257,6 +259,7 @@
     <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="Controllers\WebApi\CommentController.cs" />
     <Compile Include="Controllers\WebApi\FeedController.cs" />
     <Compile Include="Controllers\WebApi\PostController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
@@ -265,6 +268,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DTOs\CommentDto.cs" />
     <Compile Include="Models\HistoricalModels\UserHistory.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

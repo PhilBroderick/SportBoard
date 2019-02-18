@@ -1,7 +1,9 @@
-﻿using System;
+﻿using SportBoard.Web.APIBLL.RouteConstraints;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Routing;
 
 namespace SportBoard.Web
 {
@@ -12,13 +14,17 @@ namespace SportBoard.Web
             // Web API configuration and services
 
             // Web API routes
-            config.MapHttpAttributeRoutes();
+            //config.MapHttpAttributeRoutes();
+            var constraintResolver = new DefaultInlineConstraintResolver();
+            constraintResolver.ConstraintMap.Add("validFeed", typeof(ValidFeedConstraint));
+            constraintResolver.ConstraintMap.Add("validPost", typeof(ValidPostConstraint));
+            config.MapHttpAttributeRoutes(constraintResolver);
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            //config.Routes.MapHttpRoute(
+            //    name: "DefaultApi",
+            //    routeTemplate: "api/{controller}/{id}",
+            //    defaults: new { id = RouteParameter.Optional }
+            //);
 
             var formatter = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
             formatter.SerializerSettings.ContractResolver =

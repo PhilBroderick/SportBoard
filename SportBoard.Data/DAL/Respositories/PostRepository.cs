@@ -40,6 +40,10 @@ namespace SportBoard.Data.DAL.Respositories
             return posts;
         }
 
+        public bool SearchIfPostExistsById(int id)
+        {
+            return SportboardDbContext.Post.Any(p => p.PostId == id);
+        }
         public SportboardDbContext SportboardDbContext
         {
             get { return Context as SportboardDbContext; }

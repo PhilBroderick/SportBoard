@@ -33,11 +33,7 @@ namespace SportBoard.Data.DAL.Respositories
 
         public bool SearchIfFeedExistsById(int feedId)
         {
-            var feedExists = SportboardDbContext.Feed.FirstOrDefault(f => f.FeedId == feedId);
-
-            if (feedExists == null)
-                return false;
-            return true;
+            return SportboardDbContext.Feed.Any(f => f.FeedId == feedId);
         }
 
         public IEnumerable<Feed> SortFeedsByNewestFirst(List<Feed> feeds)

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SportBoard.Data.DAL;
+using SportBoard.Web.Models.DTOs;
 using SportBoard.Web.Models.WebApiModels;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace SportBoard.Web.App_Start
         {
             CreateMap<Feed, FeedSearchDto>();
             CreateMap<Post, PostDto>();
+            CreateMap<Comment, CommentDto>();
         }
     }
 }

@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace SportBoard.Web.Controllers.WebApi
 {
-    [RoutePrefix("api/post")]
+    [RoutePrefix("api/posts")]
     public class PostController : ApiController
     {
         private SportboardDbContext _context;
@@ -38,12 +38,9 @@ namespace SportBoard.Web.Controllers.WebApi
             return NotFound();
         }
 
-        [HttpGet, Route("feed/{id:int}")]
+        [HttpGet, Route("feed/{id:validFeed}")]
         public IHttpActionResult GetAllPostsForFeed(int id)
         {
-            if (!_feedRepository.SearchIfFeedExistsById(id))
-                return NotFound();
-
             var postsByFeed = _postRepository.Find(p => p.FeedId == id).ToList();
 
             if(postsByFeed != null)
@@ -51,6 +48,16 @@ namespace SportBoard.Web.Controllers.WebApi
                 return Ok(new { results = postsByFeed.Select(Mapper.Map<Post, PostDto>) });
             }
 
+            return NotFound();
+        }
+
+        [HttpGet, Route("{id:validPost}")]
+        public IHttpActionResult GetPostById(int id)
+        {
+            var post = _postRepository.Get(id);
+
+            if (post != null)
+                return Ok(new { result = Mapper.Map<PostDto>(post) });
             return NotFound();
         }
     }
