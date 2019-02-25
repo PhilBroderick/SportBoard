@@ -302,5 +302,10 @@ namespace SportBoard.Web.Controllers
             //return RedirectToAction("CloseRequest", "Admin", new { id = requestId });
             return RedirectToAction("Requests", "Admin");
         }
+
+        private IUserNotification CreateUserNotification(DeletionRequest request)
+        {
+            return null;
+        }
     }
 }
