@@ -238,12 +238,14 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="BLL\BLLUserNotifications.cs" />
     <Compile Include="BLL\Comments.cs" />
     <Compile Include="BLL\CreateFeed.cs" />
     <Compile Include="BLL\CreateImage.cs" />
     <Compile Include="BLL\CustomAuthorize.cs" />
     <Compile Include="BLL\DeletionRequests.cs" />
     <Compile Include="BLL\FilterOptions.cs" />
+    <Compile Include="BLL\Interfaces\IUserNotification.cs" />
     <Compile Include="BLL\Posts.cs" />
     <Compile Include="BLL\RequestEnums.cs" />
     <Compile Include="BLL\SortOptions.cs" />
@@ -259,6 +261,7 @@
     <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="Controllers\UserNotificationController.cs" />
     <Compile Include="Controllers\WebApi\CommentController.cs" />
     <Compile Include="Controllers\WebApi\FeedController.cs" />
     <Compile Include="Controllers\WebApi\PostController.cs" />
@@ -269,6 +272,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DTOs\CommentDto.cs" />
+    <Compile Include="Models\DTOs\DeletionRequestNotificationDto.cs" />
     <Compile Include="Models\HistoricalModels\UserHistory.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -370,6 +374,7 @@
     <Content Include="Views\Manage\DeletionRequests.cshtml" />
     <Content Include="Views\Feed\Search.cshtml" />
     <Content Include="Views\Feed\SearchFeeds.cshtml" />
+    <Content Include="Views\UserNotification\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

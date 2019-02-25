@@ -79,6 +79,12 @@
       <DependentUpon>SportBoardModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\IUnitOfWork.cs" />
+    <Compile Include="DAL\NotificationType.cs">
+      <DependentUpon>SportBoardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\NotificationTypes.cs">
+      <DependentUpon>SportBoardModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\Post.cs">
       <DependentUpon>SportBoardModel.tt</DependentUpon>
     </Compile>
@@ -117,6 +123,9 @@
       <DependentUpon>SportBoardModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="DAL\UnitOfWork.cs" />
+    <Compile Include="DAL\UserNotification.cs">
+      <DependentUpon>SportBoardModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\UserPreferences.cs">
       <DependentUpon>SportBoardModel.tt</DependentUpon>
     </Compile>

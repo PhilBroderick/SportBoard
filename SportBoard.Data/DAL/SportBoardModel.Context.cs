@@ -38,6 +38,8 @@ namespace SportBoard.Data.DAL
         public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<UserPreferences> UserPreferences { get; set; }
         public virtual DbSet<DeletionRequest> DeletionRequest { get; set; }
+        public virtual DbSet<NotificationType> NotificationType { get; set; }
+        public virtual DbSet<UserNotification> UserNotification { get; set; }
     
         public virtual int spFeed_Deactivate(Nullable<int> id)
         {

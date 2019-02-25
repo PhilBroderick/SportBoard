@@ -16,6 +16,11 @@ namespace SportBoard.Web.App_Start
             CreateMap<Feed, FeedSearchDto>();
             CreateMap<Post, PostDto>();
             CreateMap<Comment, CommentDto>();
+            CreateMap<DeletionRequest, DeletionRequestNotificationDto>()
+                .ForMember(dest => dest.Message, 
+                           opts => opts.MapFrom(src => src.ReasonForDeletion))
+                .ForMember(dest => dest.NotificationType,
+                            opts => opts.MapFrom(NotificationTypes.FeedDeletionRequest.ToString()));
         }
     }
 }
