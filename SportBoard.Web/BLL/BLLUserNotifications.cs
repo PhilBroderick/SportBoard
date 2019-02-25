@@ -17,7 +17,7 @@ namespace SportBoard.Web.BLL
             _unitOfWork = unitOfWork;
         }
 
-        public bool TryCreateUserNotification()
+        public bool CreateUserNotification()
         {
             return false;
         }

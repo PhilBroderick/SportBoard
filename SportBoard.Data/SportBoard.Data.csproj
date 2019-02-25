@@ -82,6 +82,9 @@
     <Compile Include="DAL\NotificationType.cs">
       <DependentUpon>SportBoardModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\NotificationTypes.cs">
+      <DependentUpon>SportBoardModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\Post.cs">
       <DependentUpon>SportBoardModel.tt</DependentUpon>
     </Compile>

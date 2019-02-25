@@ -282,6 +282,9 @@ namespace SportBoard.Web.Controllers
 
             if (isCreated)
             {
+                var userNotification = CreateUserNotification(request);
+                var notification = new BLLUserNotifications(userNotification, _unitOfWork).CreateUserNotification();
+
                 var redirectUrl = new UrlHelper(Request.RequestContext).Action("Details", "Feed", new { id });
                 return Json(new { Url = redirectUrl });
             }
@@ -305,7 +308,7 @@ namespace SportBoard.Web.Controllers
 
         private IUserNotification CreateUserNotification(DeletionRequest request)
         {
-            return null;
+            
         }
     }
 }

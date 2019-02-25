@@ -1028,7 +1028,7 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           </Key>
           <Property Name="NotificationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="NotificationType" Type="Int32" Nullable="false" />
+          <Property Name="NotificationType" Type="SportboardModel.NotificationTypes" Nullable="false" />
           <Property Name="IsRead" Type="Boolean" Nullable="false" />
           <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="SportboardModel.FK_UserNotification_AspNetUsers" FromRole="UserNotification" ToRole="AspNetUsers" />
@@ -1059,6 +1059,12 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EnumType Name="NotificationTypes">
+          <Member Name="FeedDeletionRequest" Value="1" />
+          <Member Name="NewPost" Value="2" />
+          <Member Name="NewComment" Value="3" />
+          <Member Name="FeedDeletionResponse" Value="4" />
+        </EnumType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
