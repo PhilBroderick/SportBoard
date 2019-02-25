@@ -9,9 +9,9 @@ namespace SportBoard.Web.BLL
 {
     public interface IUserNotification
     {
-        string UserId { get; set; }
-        NotificationType NotificationType { get; set;}
-        bool IsRead { get; set; }
-        string Message { get; set; }
+        string UserId { get; }
+        NotificationTypes NotificationType { get;}
+        bool IsRead { set; }
+        string Message { get; }
     }
 }
