@@ -11,6 +11,7 @@ using SportBoard.Data.DAL.Respositories;
 using SportBoard.Data.DAL.DTOs;
 using SportBoard.Web.Models.ViewModels;
 using SportBoard.Web.Builders;
+using SportBoard.Web.Models.DTOs;
 
 namespace SportBoard.Web.Controllers
 {
@@ -308,7 +309,7 @@ namespace SportBoard.Web.Controllers
 
         private IUserNotification CreateUserNotification(DeletionRequest request)
         {
-            
+            return AutoMapper.Mapper.Map<DeletionRequestNotificationDto>(request);
         }
     }
 }

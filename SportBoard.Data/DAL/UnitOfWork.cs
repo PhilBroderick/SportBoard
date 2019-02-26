@@ -33,6 +33,8 @@ namespace SportBoard.Data.DAL
 
         public IDeletionRequestRepository DeletionRequests { get; private set; }
 
+        public IUserNotificationRepository UserNotifications { get; private set; }
+
         public int Complete()
         {
             return _context.SaveChanges();

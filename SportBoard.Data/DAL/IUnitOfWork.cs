@@ -16,6 +16,7 @@ namespace SportBoard.Data.DAL
         IUserRepository Users { get; }
         IUserPreferenceRepository UserPreferences { get; }
         IDeletionRequestRepository DeletionRequests { get; }
+        IUserNotificationRepository UserNotifications { get; }
         int Complete();
     }
 }

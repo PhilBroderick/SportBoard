@@ -8,7 +8,7 @@ namespace SportBoard.Web.BLL
 {
     public class BLLUserNotifications
     {
-        IUserNotification _userNotification;
+        private IUserNotification _userNotification;
         IUnitOfWork _unitOfWork;
 
         public BLLUserNotifications(IUserNotification userNotification, IUnitOfWork unitOfWork)
@@ -19,7 +19,10 @@ namespace SportBoard.Web.BLL
 
         public bool CreateUserNotification()
         {
-            return false;
+            var userNotifcation = CreateUserNotificationModel();
+            _unitOfWork.UserNotifications.Add(userNotifcation);
+            _unitOfWork.Complete();
+            return true;
         }
 
         private UserNotification CreateUserNotificationModel()
