@@ -22,6 +22,12 @@ namespace SportBoard.Web.App_Start
                 .ForMember(dest => dest.NotificationType,
                             opts => opts.MapFrom(src => NotificationTypes.FeedDeletionRequest.ToString()))
                 .BeforeMap((s, d) => d.IsRead = false);
+            CreateMap<Post, PostNotificationDto>().
+                ForMember(dest => dest.Message,
+                          opts => opts.MapFrom(src => src.Description))
+                .ForMember(dest => dest.NotificationType,
+                           opts => opts.MapFrom(src => NotificationTypes.NewPost.ToString()))
+                .BeforeMap((s, d) => d.IsRead = false);
         }
     }
 }

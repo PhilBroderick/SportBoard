@@ -11,7 +11,7 @@ namespace SportBoard.Web.BLL
     {
         string UserId { get; }
         NotificationTypes NotificationType { get;}
-        bool IsRead { set; }
+        bool IsRead { get; }
         string Message { get; }
     }
 }

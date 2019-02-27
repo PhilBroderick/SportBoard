@@ -34,8 +34,9 @@
         <AssociationConnector Association="SportboardModel.FK_DeletionRequest_AspNetUsers" />
         <AssociationConnector Association="SportboardModel.FK_DeletionRequest_Feed" />
         <EntityTypeShape EntityType="SportboardModel.NotificationType" Width="1.5" PointX="7.375" PointY="0.75" />
-        <EntityTypeShape EntityType="SportboardModel.UserNotification" Width="1.5" PointX="6.375" PointY="17.75" />
+        <EntityTypeShape EntityType="SportboardModel.UserNotification" Width="1.5" PointX="5.25" PointY="18.625" />
         <AssociationConnector Association="SportboardModel.FK_UserNotification_AspNetUsers" />
+        <AssociationConnector Association="SportboardModel.FK_UserNotification_AspNetUsers1" />
         <AssociationConnector Association="SportboardModel.FK_UserNotification_UserNotification" />
         </Diagram>
     </edmx:Diagrams>

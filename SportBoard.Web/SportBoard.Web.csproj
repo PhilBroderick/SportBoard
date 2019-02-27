@@ -273,6 +273,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DTOs\CommentDto.cs" />
     <Compile Include="Models\DTOs\DeletionRequestNotificationDto.cs" />
+    <Compile Include="Models\DTOs\PostNotificationDto.cs" />
     <Compile Include="Models\HistoricalModels\UserHistory.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
