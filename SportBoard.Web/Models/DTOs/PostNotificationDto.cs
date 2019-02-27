@@ -7,13 +7,15 @@ using System.Web;
 
 namespace SportBoard.Web.Models.DTOs
 {
-    public class DeletionRequestNotificationDto : IUserNotification
+    public class PostNotificationDto : IUserNotification
     {
         public string UserIdToNotify { get; set; }
-        public NotificationTypes NotificationType { get; set; }
-        public bool IsRead { get; set; }
-        public string Message { get; set; }
 
+        public NotificationTypes NotificationType { get; set; }
+
+        public bool IsRead { get; set; }
+
+        public string Message { get; set; }
         public string UserIdCreatedNotification { get; set; }
     }
 }

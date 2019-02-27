@@ -15,12 +15,14 @@ namespace SportBoard.Data.DAL
     public partial class UserNotification
     {
         public int NotificationId { get; set; }
-        public string UserId { get; set; }
+        public string UserIdToNotify { get; set; }
+        public string UserIdCreatedNotification { get; set; }
         public NotificationTypes NotificationType { get; set; }
         public bool IsRead { get; set; }
         public string Message { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual AspNetUsers AspNetUsers1 { get; set; }
         public virtual UserNotification UserNotification1 { get; set; }
         public virtual UserNotification UserNotification2 { get; set; }
     }

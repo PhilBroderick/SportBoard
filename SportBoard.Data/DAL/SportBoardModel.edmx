@@ -173,7 +173,8 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
             <PropertyRef Name="NotificationId" />
           </Key>
           <Property Name="NotificationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserIdToNotify" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserIdCreatedNotification" Type="nvarchar" MaxLength="128" />
           <Property Name="NotificationType" Type="int" Nullable="false" />
           <Property Name="IsRead" Type="bit" Nullable="false" />
           <Property Name="Message" Type="text" Nullable="false" />
@@ -442,7 +443,19 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserNotification">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="UserIdToNotify" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserNotification_AspNetUsers1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="UserNotification" Type="Self.UserNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserNotification">
+              <PropertyRef Name="UserIdCreatedNotification" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -493,7 +506,7 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserNotification" EntityType="Self.UserNotification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPreferences" EntityType="Self.UserPreferences" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CommentDownvote" EntityType="Self.CommentDownvote" store:Type="Tables" Schema="dbo"/>
+          <EntitySet Name="CommentDownvote" EntityType="Self.CommentDownvote" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CommentUpvote" EntityType="Self.CommentUpvote" store:Type="Tables" Schema="dbo"/>
           <EntitySet Name="PostThumbsDown" EntityType="Self.PostThumbsDown" store:Type="Tables" Schema="dbo"/>
           <EntitySet Name="PostThumbsUp" EntityType="Self.PostThumbsUp" store:Type="Tables" Schema="dbo"/>
@@ -574,6 +587,10 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
             <End Role="PostThumbsUp" EntitySet="PostThumbsUp" />
           </AssociationSet>
           <AssociationSet Name="FK_UserNotification_AspNetUsers" Association="Self.FK_UserNotification_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="UserNotification" EntitySet="UserNotification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserNotification_AspNetUsers1" Association="Self.FK_UserNotification_AspNetUsers1">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="UserNotification" EntitySet="UserNotification" />
           </AssociationSet>
@@ -682,6 +699,10 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="UserNotification" EntitySet="UserNotification" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserNotification_AspNetUsers1" Association="SportboardModel.FK_UserNotification_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="UserNotification" EntitySet="UserNotification" />
+          </AssociationSet>
           <AssociationSet Name="FK_UserNotification_UserNotification" Association="SportboardModel.FK_UserNotification_UserNotification">
             <End Role="UserNotification" EntitySet="UserNotification" />
             <End Role="UserNotification1" EntitySet="UserNotification" />
@@ -757,7 +778,8 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <Property Name="ProfilePictureName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="ProfilePicturePath" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="UserNotification" Relationship="SportboardModel.FK_UserNotification_AspNetUsers" FromRole="AspNetUsers" ToRole="UserNotification" />
-        </EntityType>
+          <NavigationProperty Name="UserNotification1" Relationship="SportboardModel.FK_UserNotification_AspNetUsers1" FromRole="AspNetUsers" ToRole="UserNotification" />
+          </EntityType>
         <EntityType Name="Image">
           <Key>
             <PropertyRef Name="ImageId" />
@@ -1022,16 +1044,24 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <Property Name="NotificationTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NotificationTypeName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EnumType Name="NotificationTypes">
+          <Member Name="FeedDeletionRequest" Value="1" />
+          <Member Name="NewPost" Value="2" />
+          <Member Name="NewComment" Value="3" />
+          <Member Name="FeedDeletionResponse" Value="4" />
+        </EnumType>
         <EntityType Name="UserNotification">
           <Key>
             <PropertyRef Name="NotificationId" />
           </Key>
           <Property Name="NotificationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserIdToNotify" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserIdCreatedNotification" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="NotificationType" Type="SportboardModel.NotificationTypes" Nullable="false" />
           <Property Name="IsRead" Type="Boolean" Nullable="false" />
           <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="SportboardModel.FK_UserNotification_AspNetUsers" FromRole="UserNotification" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="SportboardModel.FK_UserNotification_AspNetUsers1" FromRole="UserNotification" ToRole="AspNetUsers" />
           <NavigationProperty Name="UserNotification1" Relationship="SportboardModel.FK_UserNotification_UserNotification" FromRole="UserNotification" ToRole="UserNotification1" />
           <NavigationProperty Name="UserNotification2" Relationship="SportboardModel.FK_UserNotification_UserNotification" FromRole="UserNotification1" ToRole="UserNotification" />
         </EntityType>
@@ -1043,7 +1073,19 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserNotification">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="UserIdToNotify" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserNotification_AspNetUsers1">
+          <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="SportboardModel.UserNotification" Role="UserNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserNotification">
+              <PropertyRef Name="UserIdCreatedNotification" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1059,12 +1101,6 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EnumType Name="NotificationTypes">
-          <Member Name="FeedDeletionRequest" Value="1" />
-          <Member Name="NewPost" Value="2" />
-          <Member Name="NewComment" Value="3" />
-          <Member Name="FeedDeletionResponse" Value="4" />
-        </EnumType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1259,7 +1295,8 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="IsRead" ColumnName="IsRead" />
                 <ScalarProperty Name="NotificationType" ColumnName="NotificationType" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserIdCreatedNotification" ColumnName="UserIdCreatedNotification" />
+                <ScalarProperty Name="UserIdToNotify" ColumnName="UserIdToNotify" />
                 <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
               </MappingFragment>
             </EntityTypeMapping>

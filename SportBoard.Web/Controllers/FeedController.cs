@@ -12,6 +12,7 @@ using SportBoard.Data.DAL.DTOs;
 using SportBoard.Web.Models.ViewModels;
 using SportBoard.Web.Builders;
 using SportBoard.Web.Models.DTOs;
+using AutoMapper;
 
 namespace SportBoard.Web.Controllers
 {
@@ -284,7 +285,8 @@ namespace SportBoard.Web.Controllers
             if (isCreated)
             {
                 var userNotification = CreateUserNotification(request);
-                var notification = new BLLUserNotifications(userNotification, _unitOfWork).CreateUserNotification();
+                var notification = new BLLUserNotifications(userNotification, _unitOfWork);
+                notification.CreateUserNotification();
 
                 var redirectUrl = new UrlHelper(Request.RequestContext).Action("Details", "Feed", new { id });
                 return Json(new { Url = redirectUrl });
@@ -309,7 +311,7 @@ namespace SportBoard.Web.Controllers
 
         private IUserNotification CreateUserNotification(DeletionRequest request)
         {
-            return AutoMapper.Mapper.Map<DeletionRequestNotificationDto>(request);
+            return Mapper.Map<DeletionRequestNotificationDto>(request);
         }
     }
 }

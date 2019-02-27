@@ -8,8 +8,8 @@ namespace SportBoard.Web.BLL
 {
     public class BLLUserNotifications
     {
-        private IUserNotification _userNotification;
-        IUnitOfWork _unitOfWork;
+        private readonly IUserNotification _userNotification;
+        private readonly IUnitOfWork _unitOfWork;
 
         public BLLUserNotifications(IUserNotification userNotification, IUnitOfWork unitOfWork)
         {
@@ -17,21 +17,21 @@ namespace SportBoard.Web.BLL
             _unitOfWork = unitOfWork;
         }
 
-        public bool CreateUserNotification()
+        public void CreateUserNotification()
         {
             var userNotifcation = CreateUserNotificationModel();
             _unitOfWork.UserNotifications.Add(userNotifcation);
             _unitOfWork.Complete();
-            return true;
         }
 
         private UserNotification CreateUserNotificationModel()
         {
             return new UserNotification
             {
-                UserId = _userNotification.UserId,
+                UserIdToNotify = _userNotification.UserIdToNotify,
                 NotificationType = _userNotification.NotificationType,
-                Message = _userNotification.Message
+                Message = _userNotification.Message,
+                UserIdCreatedNotification = _userNotification.UserIdCreatedNotification
             };
         }
     }
