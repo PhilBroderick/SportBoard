@@ -21,6 +21,7 @@ namespace SportBoard.Data.DAL
             Users = new UserRepository(_context);
             UserPreferences = new UserPreferenceRepository(_context);
             DeletionRequests = new DeletionRequestRepository(_context);
+            UserNotifications = new UserNotificationRepository(_context);
         }
         public IFeedRepository Feeds { get; private set; }
         public ICommentRepository Comments { get; private set; }

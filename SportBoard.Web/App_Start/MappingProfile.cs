@@ -21,7 +21,7 @@ namespace SportBoard.Web.App_Start
                            opts => opts.MapFrom(src => src.ReasonForDeletion))
                 .ForMember(dest => dest.NotificationType,
                             opts => opts.MapFrom(src => NotificationTypes.FeedDeletionRequest.ToString()))
-                .ForAllOtherMembers(opt => opt.Ignore());
+                .BeforeMap((s, d) => d.IsRead = false);
         }
     }
 }

@@ -9,9 +9,9 @@ namespace SportBoard.Web.Models.DTOs
 {
     public class DeletionRequestNotificationDto : IUserNotification
     {
-        public string UserId { get; }
-        public NotificationTypes NotificationType { get; }
-        public bool IsRead { set => this.IsRead = false; }
-        public string Message { get; }
+        public string UserId { get; set; }
+        public NotificationTypes NotificationType { get; set; }
+        public bool IsRead { get; set; }
+        public string Message { get; set; }
     }
 }
