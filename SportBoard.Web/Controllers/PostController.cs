@@ -72,20 +72,7 @@ namespace SportBoard.Web.Controllers
         public ActionResult Create()
         {
             var currentUserId = User.Identity.GetUserId();
-            var createImage = new CreateImage(_imageRepository, _unitOfWork);
-            var localImage = createImage.SavePhotoLocally(Request);
-            if(localImage == null)
-                    return RedirectToAction("Index", "Feed");
-
-            var image = new Image
-            {
-                UserId = currentUserId,
-                UploadedOn = DateTime.Now,
-                FilePath = localImage.FilePath,
-                FileName = localImage.FileNameWithoutExtenstion
-            };
-
-            createImage.CreateNewImage(image);
+            var image = CreateLocalImage(Request, currentUserId);
 
             var feedIdString = Request.Params["feedId"];
 
@@ -94,7 +81,7 @@ namespace SportBoard.Web.Controllers
             if (feedId == 0)
                 return HttpNotFound();
 
-
+            var feed = _feedRepository.Find(f => f.FeedId == feedId).FirstOrDefault();
             var createPost = new Posts(_feedRepository, _postRepository, _unitOfWork);
 
             var post = new Post
@@ -103,7 +90,8 @@ namespace SportBoard.Web.Controllers
                 ImageId = image.ImageId,
                 PostDate = DateTime.Now,
                 UserId = currentUserId,
-                Description = Request.Params["textInput"]
+                Description = Request.Params["textInput"],
+                Feed = feed
             };
 
             var postCreated = createPost.TryCreatePost(post);
@@ -112,6 +100,7 @@ namespace SportBoard.Web.Controllers
             {
                 var userNotification = CreateUserNotification(post);
                 var notification = new BLLUserNotifications(userNotification, _unitOfWork);
+                notification.CreateUserNotification();
                 var redirectUrl = new UrlHelper(Request.RequestContext).Action("Details", "Feed", new { id = feedId });
                 return Json(new { Url = redirectUrl });
             }
@@ -216,6 +205,26 @@ namespace SportBoard.Web.Controllers
                 return true;
             }
             return false;
+        }
+
+        private Image CreateLocalImage(HttpRequestBase request, string currentUserId)
+        {
+            var createImage = new CreateImage(_imageRepository, _unitOfWork);
+            var localImage = createImage.SavePhotoLocally(Request);
+            if (localImage == null)
+                return null;
+
+            var image = new Image
+            {
+                UserId = currentUserId,
+                UploadedOn = DateTime.Now,
+                FilePath = localImage.FilePath,
+                FileName = localImage.FileNameWithoutExtenstion
+            };
+
+            createImage.CreateNewImage(image);
+
+            return image;
         }
 
         private void UpdateVotes(Post post)
