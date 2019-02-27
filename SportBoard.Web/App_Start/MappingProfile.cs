@@ -25,6 +25,10 @@ namespace SportBoard.Web.App_Start
             CreateMap<Post, PostNotificationDto>().
                 ForMember(dest => dest.Message,
                           opts => opts.MapFrom(src => src.Description))
+                .ForMember(dest => dest.UserIdToNotify,
+                           opts => opts.MapFrom(src => src.Feed.UserId))
+                .ForMember(dest => dest.UserIdCreatedNotification, 
+                           opts => opts.MapFrom(src => src.UserId))
                 .ForMember(dest => dest.NotificationType,
                            opts => opts.MapFrom(src => NotificationTypes.NewPost.ToString()))
                 .BeforeMap((s, d) => d.IsRead = false);

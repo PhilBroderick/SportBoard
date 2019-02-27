@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using SportBoard.Data.DAL;
 using SportBoard.Data.DAL.Respositories;
 using SportBoard.Web.BLL;
+using SportBoard.Web.Models.DTOs;
 using SportBoard.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -108,6 +110,8 @@ namespace SportBoard.Web.Controllers
 
             if (postCreated)
             {
+                var userNotification = CreateUserNotification(post);
+                var notification = new BLLUserNotifications(userNotification, _unitOfWork);
                 var redirectUrl = new UrlHelper(Request.RequestContext).Action("Details", "Feed", new { id = feedId });
                 return Json(new { Url = redirectUrl });
             }
@@ -219,6 +223,11 @@ namespace SportBoard.Web.Controllers
             var updateVotes = new Posts(_feedRepository, _postRepository, _unitOfWork);
 
             updateVotes.UpdatePost(post);
+        }
+
+        private IUserNotification CreateUserNotification(Post post)
+        {
+            return Mapper.Map<PostNotificationDto>(post);
         }
     }
 }

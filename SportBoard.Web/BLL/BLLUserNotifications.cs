@@ -28,9 +28,10 @@ namespace SportBoard.Web.BLL
         {
             return new UserNotification
             {
-                UserIdToNotify = _userNotification.UserId,
+                UserIdToNotify = _userNotification.UserIdToNotify,
                 NotificationType = _userNotification.NotificationType,
-                Message = _userNotification.Message
+                Message = _userNotification.Message,
+                UserIdCreatedNotification = _userNotification.UserIdCreatedNotification
             };
         }
     }
