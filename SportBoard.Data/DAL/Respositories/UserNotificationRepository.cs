@@ -12,6 +12,11 @@ namespace SportBoard.Data.DAL.Respositories
             : base(context)
         {
         }
+
+        public IQueryable<UserNotification> GetUnreadNotificationsByUserId(string userId)
+        {
+            return Context.UserNotification.Where(u => u.UserIdToNotify == userId && u.IsRead == false);
+        }
         public SportboardDbContext SportboardDbContext
         {
             get { return Context as SportboardDbContext; }

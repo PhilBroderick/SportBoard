@@ -108,6 +108,7 @@ warning 6002: The table/view 'Sportboard.dbo.CommentUpvote' does not have a prim
           <Property Name="ReasonForDeletion" Type="text" />
           <Property Name="RequestClosed" Type="bit" Nullable="false" />
           <Property Name="AdminResponse" Type="text" Nullable="false" />
+          <Property Name="AdminUserId" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="Feed">
           <Key>
@@ -178,6 +179,9 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <Property Name="NotificationType" Type="int" Nullable="false" />
           <Property Name="IsRead" Type="bit" Nullable="false" />
           <Property Name="Message" Type="text" Nullable="false" />
+          <Property Name="FeedId" Type="int" />
+          <Property Name="PostId" Type="int" />
+          <Property Name="CommentId" Type="int" />
         </EntityType>
         <EntityType Name="UserPreferences">
           <Key>
@@ -506,7 +510,7 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserNotification" EntityType="Self.UserNotification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPreferences" EntityType="Self.UserPreferences" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CommentDownvote" EntityType="Self.CommentDownvote" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CommentDownvote" EntityType="Self.CommentDownvote" store:Type="Tables" Schema="dbo"/>
           <EntitySet Name="CommentUpvote" EntityType="Self.CommentUpvote" store:Type="Tables" Schema="dbo"/>
           <EntitySet Name="PostThumbsDown" EntityType="Self.PostThumbsDown" store:Type="Tables" Schema="dbo"/>
           <EntitySet Name="PostThumbsUp" EntityType="Self.PostThumbsUp" store:Type="Tables" Schema="dbo"/>
@@ -1005,6 +1009,7 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <NavigationProperty Name="Feed" Relationship="SportboardModel.FK_DeletionRequest_Feed" FromRole="DeletionRequest" ToRole="Feed" />
           <Property Name="AdminResponse" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="RequestClosed" Type="Boolean" Nullable="false" />
+          <Property Name="AdminUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_DeletionRequest_AspNetUsers">
           <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -1060,6 +1065,9 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <Property Name="NotificationType" Type="SportboardModel.NotificationTypes" Nullable="false" />
           <Property Name="IsRead" Type="Boolean" Nullable="false" />
           <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FeedId" Type="Int32" />
+          <Property Name="PostId" Type="Int32" />
+          <Property Name="CommentId" Type="Int32" />
           <NavigationProperty Name="AspNetUsers" Relationship="SportboardModel.FK_UserNotification_AspNetUsers" FromRole="UserNotification" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUsers1" Relationship="SportboardModel.FK_UserNotification_AspNetUsers1" FromRole="UserNotification" ToRole="AspNetUsers" />
           <NavigationProperty Name="UserNotification1" Relationship="SportboardModel.FK_UserNotification_UserNotification" FromRole="UserNotification" ToRole="UserNotification1" />
@@ -1262,6 +1270,7 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <EntitySetMapping Name="DeletionRequest">
             <EntityTypeMapping TypeName="SportboardModel.DeletionRequest">
               <MappingFragment StoreEntitySet="DeletionRequest">
+                <ScalarProperty Name="AdminUserId" ColumnName="AdminUserId" />
                 <ScalarProperty Name="RequestClosed" ColumnName="RequestClosed" />
                 <ScalarProperty Name="AdminResponse" ColumnName="AdminResponse" />
                 <ScalarProperty Name="ReasonForDeletion" ColumnName="ReasonForDeletion" />
@@ -1292,6 +1301,9 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <EntitySetMapping Name="UserNotification">
             <EntityTypeMapping TypeName="SportboardModel.UserNotification">
               <MappingFragment StoreEntitySet="UserNotification">
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="FeedId" ColumnName="FeedId" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="IsRead" ColumnName="IsRead" />
                 <ScalarProperty Name="NotificationType" ColumnName="NotificationType" />

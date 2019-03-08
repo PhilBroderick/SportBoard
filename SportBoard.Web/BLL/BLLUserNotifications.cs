@@ -31,7 +31,10 @@ namespace SportBoard.Web.BLL
                 UserIdToNotify = _userNotification.UserIdToNotify,
                 NotificationType = _userNotification.NotificationType,
                 Message = _userNotification.Message,
-                UserIdCreatedNotification = _userNotification.UserIdCreatedNotification
+                UserIdCreatedNotification = _userNotification.UserIdCreatedNotification,
+                FeedId = _userNotification.FeedId,
+                PostId = _userNotification.PostId,
+                CommentId = _userNotification.CommentId
             };
         }
     }

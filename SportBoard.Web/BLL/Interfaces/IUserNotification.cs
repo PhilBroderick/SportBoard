@@ -14,5 +14,8 @@ namespace SportBoard.Web.BLL
         bool IsRead { get; }
         string Message { get; }
         string UserIdCreatedNotification { get; }
+        int FeedId { get; }
+        int PostId { get; }
+        int CommentId { get; }
     }
 }

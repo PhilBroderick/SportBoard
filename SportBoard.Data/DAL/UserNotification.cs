@@ -20,6 +20,9 @@ namespace SportBoard.Data.DAL
         public NotificationTypes NotificationType { get; set; }
         public bool IsRead { get; set; }
         public string Message { get; set; }
+        public Nullable<int> FeedId { get; set; }
+        public Nullable<int> PostId { get; set; }
+        public Nullable<int> CommentId { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }
