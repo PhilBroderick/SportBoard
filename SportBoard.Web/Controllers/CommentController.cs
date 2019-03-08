@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using SportBoard.Data.DAL;
 using SportBoard.Data.DAL.Respositories;
 using SportBoard.Web.BLL;
+using SportBoard.Web.Models.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,17 +42,24 @@ namespace SportBoard.Web.Controllers
 
             int.TryParse(postIdString, out int postId);
 
+            var post = _postRepository.Find(p => p.PostId == postId).FirstOrDefault();
+
             var comment = new Comment
             {
                 PostId = postId,
                 CommentText = Request.Params["commentText"],
                 UserId = currentUserId,
-                CreatedOn = DateTime.Now
+                CreatedOn = DateTime.Now,
+                Post = post
             };
 
             var createComment = new Comments(_commentRepository, _unitOfWork, _postRepository);
             
             createComment.CreateNewComment(comment);
+
+            var userNotification = CreateUserNotification(comment);
+            var notification = new BLLUserNotifications(userNotification, _unitOfWork);
+            notification.CreateUserNotification();
 
             var redirectUrl = new UrlHelper(Request.RequestContext).Action("Details", "Post", new { id = postId });
 
@@ -158,6 +167,11 @@ namespace SportBoard.Web.Controllers
             var updateVotes = new Comments(_commentRepository, _unitOfWork, _postRepository);
 
             updateVotes.UpdateComment(comment);
+        }
+        
+        private IUserNotification CreateUserNotification(Comment comment)
+        {
+            return Mapper.Map<CommentNotificationDto>(comment);
         }
     }
 }

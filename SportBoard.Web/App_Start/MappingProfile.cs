@@ -16,6 +16,7 @@ namespace SportBoard.Web.App_Start
             CreateMap<Feed, FeedSearchDto>();
             CreateMap<Post, PostDto>();
             CreateMap<Comment, CommentDto>();
+
             CreateMap<DeletionRequest, DeletionRequestNotificationDto>()
                 .ForMember(dest => dest.Message,
                            opts => opts.MapFrom(src => src.ReasonForDeletion))
@@ -28,6 +29,7 @@ namespace SportBoard.Web.App_Start
                 .ForMember(dest => dest.CreatedOn,
                             opts => opts.MapFrom(src => DateTime.Now))
                 .BeforeMap((s, d) => d.IsRead = false);
+
             CreateMap<Post, PostNotificationDto>()
                 .ForMember(dest => dest.Message,
                           opts => opts.MapFrom(src => src.Description))
@@ -39,6 +41,21 @@ namespace SportBoard.Web.App_Start
                            opts => opts.MapFrom(src => NotificationTypes.NewPost.ToString()))
                 .ForMember(dest => dest.CreatedOn,
                             opts => opts.MapFrom(src => DateTime.Now))
+                .BeforeMap((s, d) => d.IsRead = false);
+
+            CreateMap<Comment, CommentNotificationDto>()
+                .ForMember(dest => dest.Message,
+                            opts => opts.MapFrom(src => src.CommentText))
+                .ForMember(dest => dest.UserIdToNotify,
+                            opts => opts.MapFrom(src => src.Post.UserId))
+                .ForMember(dest => dest.UserIdCreatedNotification,
+                            opts => opts.MapFrom(src => src.UserId))
+                .ForMember(dest => dest.NotificationType,
+                            opts => opts.MapFrom(src => NotificationTypes.NewComment.ToString()))
+                .ForMember(dest => dest.CreatedOn,
+                            opts => opts.MapFrom(src => DateTime.Now))
+                .ForMember(dest => dest.CommentId,
+                            opts => opts.MapFrom(src => src.CommentId))
                 .BeforeMap((s, d) => d.IsRead = false);
         }
     }
