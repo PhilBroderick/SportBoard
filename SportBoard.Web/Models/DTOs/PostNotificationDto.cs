@@ -17,5 +17,11 @@ namespace SportBoard.Web.Models.DTOs
 
         public string Message { get; set; }
         public string UserIdCreatedNotification { get; set; }
+
+        public int FeedId { get; set; }
+
+        public int PostId { get; set; }
+
+        public int CommentId { get; set; }
     }
 }

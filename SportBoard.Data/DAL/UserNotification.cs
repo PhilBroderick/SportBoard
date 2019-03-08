@@ -28,8 +28,5 @@ namespace SportBoard.Data.DAL
         public virtual AspNetUsers AspNetUsers1 { get; set; }
         public virtual UserNotification UserNotification1 { get; set; }
         public virtual UserNotification UserNotification2 { get; set; }
-        public virtual Comment Comment { get; set; }
-        public virtual Feed Feed { get; set; }
-        public virtual Post Post { get; set; }
     }
 }

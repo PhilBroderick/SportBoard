@@ -463,42 +463,6 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserNotification_Comment">
-          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
-          <End Role="UserNotification" Type="Self.UserNotification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Comment">
-              <PropertyRef Name="CommentId" />
-            </Principal>
-            <Dependent Role="UserNotification">
-              <PropertyRef Name="CommentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserNotification_Feed">
-          <End Role="Feed" Type="Self.Feed" Multiplicity="0..1" />
-          <End Role="UserNotification" Type="Self.UserNotification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Feed">
-              <PropertyRef Name="FeedId" />
-            </Principal>
-            <Dependent Role="UserNotification">
-              <PropertyRef Name="FeedId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserNotification_Post">
-          <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
-          <End Role="UserNotification" Type="Self.UserNotification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Post">
-              <PropertyRef Name="PostId" />
-            </Principal>
-            <Dependent Role="UserNotification">
-              <PropertyRef Name="PostId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserNotification_UserNotification">
           <End Role="UserNotification" Type="Self.UserNotification" Multiplicity="1" />
           <End Role="UserNotification1" Type="Self.UserNotification" Multiplicity="0..1" />
@@ -634,18 +598,6 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="UserNotification" EntitySet="UserNotification" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserNotification_Comment" Association="Self.FK_UserNotification_Comment">
-            <End Role="Comment" EntitySet="Comment" />
-            <End Role="UserNotification" EntitySet="UserNotification" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserNotification_Feed" Association="Self.FK_UserNotification_Feed">
-            <End Role="Feed" EntitySet="Feed" />
-            <End Role="UserNotification" EntitySet="UserNotification" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserNotification_Post" Association="Self.FK_UserNotification_Post">
-            <End Role="Post" EntitySet="Post" />
-            <End Role="UserNotification" EntitySet="UserNotification" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserNotification_UserNotification" Association="Self.FK_UserNotification_UserNotification">
             <End Role="UserNotification" EntitySet="UserNotification" />
             <End Role="UserNotification1" EntitySet="UserNotification" />
@@ -758,18 +710,6 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <AssociationSet Name="FK_UserNotification_UserNotification" Association="SportboardModel.FK_UserNotification_UserNotification">
             <End Role="UserNotification" EntitySet="UserNotification" />
             <End Role="UserNotification1" EntitySet="UserNotification" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserNotification_Comment" Association="SportboardModel.FK_UserNotification_Comment">
-            <End Role="Comment" EntitySet="Comment" />
-            <End Role="UserNotification" EntitySet="UserNotification" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserNotification_Feed" Association="SportboardModel.FK_UserNotification_Feed">
-            <End Role="Feed" EntitySet="Feed" />
-            <End Role="UserNotification" EntitySet="UserNotification" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserNotification_Post" Association="SportboardModel.FK_UserNotification_Post">
-            <End Role="Post" EntitySet="Post" />
-            <End Role="UserNotification" EntitySet="UserNotification" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -915,7 +855,6 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="DeletionRequest" Relationship="SportboardModel.FK_DeletionRequest_Feed" FromRole="Feed" ToRole="DeletionRequest" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="UserNotification" Relationship="SportboardModel.FK_UserNotification_Feed" FromRole="Feed" ToRole="UserNotification" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -932,7 +871,6 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <NavigationProperty Name="Comment" Relationship="SportboardModel.FK_Comment_Post" FromRole="Post" ToRole="Comment" />
           <NavigationProperty Name="PostThumbsDownUserIds" Relationship="SportboardModel.PostThumbsDown" FromRole="Post" ToRole="AspNetUsers" />
           <NavigationProperty Name="PostThumbsUpUserIds" Relationship="SportboardModel.PostThumbsUp" FromRole="Post" ToRole="AspNetUsers" />
-          <NavigationProperty Name="UserNotification" Relationship="SportboardModel.FK_UserNotification_Post" FromRole="Post" ToRole="UserNotification" />
         </EntityType>
         <Association Name="FK_Feed_AspNetUsers">
           <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -995,7 +933,6 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <NavigationProperty Name="CommentDownVoteUserIds" Relationship="SportboardModel.CommentDownvote" FromRole="Comment" ToRole="AspNetUsers" />
           <NavigationProperty Name="CommentUpvoteUserIds" Relationship="SportboardModel.CommentUpvote" FromRole="Comment" ToRole="AspNetUsers" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="UserNotification" Relationship="SportboardModel.FK_UserNotification_Comment" FromRole="Comment" ToRole="UserNotification" />
         </EntityType>
         <Association Name="FK_Comment_AspNetUsers">
           <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -1128,16 +1065,13 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <Property Name="NotificationType" Type="SportboardModel.NotificationTypes" Nullable="false" />
           <Property Name="IsRead" Type="Boolean" Nullable="false" />
           <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FeedId" Type="Int32" />
+          <Property Name="PostId" Type="Int32" />
+          <Property Name="CommentId" Type="Int32" />
           <NavigationProperty Name="AspNetUsers" Relationship="SportboardModel.FK_UserNotification_AspNetUsers" FromRole="UserNotification" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUsers1" Relationship="SportboardModel.FK_UserNotification_AspNetUsers1" FromRole="UserNotification" ToRole="AspNetUsers" />
           <NavigationProperty Name="UserNotification1" Relationship="SportboardModel.FK_UserNotification_UserNotification" FromRole="UserNotification" ToRole="UserNotification1" />
           <NavigationProperty Name="UserNotification2" Relationship="SportboardModel.FK_UserNotification_UserNotification" FromRole="UserNotification1" ToRole="UserNotification" />
-          <Property Name="FeedId" Type="Int32" />
-          <Property Name="PostId" Type="Int32" />
-          <Property Name="CommentId" Type="Int32" />
-          <NavigationProperty Name="Comment" Relationship="SportboardModel.FK_UserNotification_Comment" FromRole="UserNotification" ToRole="Comment" />
-          <NavigationProperty Name="Feed" Relationship="SportboardModel.FK_UserNotification_Feed" FromRole="UserNotification" ToRole="Feed" />
-          <NavigationProperty Name="Post" Relationship="SportboardModel.FK_UserNotification_Post" FromRole="UserNotification" ToRole="Post" />
         </EntityType>
         <Association Name="FK_UserNotification_AspNetUsers">
           <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -1172,42 +1106,6 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
             </Principal>
             <Dependent Role="UserNotification1">
               <PropertyRef Name="NotificationId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserNotification_Comment">
-          <End Type="SportboardModel.Comment" Role="Comment" Multiplicity="0..1" />
-          <End Type="SportboardModel.UserNotification" Role="UserNotification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Comment">
-              <PropertyRef Name="CommentId" />
-            </Principal>
-            <Dependent Role="UserNotification">
-              <PropertyRef Name="CommentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserNotification_Feed">
-          <End Type="SportboardModel.Feed" Role="Feed" Multiplicity="0..1" />
-          <End Type="SportboardModel.UserNotification" Role="UserNotification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Feed">
-              <PropertyRef Name="FeedId" />
-            </Principal>
-            <Dependent Role="UserNotification">
-              <PropertyRef Name="FeedId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserNotification_Post">
-          <End Type="SportboardModel.Post" Role="Post" Multiplicity="0..1" />
-          <End Type="SportboardModel.UserNotification" Role="UserNotification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Post">
-              <PropertyRef Name="PostId" />
-            </Principal>
-            <Dependent Role="UserNotification">
-              <PropertyRef Name="PostId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

@@ -21,6 +21,10 @@ namespace SportBoard.Web.App_Start
                            opts => opts.MapFrom(src => src.ReasonForDeletion))
                 .ForMember(dest => dest.NotificationType,
                             opts => opts.MapFrom(src => NotificationTypes.FeedDeletionRequest.ToString()))
+                .ForMember(dest => dest.FeedId,
+                            opts => opts.MapFrom(src => src.FeedId))
+                .ForMember(dest => dest.UserIdToNotify,
+                            opts => opts.MapFrom(src => src.UserId))
                 .BeforeMap((s, d) => d.IsRead = false);
             CreateMap<Post, PostNotificationDto>().
                 ForMember(dest => dest.Message,

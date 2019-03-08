@@ -20,7 +20,6 @@ namespace SportBoard.Data.DAL
             this.Comment = new HashSet<Comment>();
             this.PostThumbsDownUserIds = new HashSet<AspNetUsers>();
             this.PostThumbsUpUserIds = new HashSet<AspNetUsers>();
-            this.UserNotification = new HashSet<UserNotification>();
         }
     
         public int PostId { get; set; }
@@ -38,7 +37,5 @@ namespace SportBoard.Data.DAL
         public virtual ICollection<AspNetUsers> PostThumbsDownUserIds { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUsers> PostThumbsUpUserIds { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserNotification> UserNotification { get; set; }
     }
 }

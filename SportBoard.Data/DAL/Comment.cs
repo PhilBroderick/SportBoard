@@ -19,7 +19,6 @@ namespace SportBoard.Data.DAL
         {
             this.CommentDownVoteUserIds = new HashSet<AspNetUsers>();
             this.CommentUpvoteUserIds = new HashSet<AspNetUsers>();
-            this.UserNotification = new HashSet<UserNotification>();
         }
     
         public int CommentId { get; set; }
@@ -34,7 +33,5 @@ namespace SportBoard.Data.DAL
         public virtual ICollection<AspNetUsers> CommentDownVoteUserIds { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUsers> CommentUpvoteUserIds { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserNotification> UserNotification { get; set; }
     }
 }
