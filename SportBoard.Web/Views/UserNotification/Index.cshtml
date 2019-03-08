@@ -5,62 +5,49 @@
 
 <h2>Inbox</h2>
 <div class="col-md-12">
-    <div id="filterOptions">
+    <div id="notificationfilterOptions">
         <ul class="nav nav-tabs">
-            <li role="presentation" class="feeds"><a href="#">All</a></li>
-            <li role="presentation" class="Posts"><a href="#">Post</a></li>
-            <li role="presentation" class="comments"><a href="#">Comments</a></li>
-            <li role="presentation" class="all active"><a href="#">Deletion Request</a></li>
+            <li role="presentation" class="All active"><a href="#">All</a></li>
+            <li role="presentation" class="Posts"><a href="#">Posts</a></li>
+            <li role="presentation" class="Comments"><a href="#">Comments</a></li>
+            <li role="presentation" class="DeletionRequests"><a href="#">Deletion Requests</a></li>
+            <li role="presentation" class="DeletionResponses"><a href="#">Deletion Responses</a></li>
         </ul>
     </div>
 </div>
 
 <div class="col-md-12">
-    @foreach(var notification in Model)
-    {
-        var timeDifference = DateTime.Now - notification.CreatedOn;
-    <div class="col-md-12 notificationContainer">
-        <div class="messageHeader">
-            <p>@User.Identity.Name,</p>
-
-
-            @if (timeDifference.TotalHours < 1)
-            {
-                int minutes = (int)timeDifference.TotalMinutes;
-                <p>Created @minutes mins ago</p>
-            }
-            else
-            {
-                int hours = (int)timeDifference.TotalHours;
-                <p>Created @hours hours ago</p>
-            }
-
-        </div>
-        <div class="messageContainer">
-            @if (notification.NotificationType.Equals(SportBoard.Data.DAL.NotificationTypes.NewPost))
-            {
-                <p>
-                    Someone created a new <a href="@Url.Action("Details", "Post", new { id = notification.PostId })">post</a>
-                    on your <a href="@Url.Action("Details", "Feed", new { id = notification.FeedId })">feed!</a>
-                </p>
-            }
-            else if (notification.NotificationType.Equals(SportBoard.Data.DAL.NotificationTypes.FeedDeletionRequest))
-            {
-                <p>
-                    You created a feed deletion request for the following <a href="@Url.Action("Details", "Feed", new { id = notification.FeedId })">feed</a>
-                    with the message: "@notification.Message".
-                </p>
-                <p><em>An admin will take a look at your request as soon as possible and get back to you.</em></p>
-            }
-            else if (notification.NotificationType.Equals(SportBoard.Data.DAL.NotificationTypes.FeedDeletionResponse))
-            {
-                
-            }
-            else if (notification.NotificationType.Equals(SportBoard.Data.DAL.NotificationTypes.NewComment))
-            {
-                <p>new comment</p>
-            }
-        </div>
+    <div class="notificationView">
+        @Html.Partial("UserNotifications", Model)
     </div>
-    }
 </div>
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            $('#filterOptions li').on("click", function () {
+                removeActive();
+                $(this).toggleClass('active');
+                var selection = $(this).text();
+                var linkUrl = '@Url.Action("FilterNotifications", "UserNotification", new { filterOption = "-1" })';
+                linkUrl = linkUrl.replace("-1", selection);
+
+                $.ajax({
+                    url: linkUrl,
+                    type: "GET",
+                    dataType: "html",
+                    success: function (data) {
+                        $('.notificationView').html(data);
+                    }
+                });
+            })
+
+            function removeActive() {
+                var kids = $('#filterOptions').find('li');
+                kids.removeClass('active');
+            }
+            
+        });
+    </script>
+}

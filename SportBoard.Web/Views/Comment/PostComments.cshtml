@@ -6,18 +6,21 @@
     <div class="panel-body">
         <p>@comment.CommentText</p>
     </div>
-    <div class="panel-footer">
-        @comment.AspNetUsers.UserName
+    <div class="panel-footer commentFooter">
+        <div class="commentCreatorContainer">
+            @comment.AspNetUsers.UserName
+            @if (User.IsInRole("Admin") || comment.AspNetUsers.Id == Model.CurrentUser.Id)
+            {
+                <div class="adminControls">
+                    <a class="editComment" href="@Url.Action("Edit","Comment", new { id = comment.CommentId })"><i class="fas fa-pencil-alt"></i></a>
+                    <a class="deleteComment" href="@Url.Action("Delete", "Comment", new { id = comment.CommentId })"><i class="fas fa-trash-alt"></i></a>
+                </div>
+            }
+        </div>
         <span class="updownVoteBtns">
             @Html.Partial("~/Views/Shared/UpvoteDownvoteBtns.cshtml", comment)
         </span>
     </div>
-    @if (User.IsInRole("Admin") || comment.AspNetUsers.Id == Model.CurrentUser.Id)
-    {
-        <div class="adminControls">
-            <a class="editComment" href="@Url.Action("Edit","Comment", new { id = comment.CommentId })" ><i class="fas fa-pencil-alt"></i></a>
-            <a class="deleteComment" href="@Url.Action("Delete", "Comment", new { id = comment.CommentId })"><i class="fas fa-trash-alt"></i></a>
-        </div>
-    }
+    
 </div>
 }

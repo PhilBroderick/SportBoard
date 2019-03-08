@@ -82,3 +82,20 @@ h6,
     display:flex; 
     justify-content: space-between;
 }
+
+.commentFooter {
+    display: flex;
+    justify-content: space-between;
+}
+
+.adminControls {
+    margin-left:20px;
+}
+
+.commentCreatorContainer {
+    display:flex;
+}
+
+#notificationfilterOptions {
+    margin-bottom: 15px;
+}

@@ -11,18 +11,14 @@
             <div class="caption">
                 <h3>@Model.Post.Description</h3>
                 <p><a href="@Url.Action("ThumbsUpPost", "Post", new { postId = Model.Post.PostId })" class="btn btn-primary" role="button"><i class="fas fa-thumbs-up fa-lg"></i></a> <a href="@Url.Action("ThumbsDownPost", "Post", new { postId = Model.Post.PostId })" class="btn btn-default" role="button"><i class="fas fa-thumbs-down fa-lg"></i></a></p>
+                @if (User.IsInRole("Admin") || Model.Post.UserId == Model.CommentsCurrentUserVM.CurrentUser.Id)
+                {
+                     <a class="deletePost" href="@Url.Action("Delete","Post", new { id = Model.Post.PostId })"><i class="fas fa-trash-alt"></i></a>
+                }
             </div>
         </div>
     </div>
 </div>
-@if(User.IsInRole("Admin") || Model.Post.UserId == Model.CommentsCurrentUserVM.CurrentUser.Id)
-{
-    <div class="row">
-        <div class="col-md-12">
-                <a class="deletePost" href="@Url.Action("Delete","Post", new { id = Model.Post.PostId })"><i class="fas fa-trash-alt"></i></a>
-        </div>
-    </div>
-}
 
 <form id="form">
     <div class="row">
