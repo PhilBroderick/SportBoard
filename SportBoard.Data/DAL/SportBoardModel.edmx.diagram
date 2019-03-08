@@ -38,6 +38,9 @@
         <AssociationConnector Association="SportboardModel.FK_UserNotification_AspNetUsers" />
         <AssociationConnector Association="SportboardModel.FK_UserNotification_AspNetUsers1" />
         <AssociationConnector Association="SportboardModel.FK_UserNotification_UserNotification" />
+        <AssociationConnector Association="SportboardModel.FK_UserNotification_Comment" />
+        <AssociationConnector Association="SportboardModel.FK_UserNotification_Feed" />
+        <AssociationConnector Association="SportboardModel.FK_UserNotification_Post" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

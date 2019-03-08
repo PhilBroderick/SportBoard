@@ -19,6 +19,7 @@ namespace SportBoard.Data.DAL
         {
             this.Post = new HashSet<Post>();
             this.DeletionRequest = new HashSet<DeletionRequest>();
+            this.UserNotification = new HashSet<UserNotification>();
         }
     
         public int FeedId { get; set; }
@@ -34,5 +35,7 @@ namespace SportBoard.Data.DAL
         public virtual ICollection<Post> Post { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeletionRequest> DeletionRequest { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserNotification> UserNotification { get; set; }
     }
 }
