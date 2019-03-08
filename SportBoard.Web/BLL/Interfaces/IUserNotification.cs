@@ -17,5 +17,6 @@ namespace SportBoard.Web.BLL
         int FeedId { get; }
         int PostId { get; }
         int CommentId { get; }
+        DateTime CreatedOn { get; }
     }
 }

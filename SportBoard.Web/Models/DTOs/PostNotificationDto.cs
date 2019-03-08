@@ -23,5 +23,7 @@ namespace SportBoard.Web.Models.DTOs
         public int PostId { get; set; }
 
         public int CommentId { get; set; }
+
+        public DateTime CreatedOn { get; set; }
     }
 }
