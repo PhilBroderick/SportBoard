@@ -1,4 +1,4 @@
-﻿
+﻿@model List<SportBoard.Data.DAL.UserNotification>
 @{
     ViewBag.Title = "Index";
 }
@@ -13,4 +13,24 @@
             <li role="presentation" class="all active"><a href="#">Deletion Request</a></li>
         </ul>
     </div>
+</div>
+
+<div class="col-md-12">
+    <table>
+        <thead>
+            <tr>
+                <th>@Html.DisplayName("Notification Type")</th>
+                <th>@Html.DisplayName("Message")</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var notification in Model)
+            {
+                <tr>
+                    <td>@notification.NotificationType.ToString()</td>
+                    <td>@notification.Message</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
