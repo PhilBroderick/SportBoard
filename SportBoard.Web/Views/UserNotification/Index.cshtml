@@ -58,7 +58,10 @@
             }
             else if (notification.NotificationType.Equals(SportBoard.Data.DAL.NotificationTypes.NewComment))
             {
-                <p>new comment</p>
+                <p>
+                    Someone left a comment on your <a href="@Url.Action("Details", "Post", new { id = notification.PostId })">post</a>!
+                </p>
+                <p><em>"@notification.Message" </em>  - @notification.AspNetUsers1.UserName</p>
             }
         </div>
     </div>
