@@ -1,0 +1,57 @@
+﻿@model List<SportBoard.Data.DAL.UserNotification>
+
+@if (Model.Count < 1)
+{
+    <p>Oh no! You don't seem to have any unread notifications </p>
+}
+
+@foreach (var notification in Model)
+{
+    var timeDifference = DateTime.Now - notification.CreatedOn;
+    <div class="col-md-12 notificationContainer">
+        <div class="messageHeader">
+            <p>@User.Identity.Name,</p>
+
+
+            @if (timeDifference.TotalHours < 1)
+            {
+                int minutes = (int)timeDifference.TotalMinutes;
+                <p>Created @minutes mins ago</p>
+            }
+            else
+            {
+                int hours = (int)timeDifference.TotalHours;
+                <p>Created @hours hours ago</p>
+            }
+
+        </div>
+        <div class="messageContainer">
+            @if (notification.NotificationType.Equals(SportBoard.Data.DAL.NotificationTypes.NewPost))
+            {
+                <p>
+                    Someone created a new <a href="@Url.Action("Details", "Post", new { id = notification.PostId })">post</a>
+                    on your <a href="@Url.Action("Details", "Feed", new { id = notification.FeedId })">feed!</a>
+                </p>
+            }
+            else if (notification.NotificationType.Equals(SportBoard.Data.DAL.NotificationTypes.FeedDeletionRequest))
+            {
+                <p>
+                    You created a feed deletion request for the following <a href="@Url.Action("Details", "Feed", new { id = notification.FeedId })">feed</a>
+                    with the message: "@notification.Message".
+                </p>
+                <p><em>An admin will take a look at your request as soon as possible and get back to you.</em></p>
+            }
+            else if (notification.NotificationType.Equals(SportBoard.Data.DAL.NotificationTypes.FeedDeletionResponse))
+            {
+
+            }
+            else if (notification.NotificationType.Equals(SportBoard.Data.DAL.NotificationTypes.NewComment))
+            {
+                <p>
+                    Someone left a comment on your <a href="@Url.Action("Details", "Post", new { id = notification.PostId })">post</a>!
+                </p>
+                <p><em>"@notification.Message" </em>  - @notification.AspNetUsers1.UserName</p>
+            }
+        </div>
+    </div>
+}

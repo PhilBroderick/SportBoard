@@ -251,6 +251,7 @@
     <Compile Include="BLL\SortOptions.cs" />
     <Compile Include="BLL\UserHistoryCreation.cs" />
     <Compile Include="BLL\UserHistoryOptionsEnum.cs" />
+    <Compile Include="BLL\UserNotificationOptionsEnum.cs" />
     <Compile Include="BLL\VotingEnums.cs" />
     <Compile Include="BLL\Users.cs" />
     <Compile Include="Builders\DeletionRequestBuilder.cs" />
@@ -377,6 +378,7 @@
     <Content Include="Views\Feed\Search.cshtml" />
     <Content Include="Views\Feed\SearchFeeds.cshtml" />
     <Content Include="Views\UserNotification\Index.cshtml" />
+    <Content Include="Views\UserNotification\UserNotifications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
