@@ -72,3 +72,13 @@ h6,
     width: 300px;
     height: 250px;
 }
+
+.notificationContainer {
+    margin: 5px 0;
+    background-color: #e9edf1;
+}
+
+.messageHeader {
+    display:flex; 
+    justify-content: space-between;
+}
