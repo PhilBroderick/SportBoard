@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using SportBoard.Data.DAL;
 using SportBoard.Data.DAL.Respositories;
 using SportBoard.Web.BLL;
@@ -71,6 +72,7 @@ namespace SportBoard.Web.Controllers
             
             request.RequestClosed = true;
             request.AdminResponse = adminResponse;
+            request.AdminUserId = User.Identity.GetUserId();
 
             //want to move this out into a deletionRequest class
             _unitOfWork.DeletionRequests.Update(request);
