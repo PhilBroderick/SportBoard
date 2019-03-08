@@ -23,6 +23,7 @@ namespace SportBoard.Data.DAL
         public Nullable<int> FeedId { get; set; }
         public Nullable<int> PostId { get; set; }
         public Nullable<int> CommentId { get; set; }
+        public System.DateTime CreatedOn { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }

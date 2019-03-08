@@ -182,6 +182,7 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <Property Name="FeedId" Type="int" />
           <Property Name="PostId" Type="int" />
           <Property Name="CommentId" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="UserPreferences">
           <Key>
@@ -1072,6 +1073,7 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <NavigationProperty Name="AspNetUsers1" Relationship="SportboardModel.FK_UserNotification_AspNetUsers1" FromRole="UserNotification" ToRole="AspNetUsers" />
           <NavigationProperty Name="UserNotification1" Relationship="SportboardModel.FK_UserNotification_UserNotification" FromRole="UserNotification" ToRole="UserNotification1" />
           <NavigationProperty Name="UserNotification2" Relationship="SportboardModel.FK_UserNotification_UserNotification" FromRole="UserNotification1" ToRole="UserNotification" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <Association Name="FK_UserNotification_AspNetUsers">
           <End Type="SportboardModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -1301,6 +1303,7 @@ warning 6002: The table/view 'Sportboard.dbo.PostThumbsUp' does not have a prima
           <EntitySetMapping Name="UserNotification">
             <EntityTypeMapping TypeName="SportboardModel.UserNotification">
               <MappingFragment StoreEntitySet="UserNotification">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="CommentId" ColumnName="CommentId" />
                 <ScalarProperty Name="PostId" ColumnName="PostId" />
                 <ScalarProperty Name="FeedId" ColumnName="FeedId" />

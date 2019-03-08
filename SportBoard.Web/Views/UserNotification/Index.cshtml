@@ -16,21 +16,13 @@
 </div>
 
 <div class="col-md-12">
-    <table>
-        <thead>
-            <tr>
-                <th>@Html.DisplayName("Notification Type")</th>
-                <th>@Html.DisplayName("Message")</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var notification in Model)
-            {
-                <tr>
-                    <td>@notification.NotificationType.ToString()</td>
-                    <td>@notification.Message</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    @foreach(var notification in Model)
+    {
+        <div class="col-md-12 notificationContainer">
+            <p>@User.Identity.Name</p>
+            <p><a href="@Url.Action("Details", "Feed", new { id = notification.FeedId })">@notification.FeedId</a></p>
+            <p>@notification.Message</p>
+            <p>@notification.NotificationType.ToString()</p>
+        </div>
+    }
 </div>
