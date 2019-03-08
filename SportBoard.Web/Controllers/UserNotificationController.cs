@@ -27,7 +27,7 @@ namespace SportBoard.Web.Controllers
         public ActionResult Index()
         {
             var currentUserId = User.Identity.GetUserId();
-            var notifications = _userNotificationRepository.GetUnreadNotificationsByUserId(currentUserId).ToList();
+            var notifications = _userNotificationRepository.GetUnreadNotificationsByUserId(currentUserId).OrderByDescending(n => n.CreatedOn).ToList();
 
             return View(notifications);
         }

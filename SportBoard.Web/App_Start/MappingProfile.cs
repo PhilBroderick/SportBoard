@@ -25,9 +25,11 @@ namespace SportBoard.Web.App_Start
                             opts => opts.MapFrom(src => src.FeedId))
                 .ForMember(dest => dest.UserIdToNotify,
                             opts => opts.MapFrom(src => src.UserId))
+                .ForMember(dest => dest.CreatedOn,
+                            opts => opts.MapFrom(src => DateTime.Now))
                 .BeforeMap((s, d) => d.IsRead = false);
-            CreateMap<Post, PostNotificationDto>().
-                ForMember(dest => dest.Message,
+            CreateMap<Post, PostNotificationDto>()
+                .ForMember(dest => dest.Message,
                           opts => opts.MapFrom(src => src.Description))
                 .ForMember(dest => dest.UserIdToNotify,
                            opts => opts.MapFrom(src => src.Feed.UserId))
@@ -35,6 +37,8 @@ namespace SportBoard.Web.App_Start
                            opts => opts.MapFrom(src => src.UserId))
                 .ForMember(dest => dest.NotificationType,
                            opts => opts.MapFrom(src => NotificationTypes.NewPost.ToString()))
+                .ForMember(dest => dest.CreatedOn,
+                            opts => opts.MapFrom(src => DateTime.Now))
                 .BeforeMap((s, d) => d.IsRead = false);
         }
     }
