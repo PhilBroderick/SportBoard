@@ -57,6 +57,23 @@ namespace SportBoard.Web.App_Start
                 .ForMember(dest => dest.CommentId,
                             opts => opts.MapFrom(src => src.CommentId))
                 .BeforeMap((s, d) => d.IsRead = false);
+
+            CreateMap<DeletionRequest, DeletionResponseNotificationDto>()
+                .ForMember(dest => dest.Message,
+                           opts => opts.MapFrom(src => src.AdminResponse))
+                .ForMember(dest => dest.NotificationType,
+                            opts => opts.MapFrom(src => NotificationTypes.FeedDeletionResponse.ToString()))
+                .ForMember(dest => dest.FeedId,
+                            opts => opts.MapFrom(src => src.FeedId))
+                .ForMember(dest => dest.UserIdToNotify,
+                            opts => opts.MapFrom(src => src.UserId))
+                .ForMember(dest => dest.CreatedOn,
+                            opts => opts.MapFrom(src => DateTime.Now))
+                .ForMember(dest => dest.IsClosed,
+                            opts => opts.MapFrom(src => src.RequestAccepted))
+                .ForMember(dest => dest.UserIdCreatedNotification,
+                            opts => opts.MapFrom(src => src.AdminUserId))
+                .BeforeMap((s, d) => d.IsRead = false);
         }
     }
 }
