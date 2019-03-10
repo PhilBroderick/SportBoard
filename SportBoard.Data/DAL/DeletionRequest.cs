@@ -21,6 +21,7 @@ namespace SportBoard.Data.DAL
         public string AdminResponse { get; set; }
         public bool RequestClosed { get; set; }
         public string AdminUserId { get; set; }
+        public bool RequestAccepted { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Feed Feed { get; set; }
