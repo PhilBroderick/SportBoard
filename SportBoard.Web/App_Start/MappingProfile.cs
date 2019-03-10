@@ -70,7 +70,7 @@ namespace SportBoard.Web.App_Start
                 .ForMember(dest => dest.CreatedOn,
                             opts => opts.MapFrom(src => DateTime.Now))
                 .ForMember(dest => dest.IsClosed,
-                            opts => opts.MapFrom(src => src.RequestClosed))
+                            opts => opts.MapFrom(src => src.RequestAccepted))
                 .ForMember(dest => dest.UserIdCreatedNotification,
                             opts => opts.MapFrom(src => src.AdminUserId))
                 .BeforeMap((s, d) => d.IsRead = false);

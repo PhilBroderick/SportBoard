@@ -71,6 +71,8 @@ namespace SportBoard.Web.Controllers
             
             var adminResponse = Request.Params["reason"];
             var requestDecision = Request.Params["decision"];
+            if (requestDecision == "Yes")
+                request.RequestAccepted = true;
             
             request.RequestClosed = true;
             request.AdminResponse = adminResponse;

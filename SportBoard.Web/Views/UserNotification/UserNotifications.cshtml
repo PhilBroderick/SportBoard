@@ -43,7 +43,11 @@
             }
             else if (notification.NotificationType.Equals(SportBoard.Data.DAL.NotificationTypes.FeedDeletionResponse))
             {
-
+                <p>
+                    An admin has responded to your deletion request for feed: @notification.FeedId
+                    with the message: "@notification.Message"
+                </p>
+                <p>If you are not happy with the admin's response, please contact support at <em>support@sportboard.com</em></p>
             }
             else if (notification.NotificationType.Equals(SportBoard.Data.DAL.NotificationTypes.NewComment))
             {
