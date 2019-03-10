@@ -266,6 +266,7 @@
     <Compile Include="Controllers\WebApi\CommentController.cs" />
     <Compile Include="Controllers\WebApi\FeedController.cs" />
     <Compile Include="Controllers\WebApi\PostController.cs" />
+    <Compile Include="Controllers\WebApi\UserNotificationController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

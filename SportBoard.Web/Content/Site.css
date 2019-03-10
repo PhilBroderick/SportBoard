@@ -99,3 +99,12 @@ h6,
 #notificationfilterOptions {
     margin-bottom: 15px;
 }
+
+#profilePictureLink{
+    padding: 0;
+}
+
+#unreadNotifications {
+    padding: 15px 0;
+    width: 10px;
+}
