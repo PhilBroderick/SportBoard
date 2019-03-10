@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using SportBoard.Data.DAL;
 using SportBoard.Data.DAL.Respositories;
 using SportBoard.Web.BLL;
 using SportBoard.Web.Models;
+using SportBoard.Web.Models.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +76,10 @@ namespace SportBoard.Web.Controllers
             request.AdminResponse = adminResponse;
             request.AdminUserId = User.Identity.GetUserId();
 
+            var userNotification = CreateUserNotification(request);
+            var createNotificationModel = new BLLUserNotifications(userNotification, _unitOfWork);
+            createNotificationModel.CreateUserNotification();
+
             //want to move this out into a deletionRequest class
             _unitOfWork.DeletionRequests.Update(request);
             _unitOfWork.Complete();
@@ -83,6 +89,11 @@ namespace SportBoard.Web.Controllers
             
             var redirectUrl = new UrlHelper(Request.RequestContext).Action("Requests");
             return Json(new { Url = redirectUrl });
+        }
+
+        private IUserNotification CreateUserNotification(DeletionRequest deletionRequest)
+        {
+            return Mapper.Map<DeletionResponseNotificationDto>(deletionRequest);
         }
     }
 }

@@ -275,6 +275,7 @@
     <Compile Include="Models\DTOs\CommentDto.cs" />
     <Compile Include="Models\DTOs\CommentNotificationDto.cs" />
     <Compile Include="Models\DTOs\DeletionRequestNotificationDto.cs" />
+    <Compile Include="Models\DTOs\DeletionResponseNotificationDto.cs" />
     <Compile Include="Models\DTOs\PostNotificationDto.cs" />
     <Compile Include="Models\HistoricalModels\UserHistory.cs" />
     <Compile Include="Models\IdentityModels.cs" />
