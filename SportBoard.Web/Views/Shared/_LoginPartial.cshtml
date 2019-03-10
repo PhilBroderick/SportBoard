@@ -7,10 +7,13 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            <img src="@Url.Action("UserProfilePicture", "Manage")" class="profilePicture"/>
+            <a id="profilePictureLink"href="@Url.Action("Index","Manage", routeValues: null)"><img src="@Url.Action("UserProfilePicture", "Manage")" class="profilePicture" /></a>
         </li>
         <li>
             @Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>
+        <li>
+            <a id="unreadNotifications" href="@Url.Action("Index", "UserNotification")"></a>
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
@@ -22,4 +25,33 @@ else
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
+}
+
+
+@section scripts {
+    <script>
+        var unreadNotificationCount = 0;
+
+        function getUnreadNotifications() {
+            $.ajax({
+                type: "GET",
+                url: "/api/notifications?userId=" + @User.Identity.GetUserId(),
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    alert("success");
+                    console.log(response);
+                },
+                error: function () {
+                    alert("error");
+                }
+            })
+        }
+
+        document.getElementById("DOMContentLoaded", function () {
+            getUnreadNotifications();
+        }, false);
+    </script>
+        
+    
 }
