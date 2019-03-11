@@ -285,7 +285,7 @@ namespace SportBoard.Web.Controllers
             if (isCreated)
             {
                 var userNotification = CreateUserNotification(request);
-                var notification = new BLLUserNotifications(userNotification, _unitOfWork);
+                var notification = new BLLUserNotificationTypes(userNotification, _unitOfWork);
                 notification.CreateUserNotification();
 
                 var redirectUrl = new UrlHelper(Request.RequestContext).Action("Details", "Feed", new { id });

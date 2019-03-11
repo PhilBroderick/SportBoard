@@ -21,7 +21,7 @@ namespace SportBoard.Web.Controllers
         private SportboardDbContext _dbContext;
         private UnitOfWork _unitOfWork;
         private DeletionRequestRepository _requestRepository;
-
+        
         public AdminController()
         {
             _context = new ApplicationDbContext();
@@ -79,7 +79,7 @@ namespace SportBoard.Web.Controllers
             request.AdminUserId = User.Identity.GetUserId();
 
             var userNotification = CreateUserNotification(request);
-            var createNotificationModel = new BLLUserNotifications(userNotification, _unitOfWork);
+            var createNotificationModel = new BLLUserNotificationTypes(userNotification, _unitOfWork);
             createNotificationModel.CreateUserNotification();
 
             //want to move this out into a deletionRequest class

@@ -1,4 +1,5 @@
 ﻿using SportBoard.Data.DAL;
+using SportBoard.Data.DAL.Respositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,35 +9,22 @@ namespace SportBoard.Web.BLL
 {
     public class BLLUserNotifications
     {
-        private readonly IUserNotification _userNotification;
-        private readonly IUnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
+        private IUserNotificationRepository _userNotificationRepository;
 
-        public BLLUserNotifications(IUserNotification userNotification, IUnitOfWork unitOfWork)
+        public BLLUserNotifications(IUnitOfWork unitOfWork, IUserNotificationRepository userNotificationRepository)
         {
-            _userNotification = userNotification;
             _unitOfWork = unitOfWork;
+            _userNotificationRepository = userNotificationRepository;
         }
 
-        public void CreateUserNotification()
+        public void MarkNotificationAsRead(int notificationId)
         {
-            var userNotifcation = CreateUserNotificationModel();
-            _unitOfWork.UserNotifications.Add(userNotifcation);
+            var notification = _userNotificationRepository.Get(notificationId);
+            notification.IsRead = true;
+
+            _unitOfWork.UserNotifications.Update(notification);
             _unitOfWork.Complete();
-        }
-
-        private UserNotification CreateUserNotificationModel()
-        {
-            return new UserNotification
-            {
-                UserIdToNotify = _userNotification.UserIdToNotify,
-                NotificationType = _userNotification.NotificationType,
-                Message = _userNotification.Message,
-                UserIdCreatedNotification = _userNotification.UserIdCreatedNotification,
-                FeedId = _userNotification.FeedId,
-                PostId = _userNotification.PostId,
-                CommentId = _userNotification.CommentId,
-                CreatedOn = _userNotification.CreatedOn
-            };
         }
     }
 }

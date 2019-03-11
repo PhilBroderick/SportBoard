@@ -242,6 +242,7 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BLL\BLLUserNotifications.cs" />
+    <Compile Include="BLL\BLLUserNotificationTypes.cs" />
     <Compile Include="BLL\Comments.cs" />
     <Compile Include="BLL\CreateFeed.cs" />
     <Compile Include="BLL\CreateImage.cs" />
@@ -317,6 +318,7 @@
     <Content Include="Content\zocial.woff" />
     <None Include="Properties\PublishProfiles\SportBoard - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\Custom\notifications.js" />
     <Content Include="Scripts\Custom\UserNotifications.js" />
     <Content Include="Scripts\jasny-bootstrap.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

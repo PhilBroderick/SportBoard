@@ -16,12 +16,14 @@ namespace SportBoard.Web.Controllers
         private SportboardDbContext _context;
         private UnitOfWork _unitOfWork;
         private UserNotificationRepository _userNotificationRepository;
+        private BLLUserNotifications _bLLUserNotif;
 
         public UserNotificationController()
         {
             _context = new SportboardDbContext();
             _unitOfWork = new UnitOfWork(_context);
             _userNotificationRepository = new UserNotificationRepository(_context);
+            _bLLUserNotif = new BLLUserNotifications(_unitOfWork, _userNotificationRepository);
         }
 
         [Route("")]
@@ -63,5 +65,21 @@ namespace SportBoard.Web.Controllers
             }
             return PartialView("UserNotifications", notifications);
         }
+
+        [HttpPost]
+        public ActionResult ReadNotifications()
+        {
+            var notificationIdStr = Request.Params["notificationId"];
+
+            if (notificationIdStr.Equals(null))
+                return RedirectToAction("Index");
+
+            int.TryParse(notificationIdStr, out var notificationId);
+
+            _bLLUserNotif.MarkNotificationAsRead(notificationId);
+
+            return RedirectToAction("Index");
+        }
+        
     }
 }

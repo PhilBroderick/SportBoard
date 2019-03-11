@@ -18,7 +18,7 @@ namespace SportBoard.Web.Controllers
         private UnitOfWork _unitOfWork;
         private PostRepository _postRepository;
         private CommentRepository _commentRepository;
-        private Data.DAL.Respositories.UserRepository _userRepository;
+        private UserRepository _userRepository;
 
         public CommentController()
         {
@@ -26,7 +26,7 @@ namespace SportBoard.Web.Controllers
             _unitOfWork = new UnitOfWork(_context);
             _postRepository = new PostRepository(_context);
             _commentRepository = new CommentRepository(_context);
-            _userRepository = new Data.DAL.Respositories.UserRepository(_context);
+            _userRepository = new UserRepository(_context);
         }
         
         public ActionResult Create(int postId)
@@ -58,7 +58,7 @@ namespace SportBoard.Web.Controllers
             createComment.CreateNewComment(comment);
 
             var userNotification = CreateUserNotification(comment);
-            var notification = new BLLUserNotifications(userNotification, _unitOfWork);
+            var notification = new BLLUserNotificationTypes(userNotification, _unitOfWork);
             notification.CreateUserNotification();
 
             var redirectUrl = new UrlHelper(Request.RequestContext).Action("Details", "Post", new { id = postId });

@@ -57,5 +57,33 @@
                 <p><em>"@notification.Message" </em>  - @notification.AspNetUsers1.UserName</p>
             }
         </div>
+
+        @Html.HiddenFor(n => notification.NotificationId)
     </div>
+}
+
+@using (Html.BeginScriptContext())
+{
+    Html.AddScriptBlock(
+@<script type="text/javascript">
+    $('.notificationContainer').on("click", function () {
+        var notificationId = $(this).find('#notification_NotificationId').val();
+        var formData = new FormData();
+        formData.append("notificationId", notificationId);
+
+        $.ajax({
+            type: "POST",
+            url: '/UserNotification/ReadNotifications',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+            },
+            error: function () {
+                alert("An unexpected error has occured.");
+            }
+        });
+    });
+</script>);
+    //Html.AddScriptFile("~/Scripts/Custom/notifications.js");
 }
