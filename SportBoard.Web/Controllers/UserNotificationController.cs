@@ -78,7 +78,8 @@ namespace SportBoard.Web.Controllers
 
             _bLLUserNotif.MarkNotificationAsRead(notificationId);
 
-            return RedirectToAction("Index");
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index");
+            return Json(new { Url = redirectUrl });
         }
         
     }
