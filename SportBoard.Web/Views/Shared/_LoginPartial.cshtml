@@ -26,32 +26,30 @@ else
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
-
-
-@section scripts {
-    <script>
-        var unreadNotificationCount = 0;
-
-        function getUnreadNotifications() {
-            $.ajax({
-                type: "GET",
-                url: "/api/notifications?userId=" + @User.Identity.GetUserId(),
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    alert("success");
-                    console.log(response);
-                },
-                error: function () {
-                    alert("error");
-                }
-            })
-        }
-
-        document.getElementById("DOMContentLoaded", function () {
-            getUnreadNotifications();
-        }, false);
-    </script>
-        
-    
+@{ 
+   
 }
+
+@*<script>
+    var unreadNotificationCount = 0;
+
+    function getUnreadNotifications() {
+        $.ajax({
+            type: "GET",
+            url: "/api/notifications?userId=" + '@User.Identity.GetUserId()',
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                unreadNotificationCount = response.notificationCount;
+            },
+            error: function () {
+                alert("error");
+            }
+        })
+    }
+
+    $(document).ready(function () {
+        getUnreadNotifications();
+    })
+</script>*@
+        
