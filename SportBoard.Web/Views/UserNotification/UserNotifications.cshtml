@@ -57,5 +57,12 @@
                 <p><em>"@notification.Message" </em>  - @notification.AspNetUsers1.UserName</p>
             }
         </div>
+
+        @Html.HiddenFor(n => notification.NotificationId)
     </div>
+}
+
+@using (Html.BeginScriptContext())
+{
+    Html.AddScriptFile("~/Scripts/Custom/notifications.js");
 }
