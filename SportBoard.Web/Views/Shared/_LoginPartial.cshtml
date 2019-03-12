@@ -36,8 +36,9 @@ else
 
         @<script>
             var unreadNotificationCount = 0;
+            var notificationLink = $('#unreadNotifications');
 
-            function getUnreadNotifications() {
+            var getUnreadNotifications = function () {
                 $.ajax({
                     type: "GET",
                     url: "/api/notifications?userId=" + '@User.Identity.GetUserId()',
@@ -45,17 +46,25 @@ else
                     processData: false,
                     success: function (response) {
                         unreadNotificationCount = response.notificationCount;
-                        $('#unreadNotifications').text(unreadNotificationCount);
+                        notificationLink.text(unreadNotificationCount);
                     },
                     error: function () {
                         alert("error");
+                    }
+                }).done(function () {
+                    if (unreadNotificationCount > 0) {
+                        notificationLink.addClass("unreadHighlight").hover(function () {
+                            notificationLink.toggleClass("unreadHighlightHover");
+                        })
+                    }
+                    else {
+                        notificationLink.addClass("hidden");
                     }
                 })
             }
 
             $(document).ready(function () {
                 getUnreadNotifications();
-
             })
          </script>);
     }

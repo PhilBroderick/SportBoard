@@ -104,7 +104,21 @@ h6,
     padding: 0;
 }
 
-#unreadNotifications {
+/*#unreadNotifications {
     padding: 15px 0;
     width: 10px;
+}*/
+
+.unreadHighlight {
+    background-color: #e85382;
+    transition: 300ms;
+}
+
+.unreadHighlightHover {
+    background-color: #c6154d !important;
+    transition: 300ms;
+}
+
+.hidden {
+    display: none;
 }
