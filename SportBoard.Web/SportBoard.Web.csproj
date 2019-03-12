@@ -319,7 +319,6 @@
     <None Include="Properties\PublishProfiles\SportBoard - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Custom\notifications.js" />
-    <Content Include="Scripts\Custom\UserNotifications.js" />
     <Content Include="Scripts\jasny-bootstrap.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
