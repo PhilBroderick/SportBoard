@@ -5,14 +5,17 @@
 
 <h2>Inbox</h2>
 <div class="col-md-12">
-    <div id="notificationfilterOptions">
-        <ul class="nav nav-tabs">
+    <div id="notificationfilterOptions" class="col-md-12">
+        <ul class="nav nav-tabs" id="filterOptions">
             <li role="presentation" class="All active"><a href="#">All</a></li>
             <li role="presentation" class="Posts"><a href="#">Posts</a></li>
             <li role="presentation" class="Comments"><a href="#">Comments</a></li>
             <li role="presentation" class="DeletionRequests"><a href="#">Deletion Requests</a></li>
             <li role="presentation" class="DeletionResponses"><a href="#">Deletion Responses</a></li>
         </ul>
+    </div>
+    <div class="col-md-3">
+        <label><input type="checkbox" id="viewRead"/>View read notifications</label>
     </div>
 </div>
 
@@ -27,11 +30,12 @@
     <script>
         $(document).ready(function () {
             $('#filterOptions li').on("click", function () {
+                var onlyUnread = isOnlyUnread();
                 removeActive();
+
                 $(this).toggleClass('active');
                 var selection = $(this).text();
-                var linkUrl = '@Url.Action("FilterNotifications", "UserNotification", new { filterOption = "-1" })';
-                linkUrl = linkUrl.replace("-1", selection);
+                var linkUrl = '/UserNotification/FilterNotifications?filterOption=' + selection + "&onlyUnread=" + onlyUnread;
 
                 $.ajax({
                     url: linkUrl,
@@ -47,7 +51,28 @@
                 var kids = $('#filterOptions').find('li');
                 kids.removeClass('active');
             }
-            
+
+            var isOnlyUnread = function () {
+                var onlyUnread = true;
+                if ($('#viewRead').checked) {
+                    onlyUnread = false;
+                }
+                return onlyUnread;
+            }
+
+            @*$('#viewRead').change(function () {
+                var viewReadUrl = '@Url.Action("ViewReadNotifications", "UserNotification")';
+                if (this.checked) {
+                    $.ajax({
+                        url: viewReadUrl,
+                        type: "GET",
+                        dataType: "html",
+                        success: function (data) {
+                            $('.notificationView').html(data);
+                        }
+                    })
+                }
+            })*@
         });
     </script>
 }

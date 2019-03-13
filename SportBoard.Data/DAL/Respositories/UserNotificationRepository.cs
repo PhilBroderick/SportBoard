@@ -34,6 +34,11 @@ namespace SportBoard.Data.DAL.Respositories
         {
             return Context.UserNotification.Where(u => u.UserIdToNotify == userId && u.IsRead == false && u.NotificationType == NotificationTypes.FeedDeletionResponse);
         }
+
+        public IQueryable<UserNotification> GetAllNotificationsByUserId(string userId)
+        {
+            return Context.UserNotification.Where(u => u.UserIdToNotify == userId);
+        }
         public SportboardDbContext SportboardDbContext
         {
             get { return Context as SportboardDbContext; }
