@@ -15,23 +15,33 @@ namespace SportBoard.Data.DAL.Respositories
 
         public IQueryable<UserNotification> GetNotificationsByUserId(string userId, bool onlyUnread)
         {
+            if(!onlyUnread)
+                return Context.UserNotification.Where(u => u.UserIdToNotify == userId);
             return Context.UserNotification.Where(u => u.UserIdToNotify == userId && u.IsRead != onlyUnread);
         }
 
         public IQueryable<UserNotification> GetCommentNotificationsByUserId(string userId, bool onlyUnread)
         {
+            if (!onlyUnread)
+                return Context.UserNotification.Where(u => u.UserIdToNotify == userId && u.NotificationType == NotificationTypes.NewComment);
             return Context.UserNotification.Where(u => u.UserIdToNotify == userId && u.IsRead != onlyUnread && u.NotificationType == NotificationTypes.NewComment);
         }
         public IQueryable<UserNotification> GetPostNotificationsByUserId(string userId, bool onlyUnread)
         {
+            if(!onlyUnread)
+                return Context.UserNotification.Where(u => u.UserIdToNotify == userId && u.NotificationType == NotificationTypes.NewPost);
             return Context.UserNotification.Where(u => u.UserIdToNotify == userId && u.IsRead != onlyUnread && u.NotificationType == NotificationTypes.NewPost);
         }
         public IQueryable<UserNotification> GetDeletionRequestNotificationsByUserId(string userId, bool onlyUnread)
         {
+            if(!onlyUnread)
+                return Context.UserNotification.Where(u => u.UserIdToNotify == userId && u.NotificationType == NotificationTypes.FeedDeletionRequest);
             return Context.UserNotification.Where(u => u.UserIdToNotify == userId && u.IsRead != onlyUnread && u.NotificationType == NotificationTypes.FeedDeletionRequest);
         }
         public IQueryable<UserNotification> GetDeletionResponseNotificationsByUserId(string userId, bool onlyUnread)
         {
+            if(!onlyUnread)
+                return Context.UserNotification.Where(u => u.UserIdToNotify == userId && u.NotificationType == NotificationTypes.FeedDeletionResponse);
             return Context.UserNotification.Where(u => u.UserIdToNotify == userId && u.IsRead != onlyUnread && u.NotificationType == NotificationTypes.FeedDeletionResponse);
         }
 

@@ -34,15 +34,7 @@ namespace SportBoard.Web.Controllers
 
             return View(notifications);
         }
-
-        public PartialViewResult ViewReadNotifications()
-        {
-            var currentUserId = User.Identity.GetUserId();
-            var readNotifications = _userNotificationRepository.GetAllNotificationsByUserId(currentUserId).OrderByDescending(n => n.CreatedOn).ToList();
-
-            return PartialView("UserNotifications", readNotifications);
-        }
-
+        
         [HttpGet]
         public PartialViewResult FilterNotifications(string filterOption, bool onlyUnread)
         {
