@@ -27,7 +27,7 @@ namespace SportBoard.Web.Controllers.WebApi
         [Route("")]
         public IHttpActionResult GetUnreadNotificationCountByUser(string userId)
         {
-            var unreadNotifications = _notificationRepository.GetUnreadNotificationsByUserId(userId);
+            var unreadNotifications = _notificationRepository.GetNotificationsByUserId(userId, true);
 
             return Ok(new { notificationCount = unreadNotifications.Count() });
         }

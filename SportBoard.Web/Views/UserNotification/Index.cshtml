@@ -45,7 +45,22 @@
                         $('.notificationView').html(data);
                     }
                 });
-            })
+            });
+
+            $('#viewRead').change(function () {
+                var onlyUnread = isOnlyUnread();
+                var selection = activeFilterOption();
+                var linkUrl = '/UserNotification/FilterNotifications?filterOption=' + selection + "&onlyUnread=" + onlyUnread;
+
+                $.ajax({
+                    url: linkUrl,
+                    type: "GET",
+                    dataType: "html",
+                    success: function (data) {
+                        $('.notificationView').html(data);
+                    }
+                });
+            });
 
             function removeActive() {
                 var kids = $('#filterOptions').find('li');
@@ -54,11 +69,16 @@
 
             var isOnlyUnread = function () {
                 var onlyUnread = true;
-                if ($('#viewRead').checked) {
+                if ($('#viewRead').prop("checked")) {
                     onlyUnread = false;
                 }
                 return onlyUnread;
             }
+
+            var activeFilterOption = function () {
+                return $('.active').text();
+            }
+            
 
             @*$('#viewRead').change(function () {
                 var viewReadUrl = '@Url.Action("ViewReadNotifications", "UserNotification")';

@@ -30,7 +30,7 @@ namespace SportBoard.Web.Controllers
         public ActionResult Index()
         {
             var currentUserId = User.Identity.GetUserId();
-            var notifications = _userNotificationRepository.GetUnreadNotificationsByUserId(currentUserId).OrderByDescending(n => n.CreatedOn).ToList();
+            var notifications = _userNotificationRepository.GetNotificationsByUserId(currentUserId, true).OrderByDescending(n => n.CreatedOn).ToList();
 
             return View(notifications);
         }
@@ -49,7 +49,7 @@ namespace SportBoard.Web.Controllers
             var filterOptionSub = filterOption.Replace(" ", string.Empty);
             var currentUserId = User.Identity.GetUserId();
 
-            var notifications = GetNotificationsByType(filterOptionSub, currentUserId, false);
+            var notifications = GetNotificationsByType(filterOptionSub, currentUserId, onlyUnread);
             
             return PartialView("UserNotifications", notifications);
         }
@@ -78,15 +78,15 @@ namespace SportBoard.Web.Controllers
                 switch (notificationOption)
                 {
                     case UserNotificationOptionsEnum.All:
-                        return _userNotificationRepository.GetUnreadNotificationsByUserId(userId).OrderByDescending(n => n.CreatedOn).ToList();
+                        return _userNotificationRepository.GetNotificationsByUserId(userId, onlyUnread).OrderByDescending(n => n.CreatedOn).ToList();
                     case UserNotificationOptionsEnum.Comments:
-                        return _userNotificationRepository.GetUnreadCommentNotificationsByUserId(userId).OrderByDescending(n => n.CreatedOn).ToList();
+                        return _userNotificationRepository.GetCommentNotificationsByUserId(userId, onlyUnread).OrderByDescending(n => n.CreatedOn).ToList();
                     case UserNotificationOptionsEnum.Posts:
-                        return _userNotificationRepository.GetUnreadPostNotificationsByUserId(userId).OrderByDescending(n => n.CreatedOn).ToList();
+                        return _userNotificationRepository.GetPostNotificationsByUserId(userId, onlyUnread).OrderByDescending(n => n.CreatedOn).ToList();
                     case UserNotificationOptionsEnum.DeletionRequests:
-                        return _userNotificationRepository.GetUnreadDeletionRequestNotificationsByUserId(userId).OrderByDescending(n => n.CreatedOn).ToList();
+                        return _userNotificationRepository.GetDeletionRequestNotificationsByUserId(userId, onlyUnread).OrderByDescending(n => n.CreatedOn).ToList();
                     case UserNotificationOptionsEnum.DeletionResponses:
-                        return _userNotificationRepository.GetUnreadDeletionResponseNotificationsByUserId(userId).OrderByDescending(n => n.CreatedOn).ToList();
+                        return _userNotificationRepository.GetDeletionResponseNotificationsByUserId(userId, onlyUnread).OrderByDescending(n => n.CreatedOn).ToList();
                 }
             }
             return null;
