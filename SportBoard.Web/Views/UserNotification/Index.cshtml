@@ -5,14 +5,17 @@
 
 <h2>Inbox</h2>
 <div class="col-md-12">
-    <div id="notificationfilterOptions">
-        <ul class="nav nav-tabs">
+    <div id="notificationfilterOptions" class="col-md-12">
+        <ul class="nav nav-tabs" id="filterOptions">
             <li role="presentation" class="All active"><a href="#">All</a></li>
             <li role="presentation" class="Posts"><a href="#">Posts</a></li>
             <li role="presentation" class="Comments"><a href="#">Comments</a></li>
             <li role="presentation" class="DeletionRequests"><a href="#">Deletion Requests</a></li>
             <li role="presentation" class="DeletionResponses"><a href="#">Deletion Responses</a></li>
         </ul>
+    </div>
+    <div class="col-md-3">
+        <label><input type="checkbox" id="viewRead"/>View read notifications</label>
     </div>
 </div>
 
@@ -22,32 +25,7 @@
     </div>
 </div>
 
-@section Scripts {
-
-    <script>
-        $(document).ready(function () {
-            $('#filterOptions li').on("click", function () {
-                removeActive();
-                $(this).toggleClass('active');
-                var selection = $(this).text();
-                var linkUrl = '@Url.Action("FilterNotifications", "UserNotification", new { filterOption = "-1" })';
-                linkUrl = linkUrl.replace("-1", selection);
-
-                $.ajax({
-                    url: linkUrl,
-                    type: "GET",
-                    dataType: "html",
-                    success: function (data) {
-                        $('.notificationView').html(data);
-                    }
-                });
-            })
-
-            function removeActive() {
-                var kids = $('#filterOptions').find('li');
-                kids.removeClass('active');
-            }
-            
-        });
-    </script>
+@using (Html.BeginScriptContext())
+{
+    Html.AddScriptFile("~/Scripts/Custom/UserNotificationFilters.js");
 }
